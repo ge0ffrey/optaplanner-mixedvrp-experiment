@@ -18,7 +18,7 @@ package org.optaplanner.examples.vehiclerouting.domain.solver;
 
 import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.optaplanner.core.impl.heuristic.selector.common.decorator.SelectionSorterWeightFactory;
-import org.optaplanner.examples.vehiclerouting.domain.Customer;
+import org.optaplanner.examples.vehiclerouting.domain.Visit;
 import org.optaplanner.examples.vehiclerouting.domain.Depot;
 import org.optaplanner.examples.vehiclerouting.domain.VehicleRoutingSolution;
 
@@ -26,25 +26,25 @@ import org.optaplanner.examples.vehiclerouting.domain.VehicleRoutingSolution;
  * On large datasets, the constructed solution looks like a Matryoshka doll.
  */
 public class DepotDistanceCustomerDifficultyWeightFactory
-        implements SelectionSorterWeightFactory<VehicleRoutingSolution, Customer> {
+        implements SelectionSorterWeightFactory<VehicleRoutingSolution, Visit> {
 
     @Override
-    public DepotDistanceCustomerDifficultyWeight createSorterWeight(VehicleRoutingSolution vehicleRoutingSolution, Customer customer) {
+    public DepotDistanceCustomerDifficultyWeight createSorterWeight(VehicleRoutingSolution vehicleRoutingSolution, Visit visit) {
         Depot depot = vehicleRoutingSolution.getDepotList().get(0);
-        return new DepotDistanceCustomerDifficultyWeight(customer,
-                customer.getLocation().getDistanceTo(depot.getLocation())
-                        + depot.getLocation().getDistanceTo(customer.getLocation()));
+        return new DepotDistanceCustomerDifficultyWeight(visit,
+                visit.getLocation().getDistanceTo(depot.getLocation())
+                        + depot.getLocation().getDistanceTo(visit.getLocation()));
     }
 
     public static class DepotDistanceCustomerDifficultyWeight
             implements Comparable<DepotDistanceCustomerDifficultyWeight> {
 
-        private final Customer customer;
+        private final Visit visit;
         private final long depotRoundTripDistance;
 
-        public DepotDistanceCustomerDifficultyWeight(Customer customer,
+        public DepotDistanceCustomerDifficultyWeight(Visit visit,
                 long depotRoundTripDistance) {
-            this.customer = customer;
+            this.visit = visit;
             this.depotRoundTripDistance = depotRoundTripDistance;
         }
 
@@ -52,10 +52,10 @@ public class DepotDistanceCustomerDifficultyWeightFactory
         public int compareTo(DepotDistanceCustomerDifficultyWeight other) {
             return new CompareToBuilder()
                     .append(depotRoundTripDistance, other.depotRoundTripDistance) // Ascending (further from the depot are more difficult)
-                    .append(customer.getDemand(), other.customer.getDemand())
-                    .append(customer.getLocation().getLatitude(), other.customer.getLocation().getLatitude())
-                    .append(customer.getLocation().getLongitude(), other.customer.getLocation().getLongitude())
-                    .append(customer.getId(), other.customer.getId())
+                    .append(visit.getDemand(), other.visit.getDemand())
+                    .append(visit.getLocation().getLatitude(), other.visit.getLocation().getLatitude())
+                    .append(visit.getLocation().getLongitude(), other.visit.getLocation().getLongitude())
+                    .append(visit.getId(), other.visit.getId())
                     .toComparison();
         }
 

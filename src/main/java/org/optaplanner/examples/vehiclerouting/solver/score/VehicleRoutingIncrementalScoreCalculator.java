@@ -22,11 +22,11 @@ import java.util.Map;
 
 import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScore;
 import org.optaplanner.core.impl.score.director.incremental.AbstractIncrementalScoreCalculator;
-import org.optaplanner.examples.vehiclerouting.domain.Customer;
+import org.optaplanner.examples.vehiclerouting.domain.Visit;
 import org.optaplanner.examples.vehiclerouting.domain.Standstill;
 import org.optaplanner.examples.vehiclerouting.domain.Vehicle;
 import org.optaplanner.examples.vehiclerouting.domain.VehicleRoutingSolution;
-import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedCustomer;
+import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedVisit;
 import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedVehicleRoutingSolution;
 
 public class VehicleRoutingIncrementalScoreCalculator extends AbstractIncrementalScoreCalculator<VehicleRoutingSolution> {
@@ -47,12 +47,12 @@ public class VehicleRoutingIncrementalScoreCalculator extends AbstractIncrementa
         }
         hardScore = 0L;
         softScore = 0L;
-        for (Customer customer : solution.getCustomerList()) {
-            insertPreviousStandstill(customer);
-            insertVehicle(customer);
-            // Do not do insertNextCustomer(customer) to avoid counting distanceFromLastCustomerToDepot twice
+        for (Visit visit : solution.getVisitList()) {
+            insertPreviousStandstill(visit);
+            insertVehicle(visit);
+            // Do not do insertNextCustomer(visit) to avoid counting distanceFromLastCustomerToDepot twice
             if (timeWindowed) {
-                insertArrivalTime((TimeWindowedCustomer) customer);
+                insertArrivalTime((TimeWindowedVisit) visit);
             }
         }
     }
@@ -67,11 +67,11 @@ public class VehicleRoutingIncrementalScoreCalculator extends AbstractIncrementa
         if (entity instanceof Vehicle) {
             return;
         }
-        insertPreviousStandstill((Customer) entity);
-        insertVehicle((Customer) entity);
+        insertPreviousStandstill((Visit) entity);
+        insertVehicle((Visit) entity);
         // Do not do insertNextCustomer(customer) to avoid counting distanceFromLastCustomerToDepot twice
         if (timeWindowed) {
-            insertArrivalTime((TimeWindowedCustomer) entity);
+            insertArrivalTime((TimeWindowedVisit) entity);
         }
     }
 
@@ -82,16 +82,16 @@ public class VehicleRoutingIncrementalScoreCalculator extends AbstractIncrementa
         }
         switch (variableName) {
             case "previousStandstill":
-                retractPreviousStandstill((Customer) entity);
+                retractPreviousStandstill((Visit) entity);
                 break;
             case "vehicle":
-                retractVehicle((Customer) entity);
+                retractVehicle((Visit) entity);
                 break;
-            case "nextCustomer":
-                retractNextCustomer((Customer) entity);
+            case "nextVisit":
+                retractNextCustomer((Visit) entity);
                 break;
             case "arrivalTime":
-                retractArrivalTime((TimeWindowedCustomer) entity);
+                retractArrivalTime((TimeWindowedVisit) entity);
                 break;
             default:
                 throw new IllegalArgumentException("Unsupported variableName (" + variableName + ").");
@@ -105,16 +105,16 @@ public class VehicleRoutingIncrementalScoreCalculator extends AbstractIncrementa
         }
         switch (variableName) {
             case "previousStandstill":
-                insertPreviousStandstill((Customer) entity);
+                insertPreviousStandstill((Visit) entity);
                 break;
             case "vehicle":
-                insertVehicle((Customer) entity);
+                insertVehicle((Visit) entity);
                 break;
-            case "nextCustomer":
-                insertNextCustomer((Customer) entity);
+            case "nextVisit":
+                insertNextCustomer((Visit) entity);
                 break;
             case "arrivalTime":
-                insertArrivalTime((TimeWindowedCustomer) entity);
+                insertArrivalTime((TimeWindowedVisit) entity);
                 break;
             default:
                 throw new IllegalArgumentException("Unsupported variableName (" + variableName + ").");
@@ -126,11 +126,11 @@ public class VehicleRoutingIncrementalScoreCalculator extends AbstractIncrementa
         if (entity instanceof Vehicle) {
             return;
         }
-        retractPreviousStandstill((Customer) entity);
-        retractVehicle((Customer) entity);
+        retractPreviousStandstill((Visit) entity);
+        retractVehicle((Visit) entity);
         // Do not do retractNextCustomer(customer) to avoid counting distanceFromLastCustomerToDepot twice
         if (timeWindowed) {
-            retractArrivalTime((TimeWindowedCustomer) entity);
+            retractArrivalTime((TimeWindowedVisit) entity);
         }
     }
 
@@ -139,75 +139,75 @@ public class VehicleRoutingIncrementalScoreCalculator extends AbstractIncrementa
         // Do nothing
     }
 
-    private void insertPreviousStandstill(Customer customer) {
-        Standstill previousStandstill = customer.getPreviousStandstill();
+    private void insertPreviousStandstill(Visit visit) {
+        Standstill previousStandstill = visit.getPreviousStandstill();
         if (previousStandstill != null) {
             // Score constraint distanceToPreviousStandstill
-            softScore -= customer.getDistanceFromPreviousStandstill();
+            softScore -= visit.getDistanceFromPreviousStandstill();
         }
     }
 
-    private void retractPreviousStandstill(Customer customer) {
-        Standstill previousStandstill = customer.getPreviousStandstill();
+    private void retractPreviousStandstill(Visit visit) {
+        Standstill previousStandstill = visit.getPreviousStandstill();
         if (previousStandstill != null) {
             // Score constraint distanceToPreviousStandstill
-            softScore += customer.getDistanceFromPreviousStandstill();
+            softScore += visit.getDistanceFromPreviousStandstill();
         }
     }
 
-    private void insertVehicle(Customer customer) {
-        Vehicle vehicle = customer.getVehicle();
+    private void insertVehicle(Visit visit) {
+        Vehicle vehicle = visit.getVehicle();
         if (vehicle != null) {
             // Score constraint vehicleCapacity
             int capacity = vehicle.getCapacity();
             int oldDemand = vehicleDemandMap.get(vehicle);
-            int newDemand = oldDemand + customer.getDemand();
+            int newDemand = oldDemand + visit.getDemand();
             hardScore += Math.min(capacity - newDemand, 0) - Math.min(capacity - oldDemand, 0);
             vehicleDemandMap.put(vehicle, newDemand);
-            if (customer.getNextCustomer() == null) {
+            if (visit.getNextVisit() == null) {
                 // Score constraint distanceFromLastCustomerToDepot
-                softScore -= customer.getLocation().getDistanceTo(vehicle.getLocation());
+                softScore -= visit.getLocation().getDistanceTo(vehicle.getLocation());
             }
         }
     }
 
-    private void retractVehicle(Customer customer) {
-        Vehicle vehicle = customer.getVehicle();
+    private void retractVehicle(Visit visit) {
+        Vehicle vehicle = visit.getVehicle();
         if (vehicle != null) {
             // Score constraint vehicleCapacity
             int capacity = vehicle.getCapacity();
             int oldDemand = vehicleDemandMap.get(vehicle);
-            int newDemand = oldDemand - customer.getDemand();
+            int newDemand = oldDemand - visit.getDemand();
             hardScore += Math.min(capacity - newDemand, 0) - Math.min(capacity - oldDemand, 0);
             vehicleDemandMap.put(vehicle, newDemand);
-            if (customer.getNextCustomer() == null) {
+            if (visit.getNextVisit() == null) {
                 // Score constraint distanceFromLastCustomerToDepot
-                softScore += customer.getLocation().getDistanceTo(vehicle.getLocation());
+                softScore += visit.getLocation().getDistanceTo(vehicle.getLocation());
             }
         }
     }
 
-    private void insertNextCustomer(Customer customer) {
-        Vehicle vehicle = customer.getVehicle();
+    private void insertNextCustomer(Visit visit) {
+        Vehicle vehicle = visit.getVehicle();
         if (vehicle != null) {
-            if (customer.getNextCustomer() == null) {
+            if (visit.getNextVisit() == null) {
                 // Score constraint distanceFromLastCustomerToDepot
-                softScore -= customer.getLocation().getDistanceTo(vehicle.getLocation());
+                softScore -= visit.getLocation().getDistanceTo(vehicle.getLocation());
             }
         }
     }
 
-    private void retractNextCustomer(Customer customer) {
-        Vehicle vehicle = customer.getVehicle();
+    private void retractNextCustomer(Visit visit) {
+        Vehicle vehicle = visit.getVehicle();
         if (vehicle != null) {
-            if (customer.getNextCustomer() == null) {
+            if (visit.getNextVisit() == null) {
                 // Score constraint distanceFromLastCustomerToDepot
-                softScore += customer.getLocation().getDistanceTo(vehicle.getLocation());
+                softScore += visit.getLocation().getDistanceTo(vehicle.getLocation());
             }
         }
     }
 
-    private void insertArrivalTime(TimeWindowedCustomer customer) {
+    private void insertArrivalTime(TimeWindowedVisit customer) {
         Long arrivalTime = customer.getArrivalTime();
         if (arrivalTime != null) {
             long dueTime = customer.getDueTime();
@@ -219,7 +219,7 @@ public class VehicleRoutingIncrementalScoreCalculator extends AbstractIncrementa
         // Score constraint arrivalAfterDueTimeAtDepot is a built-in hard constraint in VehicleRoutingImporter
     }
 
-    private void retractArrivalTime(TimeWindowedCustomer customer) {
+    private void retractArrivalTime(TimeWindowedVisit customer) {
         Long arrivalTime = customer.getArrivalTime();
         if (arrivalTime != null) {
             long dueTime = customer.getDueTime();

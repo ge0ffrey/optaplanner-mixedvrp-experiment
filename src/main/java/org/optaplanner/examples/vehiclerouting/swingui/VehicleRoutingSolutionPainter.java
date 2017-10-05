@@ -28,14 +28,14 @@ import javax.swing.ImageIcon;
 
 import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScore;
 import org.optaplanner.examples.common.swingui.latitudelongitude.LatitudeLongitudeTranslator;
-import org.optaplanner.examples.vehiclerouting.domain.Customer;
+import org.optaplanner.examples.vehiclerouting.domain.Visit;
 import org.optaplanner.examples.vehiclerouting.domain.Depot;
 import org.optaplanner.examples.vehiclerouting.domain.Vehicle;
 import org.optaplanner.examples.vehiclerouting.domain.VehicleRoutingSolution;
 import org.optaplanner.examples.vehiclerouting.domain.location.AirLocation;
 import org.optaplanner.examples.vehiclerouting.domain.location.DistanceType;
 import org.optaplanner.examples.vehiclerouting.domain.location.Location;
-import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedCustomer;
+import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedVisit;
 import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedDepot;
 import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedVehicleRoutingSolution;
 import org.optaplanner.swing.impl.TangoColorFactory;
@@ -94,16 +94,16 @@ public class VehicleRoutingSolutionPainter {
         Graphics2D g = createCanvas(width, height);
         g.setFont(g.getFont().deriveFont((float) TEXT_SIZE));
         g.setStroke(TangoColorFactory.NORMAL_STROKE);
-        for (Customer customer : solution.getCustomerList()) {
-            Location location = customer.getLocation();
+        for (Visit visit : solution.getVisitList()) {
+            Location location = visit.getLocation();
             int x = translator.translateLongitudeToX(location.getLongitude());
             int y = translator.translateLatitudeToY(location.getLatitude());
             g.setColor(TangoColorFactory.ALUMINIUM_4);
             g.fillRect(x - 1, y - 1, 3, 3);
-            String demandString = Integer.toString(customer.getDemand());
+            String demandString = Integer.toString(visit.getDemand());
             g.drawString(demandString, x - (g.getFontMetrics().stringWidth(demandString) / 2), y - TEXT_SIZE / 2);
-            if (customer instanceof TimeWindowedCustomer) {
-                TimeWindowedCustomer timeWindowedCustomer = (TimeWindowedCustomer) customer;
+            if (visit instanceof TimeWindowedVisit) {
+                TimeWindowedVisit timeWindowedCustomer = (TimeWindowedVisit) visit;
                 g.setColor(TangoColorFactory.ALUMINIUM_3);
                 int circleX = x - (TIME_WINDOW_DIAMETER / 2);
                 int circleY = y + 5;
@@ -142,30 +142,30 @@ public class VehicleRoutingSolutionPainter {
         // TODO Too many nested for loops
         for (Vehicle vehicle : solution.getVehicleList()) {
             g.setColor(TangoColorFactory.SEQUENCE_2[colorIndex]);
-            Customer vehicleInfoCustomer = null;
+            Visit vehicleInfoVisit = null;
             long longestNonDepotDistance = -1L;
             int load = 0;
-            for (Customer customer : solution.getCustomerList()) {
-                if (customer.getPreviousStandstill() != null && customer.getVehicle() == vehicle) {
-                    load += customer.getDemand();
-                    Location previousLocation = customer.getPreviousStandstill().getLocation();
-                    Location location = customer.getLocation();
+            for (Visit visit : solution.getVisitList()) {
+                if (visit.getPreviousStandstill() != null && visit.getVehicle() == vehicle) {
+                    load += visit.getDemand();
+                    Location previousLocation = visit.getPreviousStandstill().getLocation();
+                    Location location = visit.getLocation();
                     translator.drawRoute(g, previousLocation.getLongitude(), previousLocation.getLatitude(),
                             location.getLongitude(), location.getLatitude(),
                             location instanceof AirLocation, false);
                     // Determine where to draw the vehicle info
-                    long distance = customer.getDistanceFromPreviousStandstill();
-                    if (customer.getPreviousStandstill() instanceof Customer) {
+                    long distance = visit.getDistanceFromPreviousStandstill();
+                    if (visit.getPreviousStandstill() instanceof Visit) {
                         if (longestNonDepotDistance < distance) {
                             longestNonDepotDistance = distance;
-                            vehicleInfoCustomer = customer;
+                            vehicleInfoVisit = visit;
                         }
-                    } else if (vehicleInfoCustomer == null) {
-                        // If there is only 1 customer in this chain, draw it on a line to the Depot anyway
-                        vehicleInfoCustomer = customer;
+                    } else if (vehicleInfoVisit == null) {
+                        // If there is only 1 visit in this chain, draw it on a line to the Depot anyway
+                        vehicleInfoVisit = visit;
                     }
                     // Line back to the vehicle depot
-                    if (customer.getNextCustomer() == null) {
+                    if (visit.getNextVisit() == null) {
                         Location vehicleLocation = vehicle.getLocation();
                         translator.drawRoute(g, location.getLongitude(), location.getLatitude(),
                                 vehicleLocation.getLongitude(), vehicleLocation.getLatitude(),
@@ -174,12 +174,12 @@ public class VehicleRoutingSolutionPainter {
                 }
             }
             // Draw vehicle info
-            if (vehicleInfoCustomer != null) {
+            if (vehicleInfoVisit != null) {
                 if (load > vehicle.getCapacity()) {
                     g.setColor(TangoColorFactory.SCARLET_2);
                 }
-                Location previousLocation = vehicleInfoCustomer.getPreviousStandstill().getLocation();
-                Location location = vehicleInfoCustomer.getLocation();
+                Location previousLocation = vehicleInfoVisit.getPreviousStandstill().getLocation();
+                Location location = vehicleInfoVisit.getLocation();
                 double longitude = (previousLocation.getLongitude() + location.getLongitude()) / 2.0;
                 int x = translator.translateLongitudeToX(longitude);
                 double latitude = (previousLocation.getLatitude() + location.getLatitude()) / 2.0;
@@ -207,8 +207,8 @@ public class VehicleRoutingSolutionPainter {
         g.setColor(TangoColorFactory.ALUMINIUM_4);
         g.fillRect(6, (int) height - 6 - (TEXT_SIZE / 2), 3, 3);
         g.drawString((solution instanceof TimeWindowedVehicleRoutingSolution)
-                ? "Customer: demand, time window and arrival time" : "Customer: demand", 15, (int) height - 5);
-        String customersSizeString = solution.getCustomerList().size() + " customers";
+                ? "Visit: demand, time window and arrival time" : "Visit: demand", 15, (int) height - 5);
+        String customersSizeString = solution.getVisitList().size() + " customers";
         g.drawString(customersSizeString,
                 ((int) width - g.getFontMetrics().stringWidth(customersSizeString)) / 2, (int) height - 5);
         if (solution.getDistanceType() == DistanceType.AIR_DISTANCE) {
@@ -247,9 +247,9 @@ public class VehicleRoutingSolutionPainter {
                 }
             }
         }
-        for (Customer customer : solution.getCustomerList()) {
-            if (customer instanceof TimeWindowedCustomer) {
-                TimeWindowedCustomer timeWindowedCustomer = (TimeWindowedCustomer) customer;
+        for (Visit visit : solution.getVisitList()) {
+            if (visit instanceof TimeWindowedVisit) {
+                TimeWindowedVisit timeWindowedCustomer = (TimeWindowedVisit) visit;
                 long readyTime = timeWindowedCustomer.getReadyTime();
                 if (readyTime < minimumTimeWindowTime) {
                     minimumTimeWindowTime = readyTime;

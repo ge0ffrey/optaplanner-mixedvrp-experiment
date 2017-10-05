@@ -48,7 +48,7 @@ public class VehicleRoutingSolution extends AbstractPersistable {
     protected List<Depot> depotList;
     protected List<Vehicle> vehicleList;
 
-    protected List<Customer> customerList;
+    protected List<Visit> visitList;
 
     @XStreamConverter(HardSoftLongScoreXStreamConverter.class)
     protected HardSoftLongScore score;
@@ -107,12 +107,12 @@ public class VehicleRoutingSolution extends AbstractPersistable {
 
     @PlanningEntityCollectionProperty
     @ValueRangeProvider(id = "customerRange")
-    public List<Customer> getCustomerList() {
-        return customerList;
+    public List<Visit> getVisitList() {
+        return visitList;
     }
 
-    public void setCustomerList(List<Customer> customerList) {
-        this.customerList = customerList;
+    public void setVisitList(List<Visit> visitList) {
+        this.visitList = visitList;
     }
 
     @PlanningScore

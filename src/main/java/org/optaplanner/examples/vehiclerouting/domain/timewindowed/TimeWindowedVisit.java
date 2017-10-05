@@ -20,12 +20,12 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.variable.CustomShadowVariable;
 import org.optaplanner.core.api.domain.variable.PlanningVariableReference;
-import org.optaplanner.examples.vehiclerouting.domain.Customer;
+import org.optaplanner.examples.vehiclerouting.domain.Visit;
 import org.optaplanner.examples.vehiclerouting.domain.timewindowed.solver.ArrivalTimeUpdatingVariableListener;
 
 @PlanningEntity
-@XStreamAlias("VrpTimeWindowedCustomer")
-public class TimeWindowedCustomer extends Customer {
+@XStreamAlias("VrpTimeWindowedVisit")
+public class TimeWindowedVisit extends Visit {
 
     // Times are multiplied by 1000 to avoid floating point arithmetic rounding errors
     private long readyTime;
@@ -72,8 +72,8 @@ public class TimeWindowedCustomer extends Customer {
      * @return a positive number, the time multiplied by 1000 to avoid floating point arithmetic rounding errors
      */
     @CustomShadowVariable(variableListenerClass = ArrivalTimeUpdatingVariableListener.class,
-            // Arguable, to adhere to API specs (although this works), nextCustomer should also be a source,
-            // because this shadow must be triggered after nextCustomer (but there is no need to be triggered by nextCustomer)
+            // Arguable, to adhere to API specs (although this works), nextVisit should also be a source,
+            // because this shadow must be triggered after nextVisit (but there is no need to be triggered by nextVisit)
             sources = {@PlanningVariableReference(variableName = "previousStandstill")})
     public Long getArrivalTime() {
         return arrivalTime;
@@ -108,14 +108,14 @@ public class TimeWindowedCustomer extends Customer {
     }
 
     @Override
-    public TimeWindowedCustomer getNextCustomer() {
-        return (TimeWindowedCustomer) super.getNextCustomer();
+    public TimeWindowedVisit getNextVisit() {
+        return (TimeWindowedVisit) super.getNextVisit();
     }
 
     /**
      * @return a positive number, the time multiplied by 1000 to avoid floating point arithmetic rounding errors
      */
-    public long getTimeWindowGapTo(TimeWindowedCustomer other) {
+    public long getTimeWindowGapTo(TimeWindowedVisit other) {
         // dueTime doesn't account for serviceDuration
         long latestDepartureTime = dueTime + serviceDuration;
         long otherLatestDepartureTime = other.getDueTime() + other.getServiceDuration();

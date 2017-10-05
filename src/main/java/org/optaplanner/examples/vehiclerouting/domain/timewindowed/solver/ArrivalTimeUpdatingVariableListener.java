@@ -20,68 +20,68 @@ import java.util.Objects;
 
 import org.optaplanner.core.impl.domain.variable.listener.VariableListener;
 import org.optaplanner.core.impl.score.director.ScoreDirector;
-import org.optaplanner.examples.vehiclerouting.domain.Customer;
+import org.optaplanner.examples.vehiclerouting.domain.Visit;
 import org.optaplanner.examples.vehiclerouting.domain.Standstill;
 import org.optaplanner.examples.vehiclerouting.domain.Vehicle;
-import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedCustomer;
+import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedVisit;
 import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedDepot;
 
-// TODO When this class is added only for TimeWindowedCustomer, use TimeWindowedCustomer instead of Customer
-public class ArrivalTimeUpdatingVariableListener implements VariableListener<Customer> {
+// TODO When this class is added only for TimeWindowedVisit, use TimeWindowedVisit instead of Visit
+public class ArrivalTimeUpdatingVariableListener implements VariableListener<Visit> {
 
     @Override
-    public void beforeEntityAdded(ScoreDirector scoreDirector, Customer customer) {
+    public void beforeEntityAdded(ScoreDirector scoreDirector, Visit visit) {
         // Do nothing
     }
 
     @Override
-    public void afterEntityAdded(ScoreDirector scoreDirector, Customer customer) {
-        if (customer instanceof TimeWindowedCustomer) {
-            updateArrivalTime(scoreDirector, (TimeWindowedCustomer) customer);
+    public void afterEntityAdded(ScoreDirector scoreDirector, Visit visit) {
+        if (visit instanceof TimeWindowedVisit) {
+            updateArrivalTime(scoreDirector, (TimeWindowedVisit) visit);
         }
     }
 
     @Override
-    public void beforeVariableChanged(ScoreDirector scoreDirector, Customer customer) {
+    public void beforeVariableChanged(ScoreDirector scoreDirector, Visit visit) {
         // Do nothing
     }
 
     @Override
-    public void afterVariableChanged(ScoreDirector scoreDirector, Customer customer) {
-        if (customer instanceof TimeWindowedCustomer) {
-            updateArrivalTime(scoreDirector, (TimeWindowedCustomer) customer);
+    public void afterVariableChanged(ScoreDirector scoreDirector, Visit visit) {
+        if (visit instanceof TimeWindowedVisit) {
+            updateArrivalTime(scoreDirector, (TimeWindowedVisit) visit);
         }
     }
 
     @Override
-    public void beforeEntityRemoved(ScoreDirector scoreDirector, Customer customer) {
+    public void beforeEntityRemoved(ScoreDirector scoreDirector, Visit visit) {
         // Do nothing
     }
 
     @Override
-    public void afterEntityRemoved(ScoreDirector scoreDirector, Customer customer) {
+    public void afterEntityRemoved(ScoreDirector scoreDirector, Visit visit) {
         // Do nothing
     }
 
-    protected void updateArrivalTime(ScoreDirector scoreDirector, TimeWindowedCustomer sourceCustomer) {
+    protected void updateArrivalTime(ScoreDirector scoreDirector, TimeWindowedVisit sourceCustomer) {
         Standstill previousStandstill = sourceCustomer.getPreviousStandstill();
         Long departureTime = previousStandstill == null ? null
-                : (previousStandstill instanceof TimeWindowedCustomer)
-                ? ((TimeWindowedCustomer) previousStandstill).getDepartureTime()
+                : (previousStandstill instanceof TimeWindowedVisit)
+                ? ((TimeWindowedVisit) previousStandstill).getDepartureTime()
                 : ((TimeWindowedDepot) ((Vehicle) previousStandstill).getDepot()).getReadyTime();
-        TimeWindowedCustomer shadowCustomer = sourceCustomer;
+        TimeWindowedVisit shadowCustomer = sourceCustomer;
         Long arrivalTime = calculateArrivalTime(shadowCustomer, departureTime);
         while (shadowCustomer != null && !Objects.equals(shadowCustomer.getArrivalTime(), arrivalTime)) {
             scoreDirector.beforeVariableChanged(shadowCustomer, "arrivalTime");
             shadowCustomer.setArrivalTime(arrivalTime);
             scoreDirector.afterVariableChanged(shadowCustomer, "arrivalTime");
             departureTime = shadowCustomer.getDepartureTime();
-            shadowCustomer = shadowCustomer.getNextCustomer();
+            shadowCustomer = shadowCustomer.getNextVisit();
             arrivalTime = calculateArrivalTime(shadowCustomer, departureTime);
         }
     }
 
-    private Long calculateArrivalTime(TimeWindowedCustomer customer, Long previousDepartureTime) {
+    private Long calculateArrivalTime(TimeWindowedVisit customer, Long previousDepartureTime) {
         if (customer == null || customer.getPreviousStandstill() == null) {
             return null;
         }

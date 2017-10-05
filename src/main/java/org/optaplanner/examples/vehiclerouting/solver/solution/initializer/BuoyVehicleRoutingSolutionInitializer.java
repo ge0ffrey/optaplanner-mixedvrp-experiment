@@ -26,7 +26,7 @@ import java.util.Map;
 import org.optaplanner.core.api.score.Score;
 import org.optaplanner.core.impl.phase.custom.AbstractCustomPhaseCommand;
 import org.optaplanner.core.impl.score.director.ScoreDirector;
-import org.optaplanner.examples.vehiclerouting.domain.Customer;
+import org.optaplanner.examples.vehiclerouting.domain.Visit;
 import org.optaplanner.examples.vehiclerouting.domain.Standstill;
 import org.optaplanner.examples.vehiclerouting.domain.Vehicle;
 import org.optaplanner.examples.vehiclerouting.domain.VehicleRoutingSolution;
@@ -42,15 +42,15 @@ public class BuoyVehicleRoutingSolutionInitializer extends AbstractCustomPhaseCo
     public void changeWorkingSolution(ScoreDirector<VehicleRoutingSolution> scoreDirector) {
         VehicleRoutingSolution solution = scoreDirector.getWorkingSolution();
         List<Vehicle> vehicleList = solution.getVehicleList();
-        List<Customer> customerList = solution.getCustomerList();
-        List<Standstill> standstillList = new ArrayList<>(vehicleList.size() + customerList.size());
+        List<Visit> visitList = solution.getVisitList();
+        List<Standstill> standstillList = new ArrayList<>(vehicleList.size() + visitList.size());
         standstillList.addAll(vehicleList);
-        standstillList.addAll(customerList);
+        standstillList.addAll(visitList);
         logger.info("Starting sorting");
-        Map<Standstill, Customer[]> nearbyMap = new HashMap<>(standstillList.size());
+        Map<Standstill, Visit[]> nearbyMap = new HashMap<>(standstillList.size());
         for (final Standstill origin : standstillList) {
-            Customer[] nearbyCustomers = customerList.toArray(new Customer[0]);
-            Arrays.sort(nearbyCustomers, new Comparator<Standstill>() {
+            Visit[] nearbyVisits = visitList.toArray(new Visit[0]);
+            Arrays.sort(nearbyVisits, new Comparator<Standstill>() {
                 @Override
                 public int compare(Standstill a, Standstill b) {
                     double aDistance = origin.getLocation().getDistanceTo(a.getLocation());
@@ -58,7 +58,7 @@ public class BuoyVehicleRoutingSolutionInitializer extends AbstractCustomPhaseCo
                     return Double.compare(aDistance, bDistance);
                 }
             });
-            nearbyMap.put(origin, nearbyCustomers);
+            nearbyMap.put(origin, nearbyVisits);
         }
         logger.info("Done sorting");
 
@@ -68,29 +68,29 @@ public class BuoyVehicleRoutingSolutionInitializer extends AbstractCustomPhaseCo
         while (true) {
             Score stepScore = null;
             int stepBuoyIndex = -1;
-            Customer stepEntity = null;
+            Visit stepEntity = null;
             for (int i = 0; i < buoyList.size(); i++) {
                 Standstill buoy = buoyList.get(i);
 
-                Customer[] nearbyCustomers = nearbyMap.get(buoy);
+                Visit[] nearbyVisits = nearbyMap.get(buoy);
                 int j = 0;
-                for (Customer customer : nearbyCustomers) {
-                    if (customer.getPreviousStandstill() != null) {
+                for (Visit visit : nearbyVisits) {
+                    if (visit.getPreviousStandstill() != null) {
                         continue;
                     }
-                    scoreDirector.beforeVariableChanged(customer, "previousStandstill");
-                    customer.setPreviousStandstill(buoy);
-                    scoreDirector.afterVariableChanged(customer, "previousStandstill");
+                    scoreDirector.beforeVariableChanged(visit, "previousStandstill");
+                    visit.setPreviousStandstill(buoy);
+                    scoreDirector.afterVariableChanged(visit, "previousStandstill");
                     scoreDirector.triggerVariableListeners();
                     Score score = scoreDirector.calculateScore();
-                    scoreDirector.beforeVariableChanged(customer, "previousStandstill");
-                    customer.setPreviousStandstill(null);
-                    scoreDirector.afterVariableChanged(customer, "previousStandstill");
+                    scoreDirector.beforeVariableChanged(visit, "previousStandstill");
+                    visit.setPreviousStandstill(null);
+                    scoreDirector.afterVariableChanged(visit, "previousStandstill");
                     scoreDirector.triggerVariableListeners();
                     if (stepScore == null || score.toInitializedScore().compareTo(stepScore.toInitializedScore()) > 0) {
                         stepScore = score;
                         stepBuoyIndex = i;
-                        stepEntity = customer;
+                        stepEntity = visit;
                     }
                     if (j >= NEARBY_LIMIT) {
                         break;

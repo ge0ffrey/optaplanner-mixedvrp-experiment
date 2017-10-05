@@ -25,7 +25,7 @@ import java.util.Map;
 
 import org.apache.commons.io.FilenameUtils;
 import org.optaplanner.examples.common.persistence.AbstractTxtSolutionImporter;
-import org.optaplanner.examples.vehiclerouting.domain.Customer;
+import org.optaplanner.examples.vehiclerouting.domain.Visit;
 import org.optaplanner.examples.vehiclerouting.domain.Depot;
 import org.optaplanner.examples.vehiclerouting.domain.Vehicle;
 import org.optaplanner.examples.vehiclerouting.domain.VehicleRoutingSolution;
@@ -35,7 +35,7 @@ import org.optaplanner.examples.vehiclerouting.domain.location.Location;
 import org.optaplanner.examples.vehiclerouting.domain.location.RoadLocation;
 import org.optaplanner.examples.vehiclerouting.domain.location.segmented.HubSegmentLocation;
 import org.optaplanner.examples.vehiclerouting.domain.location.segmented.RoadSegmentLocation;
-import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedCustomer;
+import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedVisit;
 import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedDepot;
 import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedVehicleRoutingSolution;
 
@@ -114,7 +114,7 @@ public class VehicleRoutingImporter extends AbstractTxtSolutionImporter<VehicleR
                     getInputId(),
                     solution.getDepotList().size(),
                     solution.getVehicleList().size(),
-                    solution.getCustomerList().size(),
+                    solution.getVisitList().size(),
                     getFlooredPossibleSolutionSize(possibleSolutionSize));
             return solution;
         }
@@ -297,7 +297,7 @@ public class VehicleRoutingImporter extends AbstractTxtSolutionImporter<VehicleR
         private void readVrpWebCustomerList() throws IOException {
             readConstantLine("DEMAND_SECTION");
             depotList = new ArrayList<>(customerListSize);
-            List<Customer> customerList = new ArrayList<>(customerListSize);
+            List<Visit> visitList = new ArrayList<>(customerListSize);
             for (int i = 0; i < customerListSize; i++) {
                 String line = bufferedReader.readLine();
                 String[] lineTokens = splitBySpacesOrTabs(line.trim(), timewindowed ? 5 : 2);
@@ -325,26 +325,26 @@ public class VehicleRoutingImporter extends AbstractTxtSolutionImporter<VehicleR
                     }
                     depotList.add(depot);
                 } else {
-                    Customer customer = timewindowed ? new TimeWindowedCustomer() : new Customer();
-                    customer.setId(id);
+                    Visit visit = timewindowed ? new TimeWindowedVisit() : new Visit();
+                    visit.setId(id);
                     Location location = locationMap.get(id);
                     if (location == null) {
-                        throw new IllegalArgumentException("The customer with id (" + id
+                        throw new IllegalArgumentException("The visit with id (" + id
                                 + ") has no location (" + location + ").");
                     }
-                    customer.setLocation(location);
-                    customer.setDemand(demand);
+                    visit.setLocation(location);
+                    visit.setDemand(demand);
                     if (timewindowed) {
-                        TimeWindowedCustomer timeWindowedCustomer = (TimeWindowedCustomer) customer;
+                        TimeWindowedVisit timeWindowedCustomer = (TimeWindowedVisit) visit;
                         timeWindowedCustomer.setReadyTime(Long.parseLong(lineTokens[2]));
                         timeWindowedCustomer.setDueTime(Long.parseLong(lineTokens[3]));
                         timeWindowedCustomer.setServiceDuration(Long.parseLong(lineTokens[4]));
                     }
                     // Notice that we leave the PlanningVariable properties on null
-                    customerList.add(customer);
+                    visitList.add(visit);
                 }
             }
-            solution.setCustomerList(customerList);
+            solution.setVisitList(visitList);
             solution.setDepotList(depotList);
         }
 
@@ -407,7 +407,7 @@ public class VehicleRoutingImporter extends AbstractTxtSolutionImporter<VehicleR
             solution.setDistanceUnitOfMeasurement("distance");
             List<Location> locationList = new ArrayList<>(customerListSize);
             depotList = new ArrayList<>(1);
-            List<Customer> customerList = new ArrayList<>(customerListSize);
+            List<Visit> visitList = new ArrayList<>(customerListSize);
             locationMap = new LinkedHashMap<>(customerListSize);
             for (int i = 0; i < customerListSize; i++) {
                 String line = bufferedReader.readLine();
@@ -426,21 +426,21 @@ public class VehicleRoutingImporter extends AbstractTxtSolutionImporter<VehicleR
                     depot.setLocation(location);
                     depotList.add(depot);
                 } else {
-                    Customer customer = new Customer();
-                    customer.setId((long) i);
-                    customer.setLocation(location);
+                    Visit visit = new Visit();
+                    visit.setId((long) i);
+                    visit.setLocation(location);
                     int demand = Integer.parseInt(lineTokens[0]);
-                    customer.setDemand(demand);
+                    visit.setDemand(demand);
                     // Notice that we leave the PlanningVariable properties on null
-                    // Do not add a customer that has no demand
+                    // Do not add a visit that has no demand
                     if (demand != 0) {
-                        customerList.add(customer);
+                        visitList.add(visit);
                     }
                 }
             }
             solution.setLocationList(locationList);
             solution.setDepotList(depotList);
-            solution.setCustomerList(customerList);
+            solution.setVisitList(visitList);
             createVehicleList();
         }
 
@@ -475,7 +475,7 @@ public class VehicleRoutingImporter extends AbstractTxtSolutionImporter<VehicleR
             List<Location> locationList = new ArrayList<>(locationListSizeEstimation);
             depotList = new ArrayList<>(1);
             TimeWindowedDepot depot = null;
-            List<Customer> customerList = new ArrayList<>(locationListSizeEstimation);
+            List<Visit> visitList = new ArrayList<>(locationListSizeEstimation);
             boolean first = true;
             while (line != null && !line.trim().isEmpty()) {
                 String[] lineTokens = splitBySpacesOrTabs(line.trim(), 7);
@@ -506,7 +506,7 @@ public class VehicleRoutingImporter extends AbstractTxtSolutionImporter<VehicleR
                     depotList.add(depot);
                     first = false;
                 } else {
-                    TimeWindowedCustomer customer = new TimeWindowedCustomer();
+                    TimeWindowedVisit customer = new TimeWindowedVisit();
                     customer.setId(id);
                     customer.setLocation(location);
                     customer.setDemand(demand);
@@ -525,14 +525,14 @@ public class VehicleRoutingImporter extends AbstractTxtSolutionImporter<VehicleR
                     // Notice that we leave the PlanningVariable properties on null
                     // Do not add a customer that has no demand
                     if (demand != 0) {
-                        customerList.add(customer);
+                        visitList.add(customer);
                     }
                 }
                 line = bufferedReader.readLine();
             }
             solution.setLocationList(locationList);
             solution.setDepotList(depotList);
-            solution.setCustomerList(customerList);
+            solution.setVisitList(visitList);
             customerListSize = locationList.size();
         }
 

@@ -27,7 +27,7 @@ import org.optaplanner.core.impl.score.director.ScoreDirector;
 import org.optaplanner.core.impl.score.director.ScoreDirectorFactory;
 import org.optaplanner.examples.common.app.LoggingMain;
 import org.optaplanner.examples.vehiclerouting.app.VehicleRoutingApp;
-import org.optaplanner.examples.vehiclerouting.domain.Customer;
+import org.optaplanner.examples.vehiclerouting.domain.Visit;
 import org.optaplanner.examples.vehiclerouting.domain.Standstill;
 import org.optaplanner.examples.vehiclerouting.domain.Vehicle;
 import org.optaplanner.examples.vehiclerouting.domain.VehicleRoutingSolution;
@@ -85,25 +85,25 @@ public class VehicleRoutingDistanceTypeComparison extends LoggingMain {
         for (Vehicle vehicle : inputVehicleList) {
             inputVehicleMap.put(vehicle.getId(), vehicle);
         }
-        List<Customer> inputCustomerList = inputSolution.getCustomerList();
-        Map<Long, Customer> inputCustomerMap = new LinkedHashMap<>(inputCustomerList.size());
-        for (Customer customer : inputCustomerList) {
-            inputCustomerMap.put(customer.getId(), customer);
+        List<Visit> inputVisitList = inputSolution.getVisitList();
+        Map<Long, Visit> inputCustomerMap = new LinkedHashMap<>(inputVisitList.size());
+        for (Visit visit : inputVisitList) {
+            inputCustomerMap.put(visit.getId(), visit);
         }
 
         for (Vehicle varVehicle : varSolution.getVehicleList()) {
             Vehicle inputVehicle = inputVehicleMap.get(varVehicle.getId());
-            Customer varNext = varVehicle.getNextCustomer();
-            inputVehicle.setNextCustomer(varNext == null ? null : inputCustomerMap.get(varNext.getId()));
+            Visit varNext = varVehicle.getNextVisit();
+            inputVehicle.setNextVisit(varNext == null ? null : inputCustomerMap.get(varNext.getId()));
         }
-        for (Customer varCustomer : varSolution.getCustomerList()) {
-            Customer inputCustomer = inputCustomerMap.get(varCustomer.getId());
-            Standstill varPrevious = varCustomer.getPreviousStandstill();
-            inputCustomer.setPreviousStandstill(varPrevious == null ? null :
+        for (Visit varVisit : varSolution.getVisitList()) {
+            Visit inputVisit = inputCustomerMap.get(varVisit.getId());
+            Standstill varPrevious = varVisit.getPreviousStandstill();
+            inputVisit.setPreviousStandstill(varPrevious == null ? null :
                     varPrevious instanceof Vehicle ? inputVehicleMap.get(((Vehicle) varPrevious).getId())
-                    : inputCustomerMap.get(((Customer) varPrevious).getId()));
-            Customer varNext = varCustomer.getNextCustomer();
-            inputCustomer.setNextCustomer(varNext == null ? null : inputCustomerMap.get(varNext.getId()));
+                    : inputCustomerMap.get(((Visit) varPrevious).getId()));
+            Visit varNext = varVisit.getNextVisit();
+            inputVisit.setNextVisit(varNext == null ? null : inputCustomerMap.get(varNext.getId()));
         }
         try (ScoreDirector<VehicleRoutingSolution> scoreDirector = scoreDirectorFactory.buildScoreDirector()) {
             scoreDirector.setWorkingSolution(inputSolution);

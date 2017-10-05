@@ -18,7 +18,7 @@ package org.optaplanner.examples.vehiclerouting.domain.solver;
 
 import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.optaplanner.core.impl.heuristic.selector.common.decorator.SelectionSorterWeightFactory;
-import org.optaplanner.examples.vehiclerouting.domain.Customer;
+import org.optaplanner.examples.vehiclerouting.domain.Visit;
 import org.optaplanner.examples.vehiclerouting.domain.Depot;
 import org.optaplanner.examples.vehiclerouting.domain.VehicleRoutingSolution;
 
@@ -26,27 +26,27 @@ import org.optaplanner.examples.vehiclerouting.domain.VehicleRoutingSolution;
  * On large datasets, the constructed solution looks like pizza slices.
  */
 public class DepotAngleCustomerDifficultyWeightFactory
-        implements SelectionSorterWeightFactory<VehicleRoutingSolution, Customer> {
+        implements SelectionSorterWeightFactory<VehicleRoutingSolution, Visit> {
 
     @Override
-    public DepotAngleCustomerDifficultyWeight createSorterWeight(VehicleRoutingSolution vehicleRoutingSolution, Customer customer) {
+    public DepotAngleCustomerDifficultyWeight createSorterWeight(VehicleRoutingSolution vehicleRoutingSolution, Visit visit) {
         Depot depot = vehicleRoutingSolution.getDepotList().get(0);
-        return new DepotAngleCustomerDifficultyWeight(customer,
-                customer.getLocation().getAngle(depot.getLocation()),
-                customer.getLocation().getDistanceTo(depot.getLocation())
-                        + depot.getLocation().getDistanceTo(customer.getLocation()));
+        return new DepotAngleCustomerDifficultyWeight(visit,
+                visit.getLocation().getAngle(depot.getLocation()),
+                visit.getLocation().getDistanceTo(depot.getLocation())
+                        + depot.getLocation().getDistanceTo(visit.getLocation()));
     }
 
     public static class DepotAngleCustomerDifficultyWeight
             implements Comparable<DepotAngleCustomerDifficultyWeight> {
 
-        private final Customer customer;
+        private final Visit visit;
         private final double depotAngle;
         private final long depotRoundTripDistance;
 
-        public DepotAngleCustomerDifficultyWeight(Customer customer,
+        public DepotAngleCustomerDifficultyWeight(Visit visit,
                 double depotAngle, long depotRoundTripDistance) {
-            this.customer = customer;
+            this.visit = visit;
             this.depotAngle = depotAngle;
             this.depotRoundTripDistance = depotRoundTripDistance;
         }
@@ -56,7 +56,7 @@ public class DepotAngleCustomerDifficultyWeightFactory
             return new CompareToBuilder()
                     .append(depotAngle, other.depotAngle)
                     .append(depotRoundTripDistance, other.depotRoundTripDistance) // Ascending (further from the depot are more difficult)
-                    .append(customer.getId(), other.customer.getId())
+                    .append(visit.getId(), other.visit.getId())
                     .toComparison();
         }
 

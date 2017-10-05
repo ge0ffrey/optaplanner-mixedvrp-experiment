@@ -20,16 +20,15 @@ import java.io.Serializable;
 import java.util.Comparator;
 
 import org.apache.commons.lang3.builder.CompareToBuilder;
-import org.optaplanner.examples.vehiclerouting.domain.Customer;
-
+import org.optaplanner.examples.vehiclerouting.domain.Visit;
 
 /**
  * On large datasets, the constructed solution looks like a zebra crossing.
  */
-public class LatitudeCustomerDifficultyComparator implements Comparator<Customer>, Serializable {
+public class LatitudeCustomerDifficultyComparator implements Comparator<Visit>, Serializable {
 
     @Override
-    public int compare(Customer a, Customer b) {
+    public int compare(Visit a, Visit b) {
         return new CompareToBuilder()
                 .append(a.getLocation().getLatitude(), b.getLocation().getLatitude())
                 .append(a.getLocation().getLongitude(), b.getLocation().getLongitude())

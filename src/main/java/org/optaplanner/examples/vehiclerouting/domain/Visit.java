@@ -25,14 +25,14 @@ import org.optaplanner.core.api.domain.variable.PlanningVariableGraphType;
 import org.optaplanner.examples.common.domain.AbstractPersistable;
 import org.optaplanner.examples.vehiclerouting.domain.location.Location;
 import org.optaplanner.examples.vehiclerouting.domain.solver.DepotAngleCustomerDifficultyWeightFactory;
-import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedCustomer;
+import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedVisit;
 
 @PlanningEntity(difficultyWeightFactoryClass = DepotAngleCustomerDifficultyWeightFactory.class)
-@XStreamAlias("VrpCustomer")
+@XStreamAlias("VrpVisit")
 @XStreamInclude({
-        TimeWindowedCustomer.class
+        TimeWindowedVisit.class
 })
-public class Customer extends AbstractPersistable implements Standstill {
+public class Visit extends AbstractPersistable implements Standstill {
 
     protected Location location;
     protected int demand;
@@ -41,7 +41,7 @@ public class Customer extends AbstractPersistable implements Standstill {
     protected Standstill previousStandstill;
 
     // Shadow variables
-    protected Customer nextCustomer;
+    protected Visit nextVisit;
     protected Vehicle vehicle;
 
     @Override
@@ -72,13 +72,13 @@ public class Customer extends AbstractPersistable implements Standstill {
     }
 
     @Override
-    public Customer getNextCustomer() {
-        return nextCustomer;
+    public Visit getNextVisit() {
+        return nextVisit;
     }
 
     @Override
-    public void setNextCustomer(Customer nextCustomer) {
-        this.nextCustomer = nextCustomer;
+    public void setNextVisit(Visit nextVisit) {
+        this.nextVisit = nextVisit;
     }
 
     @Override

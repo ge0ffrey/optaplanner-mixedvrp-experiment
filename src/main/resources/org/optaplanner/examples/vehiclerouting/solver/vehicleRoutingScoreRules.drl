@@ -23,10 +23,10 @@ import org.optaplanner.examples.vehiclerouting.domain.Depot;
 import org.optaplanner.examples.vehiclerouting.domain.location.Location;
 import org.optaplanner.examples.vehiclerouting.domain.Vehicle;
 import org.optaplanner.examples.vehiclerouting.domain.VehicleRoutingSolution;
-import org.optaplanner.examples.vehiclerouting.domain.Customer;
+import org.optaplanner.examples.vehiclerouting.domain.Visit;
 import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedDepot;
 import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedVehicleRoutingSolution;
-import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedCustomer
+import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedVisit
 import org.optaplanner.examples.vehiclerouting.domain.Vehicle;
 
 global HardSoftLongScoreHolder scoreHolder;
@@ -39,7 +39,7 @@ rule "vehicleCapacity"
     when
         $vehicle : Vehicle($capacity : capacity)
         accumulate(
-            Customer(
+            Visit(
                 vehicle == $vehicle,
                 $demand : demand);
             $demandTotal : sum($demand);
@@ -55,18 +55,18 @@ end
 
 rule "distanceToPreviousStandstill"
     when
-        $customer : Customer(previousStandstill != null, $distanceFromPreviousStandstill : distanceFromPreviousStandstill)
+        $visit : Visit(previousStandstill != null, $distanceFromPreviousStandstill : distanceFromPreviousStandstill)
     then
         scoreHolder.addSoftConstraintMatch(kcontext, - $distanceFromPreviousStandstill);
 end
 
-rule "distanceFromLastCustomerToDepot"
+rule "distanceFromLastVisitToDepot"
     when
-        $customer : Customer(previousStandstill != null)
-        not Customer(previousStandstill == $customer)
+        $visit : Visit(previousStandstill != null)
+        not Visit(previousStandstill == $visit)
     then
-        Vehicle vehicle = $customer.getVehicle();
-        scoreHolder.addSoftConstraintMatch(kcontext, - $customer.getDistanceTo(vehicle));
+        Vehicle vehicle = $visit.getVehicle();
+        scoreHolder.addSoftConstraintMatch(kcontext, - $visit.getDistanceTo(vehicle));
 end
 
 
@@ -76,7 +76,7 @@ end
 
 rule "arrivalAfterDueTime"
     when
-        TimeWindowedCustomer(dueTime < arrivalTime, $dueTime : dueTime, $arrivalTime : arrivalTime)
+        TimeWindowedVisit(dueTime < arrivalTime, $dueTime : dueTime, $arrivalTime : arrivalTime)
     then
         scoreHolder.addHardConstraintMatch(kcontext, $dueTime - $arrivalTime.longValue());
 end

@@ -23,11 +23,11 @@ import javax.swing.JTabbedPane;
 import org.optaplanner.core.impl.solver.random.RandomUtils;
 import org.optaplanner.examples.common.swingui.SolutionPanel;
 import org.optaplanner.examples.common.swingui.SolverAndPersistenceFrame;
-import org.optaplanner.examples.vehiclerouting.domain.Customer;
+import org.optaplanner.examples.vehiclerouting.domain.Visit;
 import org.optaplanner.examples.vehiclerouting.domain.VehicleRoutingSolution;
 import org.optaplanner.examples.vehiclerouting.domain.location.AirLocation;
 import org.optaplanner.examples.vehiclerouting.domain.location.Location;
-import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedCustomer;
+import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedVisit;
 import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedDepot;
 import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedVehicleRoutingSolution;
 
@@ -105,33 +105,33 @@ public class VehicleRoutingPanel extends SolutionPanel<VehicleRoutingSolution> {
             scoreDirector.beforeProblemFactAdded(newLocation);
             solution.getLocationList().add(newLocation);
             scoreDirector.afterProblemFactAdded(newLocation);
-            Customer newCustomer = createCustomer(solution, newLocation);
-            scoreDirector.beforeEntityAdded(newCustomer);
-            solution.getCustomerList().add(newCustomer);
-            scoreDirector.afterEntityAdded(newCustomer);
+            Visit newVisit = createCustomer(solution, newLocation);
+            scoreDirector.beforeEntityAdded(newVisit);
+            solution.getVisitList().add(newVisit);
+            scoreDirector.afterEntityAdded(newVisit);
             scoreDirector.triggerVariableListeners();
         });
     }
 
-    protected Customer createCustomer(VehicleRoutingSolution solution, Location newLocation) {
-        Customer newCustomer;
+    protected Visit createCustomer(VehicleRoutingSolution solution, Location newLocation) {
+        Visit newVisit;
         if (solution instanceof TimeWindowedVehicleRoutingSolution) {
-            TimeWindowedCustomer newTimeWindowedCustomer = new TimeWindowedCustomer();
+            TimeWindowedVisit newTimeWindowedCustomer = new TimeWindowedVisit();
             TimeWindowedDepot timeWindowedDepot = (TimeWindowedDepot) solution.getDepotList().get(0);
             long windowTime = (timeWindowedDepot.getDueTime() - timeWindowedDepot.getReadyTime()) / 4L;
             long readyTime = RandomUtils.nextLong(demandRandom, windowTime * 3L);
             newTimeWindowedCustomer.setReadyTime(readyTime);
             newTimeWindowedCustomer.setDueTime(readyTime + windowTime);
             newTimeWindowedCustomer.setServiceDuration(Math.min(10000L, windowTime / 2L));
-            newCustomer = newTimeWindowedCustomer;
+            newVisit = newTimeWindowedCustomer;
         } else {
-            newCustomer = new Customer();
+            newVisit = new Visit();
         }
-        newCustomer.setId(newLocation.getId());
-        newCustomer.setLocation(newLocation);
+        newVisit.setId(newLocation.getId());
+        newVisit.setLocation(newLocation);
         // Demand must not be 0
-        newCustomer.setDemand(demandRandom.nextInt(10) + 1);
-        return newCustomer;
+        newVisit.setDemand(demandRandom.nextInt(10) + 1);
+        return newVisit;
     }
 
 }

@@ -3489,146 +3489,146 @@
       <depot reference="62"/>
     </VrpVehicle>
   </vehicleList>
-  <customerList id="69">
-    <VrpCustomer id="70">
+  <visitList id="69">
+    <VrpVisit id="70">
       <id>2</id>
       <location class="VrpRoadLocation" reference="5"/>
       <demand>1</demand>
-    </VrpCustomer>
-    <VrpCustomer id="71">
+    </VrpVisit>
+    <VrpVisit id="71">
       <id>3</id>
       <location class="VrpRoadLocation" reference="7"/>
       <demand>1</demand>
-    </VrpCustomer>
-    <VrpCustomer id="72">
+    </VrpVisit>
+    <VrpVisit id="72">
       <id>4</id>
       <location class="VrpRoadLocation" reference="9"/>
       <demand>1</demand>
-    </VrpCustomer>
-    <VrpCustomer id="73">
+    </VrpVisit>
+    <VrpVisit id="73">
       <id>5</id>
       <location class="VrpRoadLocation" reference="11"/>
       <demand>1</demand>
-    </VrpCustomer>
-    <VrpCustomer id="74">
+    </VrpVisit>
+    <VrpVisit id="74">
       <id>6</id>
       <location class="VrpRoadLocation" reference="13"/>
       <demand>1</demand>
-    </VrpCustomer>
-    <VrpCustomer id="75">
+    </VrpVisit>
+    <VrpVisit id="75">
       <id>7</id>
       <location class="VrpRoadLocation" reference="15"/>
       <demand>1</demand>
-    </VrpCustomer>
-    <VrpCustomer id="76">
+    </VrpVisit>
+    <VrpVisit id="76">
       <id>8</id>
       <location class="VrpRoadLocation" reference="17"/>
       <demand>1</demand>
-    </VrpCustomer>
-    <VrpCustomer id="77">
+    </VrpVisit>
+    <VrpVisit id="77">
       <id>9</id>
       <location class="VrpRoadLocation" reference="19"/>
       <demand>1</demand>
-    </VrpCustomer>
-    <VrpCustomer id="78">
+    </VrpVisit>
+    <VrpVisit id="78">
       <id>10</id>
       <location class="VrpRoadLocation" reference="21"/>
       <demand>1</demand>
-    </VrpCustomer>
-    <VrpCustomer id="79">
+    </VrpVisit>
+    <VrpVisit id="79">
       <id>11</id>
       <location class="VrpRoadLocation" reference="23"/>
       <demand>1</demand>
-    </VrpCustomer>
-    <VrpCustomer id="80">
+    </VrpVisit>
+    <VrpVisit id="80">
       <id>12</id>
       <location class="VrpRoadLocation" reference="25"/>
       <demand>1</demand>
-    </VrpCustomer>
-    <VrpCustomer id="81">
+    </VrpVisit>
+    <VrpVisit id="81">
       <id>13</id>
       <location class="VrpRoadLocation" reference="27"/>
       <demand>1</demand>
-    </VrpCustomer>
-    <VrpCustomer id="82">
+    </VrpVisit>
+    <VrpVisit id="82">
       <id>14</id>
       <location class="VrpRoadLocation" reference="29"/>
       <demand>1</demand>
-    </VrpCustomer>
-    <VrpCustomer id="83">
+    </VrpVisit>
+    <VrpVisit id="83">
       <id>15</id>
       <location class="VrpRoadLocation" reference="31"/>
       <demand>1</demand>
-    </VrpCustomer>
-    <VrpCustomer id="84">
+    </VrpVisit>
+    <VrpVisit id="84">
       <id>16</id>
       <location class="VrpRoadLocation" reference="33"/>
       <demand>1</demand>
-    </VrpCustomer>
-    <VrpCustomer id="85">
+    </VrpVisit>
+    <VrpVisit id="85">
       <id>17</id>
       <location class="VrpRoadLocation" reference="35"/>
       <demand>1</demand>
-    </VrpCustomer>
-    <VrpCustomer id="86">
+    </VrpVisit>
+    <VrpVisit id="86">
       <id>18</id>
       <location class="VrpRoadLocation" reference="37"/>
       <demand>1</demand>
-    </VrpCustomer>
-    <VrpCustomer id="87">
+    </VrpVisit>
+    <VrpVisit id="87">
       <id>19</id>
       <location class="VrpRoadLocation" reference="39"/>
       <demand>1</demand>
-    </VrpCustomer>
-    <VrpCustomer id="88">
+    </VrpVisit>
+    <VrpVisit id="88">
       <id>20</id>
       <location class="VrpRoadLocation" reference="41"/>
       <demand>1</demand>
-    </VrpCustomer>
-    <VrpCustomer id="89">
+    </VrpVisit>
+    <VrpVisit id="89">
       <id>21</id>
       <location class="VrpRoadLocation" reference="43"/>
       <demand>1</demand>
-    </VrpCustomer>
-    <VrpCustomer id="90">
+    </VrpVisit>
+    <VrpVisit id="90">
       <id>22</id>
       <location class="VrpRoadLocation" reference="45"/>
       <demand>1</demand>
-    </VrpCustomer>
-    <VrpCustomer id="91">
+    </VrpVisit>
+    <VrpVisit id="91">
       <id>23</id>
       <location class="VrpRoadLocation" reference="47"/>
       <demand>1</demand>
-    </VrpCustomer>
-    <VrpCustomer id="92">
+    </VrpVisit>
+    <VrpVisit id="92">
       <id>24</id>
       <location class="VrpRoadLocation" reference="49"/>
       <demand>1</demand>
-    </VrpCustomer>
-    <VrpCustomer id="93">
+    </VrpVisit>
+    <VrpVisit id="93">
       <id>25</id>
       <location class="VrpRoadLocation" reference="51"/>
       <demand>1</demand>
-    </VrpCustomer>
-    <VrpCustomer id="94">
+    </VrpVisit>
+    <VrpVisit id="94">
       <id>26</id>
       <location class="VrpRoadLocation" reference="53"/>
       <demand>1</demand>
-    </VrpCustomer>
-    <VrpCustomer id="95">
+    </VrpVisit>
+    <VrpVisit id="95">
       <id>27</id>
       <location class="VrpRoadLocation" reference="55"/>
       <demand>1</demand>
-    </VrpCustomer>
-    <VrpCustomer id="96">
+    </VrpVisit>
+    <VrpVisit id="96">
       <id>28</id>
       <location class="VrpRoadLocation" reference="57"/>
       <demand>1</demand>
-    </VrpCustomer>
-    <VrpCustomer id="97">
+    </VrpVisit>
+    <VrpVisit id="97">
       <id>29</id>
       <location class="VrpRoadLocation" reference="59"/>
       <demand>1</demand>
-    </VrpCustomer>
-  </customerList>
+    </VrpVisit>
+  </visitList>
 </VrpVehicleRoutingSolution>

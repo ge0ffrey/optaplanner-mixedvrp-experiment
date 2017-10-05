@@ -27,7 +27,7 @@ public class Vehicle extends AbstractPersistable implements Standstill {
     protected Depot depot;
 
     // Shadow variables
-    protected Customer nextCustomer;
+    protected Visit nextVisit;
 
     public int getCapacity() {
         return capacity;
@@ -46,13 +46,13 @@ public class Vehicle extends AbstractPersistable implements Standstill {
     }
 
     @Override
-    public Customer getNextCustomer() {
-        return nextCustomer;
+    public Visit getNextVisit() {
+        return nextVisit;
     }
 
     @Override
-    public void setNextCustomer(Customer nextCustomer) {
-        this.nextCustomer = nextCustomer;
+    public void setNextVisit(Visit nextVisit) {
+        this.nextVisit = nextVisit;
     }
 
     // ************************************************************************

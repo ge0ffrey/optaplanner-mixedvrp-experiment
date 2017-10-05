@@ -22,11 +22,11 @@ import java.util.Map;
 
 import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScore;
 import org.optaplanner.core.impl.score.director.easy.EasyScoreCalculator;
-import org.optaplanner.examples.vehiclerouting.domain.Customer;
+import org.optaplanner.examples.vehiclerouting.domain.Visit;
 import org.optaplanner.examples.vehiclerouting.domain.Standstill;
 import org.optaplanner.examples.vehiclerouting.domain.Vehicle;
 import org.optaplanner.examples.vehiclerouting.domain.VehicleRoutingSolution;
-import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedCustomer;
+import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedVisit;
 import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedVehicleRoutingSolution;
 
 public class VehicleRoutingEasyScoreCalculator implements EasyScoreCalculator<VehicleRoutingSolution> {
@@ -34,7 +34,7 @@ public class VehicleRoutingEasyScoreCalculator implements EasyScoreCalculator<Ve
     @Override
     public HardSoftLongScore calculateScore(VehicleRoutingSolution solution) {
         boolean timeWindowed = solution instanceof TimeWindowedVehicleRoutingSolution;
-        List<Customer> customerList = solution.getCustomerList();
+        List<Visit> visitList = solution.getVisitList();
         List<Vehicle> vehicleList = solution.getVehicleList();
         Map<Vehicle, Integer> vehicleDemandMap = new HashMap<>(vehicleList.size());
         for (Vehicle vehicle : vehicleList) {
@@ -42,19 +42,19 @@ public class VehicleRoutingEasyScoreCalculator implements EasyScoreCalculator<Ve
         }
         long hardScore = 0L;
         long softScore = 0L;
-        for (Customer customer : customerList) {
-            Standstill previousStandstill = customer.getPreviousStandstill();
+        for (Visit visit : visitList) {
+            Standstill previousStandstill = visit.getPreviousStandstill();
             if (previousStandstill != null) {
-                Vehicle vehicle = customer.getVehicle();
-                vehicleDemandMap.put(vehicle, vehicleDemandMap.get(vehicle) + customer.getDemand());
+                Vehicle vehicle = visit.getVehicle();
+                vehicleDemandMap.put(vehicle, vehicleDemandMap.get(vehicle) + visit.getDemand());
                 // Score constraint distanceToPreviousStandstill
-                softScore -= customer.getDistanceFromPreviousStandstill();
-                if (customer.getNextCustomer() == null) {
+                softScore -= visit.getDistanceFromPreviousStandstill();
+                if (visit.getNextVisit() == null) {
                     // Score constraint distanceFromLastCustomerToDepot
-                    softScore -= customer.getLocation().getDistanceTo(vehicle.getLocation());
+                    softScore -= visit.getLocation().getDistanceTo(vehicle.getLocation());
                 }
                 if (timeWindowed) {
-                    TimeWindowedCustomer timeWindowedCustomer = (TimeWindowedCustomer) customer;
+                    TimeWindowedVisit timeWindowedCustomer = (TimeWindowedVisit) visit;
                     long dueTime = timeWindowedCustomer.getDueTime();
                     Long arrivalTime = timeWindowedCustomer.getArrivalTime();
                     if (dueTime < arrivalTime) {

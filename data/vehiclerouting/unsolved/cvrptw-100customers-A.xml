@@ -645,806 +645,806 @@
       <depot class="VrpTimeWindowedDepot" reference="105"/>
     </VrpVehicle>
   </vehicleList>
-  <customerList id="132">
-    <VrpTimeWindowedCustomer id="133">
+  <visitList id="132">
+    <VrpTimeWindowedVisit id="133">
       <id>1</id>
       <location class="VrpAirLocation" reference="4"/>
       <demand>10</demand>
       <readyTime>161000</readyTime>
       <dueTime>171000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="134">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="134">
       <id>2</id>
       <location class="VrpAirLocation" reference="5"/>
       <demand>7</demand>
       <readyTime>50000</readyTime>
       <dueTime>60000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="135">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="135">
       <id>3</id>
       <location class="VrpAirLocation" reference="6"/>
       <demand>13</demand>
       <readyTime>116000</readyTime>
       <dueTime>126000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="136">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="136">
       <id>4</id>
       <location class="VrpAirLocation" reference="7"/>
       <demand>19</demand>
       <readyTime>149000</readyTime>
       <dueTime>159000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="137">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="137">
       <id>5</id>
       <location class="VrpAirLocation" reference="8"/>
       <demand>26</demand>
       <readyTime>34000</readyTime>
       <dueTime>44000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="138">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="138">
       <id>6</id>
       <location class="VrpAirLocation" reference="9"/>
       <demand>3</demand>
       <readyTime>99000</readyTime>
       <dueTime>109000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="139">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="139">
       <id>7</id>
       <location class="VrpAirLocation" reference="10"/>
       <demand>5</demand>
       <readyTime>81000</readyTime>
       <dueTime>91000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="140">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="140">
       <id>8</id>
       <location class="VrpAirLocation" reference="11"/>
       <demand>9</demand>
       <readyTime>95000</readyTime>
       <dueTime>105000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="141">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="141">
       <id>9</id>
       <location class="VrpAirLocation" reference="12"/>
       <demand>16</demand>
       <readyTime>97000</readyTime>
       <dueTime>107000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="142">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="142">
       <id>10</id>
       <location class="VrpAirLocation" reference="13"/>
       <demand>16</demand>
       <readyTime>124000</readyTime>
       <dueTime>134000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="143">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="143">
       <id>11</id>
       <location class="VrpAirLocation" reference="14"/>
       <demand>12</demand>
       <readyTime>67000</readyTime>
       <dueTime>77000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="144">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="144">
       <id>12</id>
       <location class="VrpAirLocation" reference="15"/>
       <demand>19</demand>
       <readyTime>63000</readyTime>
       <dueTime>73000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="145">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="145">
       <id>13</id>
       <location class="VrpAirLocation" reference="16"/>
       <demand>23</demand>
       <readyTime>159000</readyTime>
       <dueTime>169000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="146">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="146">
       <id>14</id>
       <location class="VrpAirLocation" reference="17"/>
       <demand>20</demand>
       <readyTime>32000</readyTime>
       <dueTime>42000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="147">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="147">
       <id>15</id>
       <location class="VrpAirLocation" reference="18"/>
       <demand>8</demand>
       <readyTime>61000</readyTime>
       <dueTime>71000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="148">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="148">
       <id>16</id>
       <location class="VrpAirLocation" reference="19"/>
       <demand>19</demand>
       <readyTime>75000</readyTime>
       <dueTime>85000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="149">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="149">
       <id>17</id>
       <location class="VrpAirLocation" reference="20"/>
       <demand>2</demand>
       <readyTime>157000</readyTime>
       <dueTime>167000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="150">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="150">
       <id>18</id>
       <location class="VrpAirLocation" reference="21"/>
       <demand>12</demand>
       <readyTime>87000</readyTime>
       <dueTime>97000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="151">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="151">
       <id>19</id>
       <location class="VrpAirLocation" reference="22"/>
       <demand>17</demand>
       <readyTime>76000</readyTime>
       <dueTime>86000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="152">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="152">
       <id>20</id>
       <location class="VrpAirLocation" reference="23"/>
       <demand>9</demand>
       <readyTime>126000</readyTime>
       <dueTime>136000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="153">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="153">
       <id>21</id>
       <location class="VrpAirLocation" reference="24"/>
       <demand>11</demand>
       <readyTime>62000</readyTime>
       <dueTime>72000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="154">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="154">
       <id>22</id>
       <location class="VrpAirLocation" reference="25"/>
       <demand>18</demand>
       <readyTime>97000</readyTime>
       <dueTime>107000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="155">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="155">
       <id>23</id>
       <location class="VrpAirLocation" reference="26"/>
       <demand>29</demand>
       <readyTime>68000</readyTime>
       <dueTime>78000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="156">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="156">
       <id>24</id>
       <location class="VrpAirLocation" reference="27"/>
       <demand>3</demand>
       <readyTime>153000</readyTime>
       <dueTime>163000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="157">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="157">
       <id>25</id>
       <location class="VrpAirLocation" reference="28"/>
       <demand>6</demand>
       <readyTime>172000</readyTime>
       <dueTime>182000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="158">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="158">
       <id>26</id>
       <location class="VrpAirLocation" reference="29"/>
       <demand>17</demand>
       <readyTime>132000</readyTime>
       <dueTime>142000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="159">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="159">
       <id>27</id>
       <location class="VrpAirLocation" reference="30"/>
       <demand>16</demand>
       <readyTime>37000</readyTime>
       <dueTime>47000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="160">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="160">
       <id>28</id>
       <location class="VrpAirLocation" reference="31"/>
       <demand>16</demand>
       <readyTime>39000</readyTime>
       <dueTime>49000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="161">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="161">
       <id>29</id>
       <location class="VrpAirLocation" reference="32"/>
       <demand>9</demand>
       <readyTime>63000</readyTime>
       <dueTime>73000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="162">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="162">
       <id>30</id>
       <location class="VrpAirLocation" reference="33"/>
       <demand>21</demand>
       <readyTime>71000</readyTime>
       <dueTime>81000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="163">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="163">
       <id>31</id>
       <location class="VrpAirLocation" reference="34"/>
       <demand>27</demand>
       <readyTime>50000</readyTime>
       <dueTime>60000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="164">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="164">
       <id>32</id>
       <location class="VrpAirLocation" reference="35"/>
       <demand>23</demand>
       <readyTime>141000</readyTime>
       <dueTime>151000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="165">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="165">
       <id>33</id>
       <location class="VrpAirLocation" reference="36"/>
       <demand>11</demand>
       <readyTime>37000</readyTime>
       <dueTime>47000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="166">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="166">
       <id>34</id>
       <location class="VrpAirLocation" reference="37"/>
       <demand>14</demand>
       <readyTime>117000</readyTime>
       <dueTime>127000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="167">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="167">
       <id>35</id>
       <location class="VrpAirLocation" reference="38"/>
       <demand>8</demand>
       <readyTime>143000</readyTime>
       <dueTime>153000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="168">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="168">
       <id>36</id>
       <location class="VrpAirLocation" reference="39"/>
       <demand>5</demand>
       <readyTime>41000</readyTime>
       <dueTime>51000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="169">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="169">
       <id>37</id>
       <location class="VrpAirLocation" reference="40"/>
       <demand>8</demand>
       <readyTime>134000</readyTime>
       <dueTime>144000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="170">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="170">
       <id>38</id>
       <location class="VrpAirLocation" reference="41"/>
       <demand>16</demand>
       <readyTime>83000</readyTime>
       <dueTime>93000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="171">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="171">
       <id>39</id>
       <location class="VrpAirLocation" reference="42"/>
       <demand>31</demand>
       <readyTime>44000</readyTime>
       <dueTime>54000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="172">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="172">
       <id>40</id>
       <location class="VrpAirLocation" reference="43"/>
       <demand>9</demand>
       <readyTime>85000</readyTime>
       <dueTime>95000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="173">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="173">
       <id>41</id>
       <location class="VrpAirLocation" reference="44"/>
       <demand>5</demand>
       <readyTime>97000</readyTime>
       <dueTime>107000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="174">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="174">
       <id>42</id>
       <location class="VrpAirLocation" reference="45"/>
       <demand>5</demand>
       <readyTime>31000</readyTime>
       <dueTime>41000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="175">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="175">
       <id>43</id>
       <location class="VrpAirLocation" reference="46"/>
       <demand>7</demand>
       <readyTime>132000</readyTime>
       <dueTime>142000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="176">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="176">
       <id>44</id>
       <location class="VrpAirLocation" reference="47"/>
       <demand>18</demand>
       <readyTime>69000</readyTime>
       <dueTime>79000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="177">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="177">
       <id>45</id>
       <location class="VrpAirLocation" reference="48"/>
       <demand>16</demand>
       <readyTime>32000</readyTime>
       <dueTime>42000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="178">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="178">
       <id>46</id>
       <location class="VrpAirLocation" reference="49"/>
       <demand>1</demand>
       <readyTime>117000</readyTime>
       <dueTime>127000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="179">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="179">
       <id>47</id>
       <location class="VrpAirLocation" reference="50"/>
       <demand>27</demand>
       <readyTime>51000</readyTime>
       <dueTime>61000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="180">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="180">
       <id>48</id>
       <location class="VrpAirLocation" reference="51"/>
       <demand>36</demand>
       <readyTime>165000</readyTime>
       <dueTime>175000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="181">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="181">
       <id>49</id>
       <location class="VrpAirLocation" reference="52"/>
       <demand>30</demand>
       <readyTime>108000</readyTime>
       <dueTime>118000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="182">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="182">
       <id>50</id>
       <location class="VrpAirLocation" reference="53"/>
       <demand>13</demand>
       <readyTime>124000</readyTime>
       <dueTime>134000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="183">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="183">
       <id>51</id>
       <location class="VrpAirLocation" reference="54"/>
       <demand>10</demand>
       <readyTime>88000</readyTime>
       <dueTime>98000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="184">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="184">
       <id>52</id>
       <location class="VrpAirLocation" reference="55"/>
       <demand>9</demand>
       <readyTime>52000</readyTime>
       <dueTime>62000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="185">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="185">
       <id>53</id>
       <location class="VrpAirLocation" reference="56"/>
       <demand>14</demand>
       <readyTime>95000</readyTime>
       <dueTime>105000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="186">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="186">
       <id>54</id>
       <location class="VrpAirLocation" reference="57"/>
       <demand>18</demand>
       <readyTime>140000</readyTime>
       <dueTime>150000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="187">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="187">
       <id>55</id>
       <location class="VrpAirLocation" reference="58"/>
       <demand>2</demand>
       <readyTime>136000</readyTime>
       <dueTime>146000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="188">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="188">
       <id>56</id>
       <location class="VrpAirLocation" reference="59"/>
       <demand>6</demand>
       <readyTime>130000</readyTime>
       <dueTime>140000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="189">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="189">
       <id>57</id>
       <location class="VrpAirLocation" reference="60"/>
       <demand>7</demand>
       <readyTime>101000</readyTime>
       <dueTime>111000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="190">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="190">
       <id>58</id>
       <location class="VrpAirLocation" reference="61"/>
       <demand>18</demand>
       <readyTime>200000</readyTime>
       <dueTime>210000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="191">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="191">
       <id>59</id>
       <location class="VrpAirLocation" reference="62"/>
       <demand>28</demand>
       <readyTime>18000</readyTime>
       <dueTime>28000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="192">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="192">
       <id>60</id>
       <location class="VrpAirLocation" reference="63"/>
       <demand>3</demand>
       <readyTime>162000</readyTime>
       <dueTime>172000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="193">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="193">
       <id>61</id>
       <location class="VrpAirLocation" reference="64"/>
       <demand>13</demand>
       <readyTime>76000</readyTime>
       <dueTime>86000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="194">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="194">
       <id>62</id>
       <location class="VrpAirLocation" reference="65"/>
       <demand>19</demand>
       <readyTime>58000</readyTime>
       <dueTime>68000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="195">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="195">
       <id>63</id>
       <location class="VrpAirLocation" reference="66"/>
       <demand>10</demand>
       <readyTime>34000</readyTime>
       <dueTime>44000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="196">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="196">
       <id>64</id>
       <location class="VrpAirLocation" reference="67"/>
       <demand>9</demand>
       <readyTime>73000</readyTime>
       <dueTime>83000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="197">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="197">
       <id>65</id>
       <location class="VrpAirLocation" reference="68"/>
       <demand>20</demand>
       <readyTime>51000</readyTime>
       <dueTime>61000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="198">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="198">
       <id>66</id>
       <location class="VrpAirLocation" reference="69"/>
       <demand>25</demand>
       <readyTime>127000</readyTime>
       <dueTime>137000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="199">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="199">
       <id>67</id>
       <location class="VrpAirLocation" reference="70"/>
       <demand>25</demand>
       <readyTime>83000</readyTime>
       <dueTime>93000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="200">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="200">
       <id>68</id>
       <location class="VrpAirLocation" reference="71"/>
       <demand>36</demand>
       <readyTime>142000</readyTime>
       <dueTime>152000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="201">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="201">
       <id>69</id>
       <location class="VrpAirLocation" reference="72"/>
       <demand>6</demand>
       <readyTime>50000</readyTime>
       <dueTime>60000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="202">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="202">
       <id>70</id>
       <location class="VrpAirLocation" reference="73"/>
       <demand>5</demand>
       <readyTime>182000</readyTime>
       <dueTime>192000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="203">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="203">
       <id>71</id>
       <location class="VrpAirLocation" reference="74"/>
       <demand>15</demand>
       <readyTime>77000</readyTime>
       <dueTime>87000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="204">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="204">
       <id>72</id>
       <location class="VrpAirLocation" reference="75"/>
       <demand>25</demand>
       <readyTime>35000</readyTime>
       <dueTime>45000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="205">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="205">
       <id>73</id>
       <location class="VrpAirLocation" reference="76"/>
       <demand>9</demand>
       <readyTime>78000</readyTime>
       <dueTime>88000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="206">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="206">
       <id>74</id>
       <location class="VrpAirLocation" reference="77"/>
       <demand>8</demand>
       <readyTime>149000</readyTime>
       <dueTime>159000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="207">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="207">
       <id>75</id>
       <location class="VrpAirLocation" reference="78"/>
       <demand>18</demand>
       <readyTime>69000</readyTime>
       <dueTime>79000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="208">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="208">
       <id>76</id>
       <location class="VrpAirLocation" reference="79"/>
       <demand>13</demand>
       <readyTime>73000</readyTime>
       <dueTime>83000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="209">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="209">
       <id>77</id>
       <location class="VrpAirLocation" reference="80"/>
       <demand>14</demand>
       <readyTime>179000</readyTime>
       <dueTime>189000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="210">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="210">
       <id>78</id>
       <location class="VrpAirLocation" reference="81"/>
       <demand>3</demand>
       <readyTime>96000</readyTime>
       <dueTime>106000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="211">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="211">
       <id>79</id>
       <location class="VrpAirLocation" reference="82"/>
       <demand>23</demand>
       <readyTime>92000</readyTime>
       <dueTime>102000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="212">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="212">
       <id>80</id>
       <location class="VrpAirLocation" reference="83"/>
       <demand>6</demand>
       <readyTime>182000</readyTime>
       <dueTime>192000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="213">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="213">
       <id>81</id>
       <location class="VrpAirLocation" reference="84"/>
       <demand>26</demand>
       <readyTime>94000</readyTime>
       <dueTime>104000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="214">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="214">
       <id>82</id>
       <location class="VrpAirLocation" reference="85"/>
       <demand>16</demand>
       <readyTime>55000</readyTime>
       <dueTime>65000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="215">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="215">
       <id>83</id>
       <location class="VrpAirLocation" reference="86"/>
       <demand>11</demand>
       <readyTime>44000</readyTime>
       <dueTime>54000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="216">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="216">
       <id>84</id>
       <location class="VrpAirLocation" reference="87"/>
       <demand>7</demand>
       <readyTime>101000</readyTime>
       <dueTime>111000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="217">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="217">
       <id>85</id>
       <location class="VrpAirLocation" reference="88"/>
       <demand>41</demand>
       <readyTime>91000</readyTime>
       <dueTime>101000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="218">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="218">
       <id>86</id>
       <location class="VrpAirLocation" reference="89"/>
       <demand>35</demand>
       <readyTime>94000</readyTime>
       <dueTime>104000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="219">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="219">
       <id>87</id>
       <location class="VrpAirLocation" reference="90"/>
       <demand>26</demand>
       <readyTime>93000</readyTime>
       <dueTime>103000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="220">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="220">
       <id>88</id>
       <location class="VrpAirLocation" reference="91"/>
       <demand>9</demand>
       <readyTime>74000</readyTime>
       <dueTime>84000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="221">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="221">
       <id>89</id>
       <location class="VrpAirLocation" reference="92"/>
       <demand>15</demand>
       <readyTime>176000</readyTime>
       <dueTime>186000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="222">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="222">
       <id>90</id>
       <location class="VrpAirLocation" reference="93"/>
       <demand>3</demand>
       <readyTime>95000</readyTime>
       <dueTime>105000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="223">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="223">
       <id>91</id>
       <location class="VrpAirLocation" reference="94"/>
       <demand>1</demand>
       <readyTime>160000</readyTime>
       <dueTime>170000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="224">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="224">
       <id>92</id>
       <location class="VrpAirLocation" reference="95"/>
       <demand>2</demand>
       <readyTime>18000</readyTime>
       <dueTime>28000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="225">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="225">
       <id>93</id>
       <location class="VrpAirLocation" reference="96"/>
       <demand>22</demand>
       <readyTime>188000</readyTime>
       <dueTime>198000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="226">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="226">
       <id>94</id>
       <location class="VrpAirLocation" reference="97"/>
       <demand>27</demand>
       <readyTime>100000</readyTime>
       <dueTime>110000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="227">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="227">
       <id>95</id>
       <location class="VrpAirLocation" reference="98"/>
       <demand>20</demand>
       <readyTime>39000</readyTime>
       <dueTime>49000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="228">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="228">
       <id>96</id>
       <location class="VrpAirLocation" reference="99"/>
       <demand>11</demand>
       <readyTime>135000</readyTime>
       <dueTime>145000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="229">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="229">
       <id>97</id>
       <location class="VrpAirLocation" reference="100"/>
       <demand>12</demand>
       <readyTime>133000</readyTime>
       <dueTime>143000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="230">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="230">
       <id>98</id>
       <location class="VrpAirLocation" reference="101"/>
       <demand>10</demand>
       <readyTime>58000</readyTime>
       <dueTime>68000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="231">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="231">
       <id>99</id>
       <location class="VrpAirLocation" reference="102"/>
       <demand>9</demand>
       <readyTime>83000</readyTime>
       <dueTime>93000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-    <VrpTimeWindowedCustomer id="232">
+    </VrpTimeWindowedVisit>
+    <VrpTimeWindowedVisit id="232">
       <id>100</id>
       <location class="VrpAirLocation" reference="103"/>
       <demand>17</demand>
       <readyTime>185000</readyTime>
       <dueTime>195000</dueTime>
       <serviceDuration>10000</serviceDuration>
-    </VrpTimeWindowedCustomer>
-  </customerList>
+    </VrpTimeWindowedVisit>
+  </visitList>
 </VrpTimeWindowedVehicleRoutingSolution>
