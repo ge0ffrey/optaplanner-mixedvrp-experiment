@@ -46,7 +46,7 @@ public class VehicleRoutingEasyScoreCalculator implements EasyScoreCalculator<Ve
             Standstill previousStandstill = visit.getPreviousStandstill();
             if (previousStandstill != null) {
                 Vehicle vehicle = visit.getVehicle();
-                vehicleDemandMap.put(vehicle, vehicleDemandMap.get(vehicle) + visit.getDemand());
+                vehicleDemandMap.put(vehicle, vehicleDemandMap.get(vehicle) + visit.getShipmentSize());
                 // Score constraint distanceToPreviousStandstill
                 softScore -= visit.getDistanceFromPreviousStandstill();
                 if (visit.getNextVisit() == null) {

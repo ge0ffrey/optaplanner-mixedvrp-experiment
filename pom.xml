@@ -6,6 +6,7 @@
   <parent>
     <groupId>org.optaplanner</groupId>
     <artifactId>optaplanner</artifactId>
+    <!-- TODO we don't plan to release or develop 8.0 this year, this will be renamed back to a 7.x version soon -->
     <version>8.0.0-SNAPSHOT</version>
   </parent>
 

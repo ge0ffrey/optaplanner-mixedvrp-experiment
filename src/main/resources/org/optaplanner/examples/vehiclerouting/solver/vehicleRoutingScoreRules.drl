@@ -41,12 +41,12 @@ rule "vehicleCapacity"
         accumulate(
             Visit(
                 vehicle == $vehicle,
-                $demand : demand);
-            $demandTotal : sum($demand);
-            $demandTotal > $capacity
+                $shipmentSize : shipmentSize);
+            $shipmentSizeTotal : sum($shipmentSize);
+            $shipmentSizeTotal > $capacity
         )
     then
-        scoreHolder.addHardConstraintMatch(kcontext, $capacity - $demandTotal);
+        scoreHolder.addHardConstraintMatch(kcontext, $capacity - $shipmentSizeTotal);
 end
 
 // ############################################################################

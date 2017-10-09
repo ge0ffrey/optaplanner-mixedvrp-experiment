@@ -129,9 +129,10 @@ public class VehicleRoutingPanel extends SolutionPanel<VehicleRoutingSolution> {
         }
         newVisit.setId(newLocation.getId());
         newVisit.setLocation(newLocation);
-        // Demand must not be 0
-        newVisit.setDemand(demandRandom.nextInt(10) + 1);
-        return newVisit;
+        throw new UnsupportedOperationException();
+//        // Demand must not be 0
+//        newVisit.setDemand(demandRandom.nextInt(10) + 1);
+//        return newVisit;
     }
 
 }

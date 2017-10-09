@@ -34,8 +34,9 @@ import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedV
 })
 public class Visit extends AbstractPersistable implements Standstill {
 
+    protected VisitType visitType;
     protected Location location;
-    protected int demand;
+    protected Shipment shipment;
 
     // Planning variables: changes during planning, between score calculations.
     protected Standstill previousStandstill;
@@ -43,6 +44,14 @@ public class Visit extends AbstractPersistable implements Standstill {
     // Shadow variables
     protected Visit nextVisit;
     protected Vehicle vehicle;
+
+    public VisitType getVisitType() {
+        return visitType;
+    }
+
+    public void setVisitType(VisitType visitType) {
+        this.visitType = visitType;
+    }
 
     @Override
     public Location getLocation() {
@@ -53,12 +62,16 @@ public class Visit extends AbstractPersistable implements Standstill {
         this.location = location;
     }
 
-    public int getDemand() {
-        return demand;
+    public int getShipmentSize() {
+        return shipment.getSize();
     }
 
-    public void setDemand(int demand) {
-        this.demand = demand;
+    public Shipment getShipment() {
+        return shipment;
+    }
+
+    public void setShipment(Shipment shipment) {
+        this.shipment = shipment;
     }
 
     @PlanningVariable(valueRangeProviderRefs = {"vehicleRange", "customerRange"},

@@ -161,7 +161,7 @@ public class VehicleRoutingIncrementalScoreCalculator extends AbstractIncrementa
             // Score constraint vehicleCapacity
             int capacity = vehicle.getCapacity();
             int oldDemand = vehicleDemandMap.get(vehicle);
-            int newDemand = oldDemand + visit.getDemand();
+            int newDemand = oldDemand + visit.getShipmentSize();
             hardScore += Math.min(capacity - newDemand, 0) - Math.min(capacity - oldDemand, 0);
             vehicleDemandMap.put(vehicle, newDemand);
             if (visit.getNextVisit() == null) {
@@ -177,7 +177,7 @@ public class VehicleRoutingIncrementalScoreCalculator extends AbstractIncrementa
             // Score constraint vehicleCapacity
             int capacity = vehicle.getCapacity();
             int oldDemand = vehicleDemandMap.get(vehicle);
-            int newDemand = oldDemand - visit.getDemand();
+            int newDemand = oldDemand - visit.getShipmentSize();
             hardScore += Math.min(capacity - newDemand, 0) - Math.min(capacity - oldDemand, 0);
             vehicleDemandMap.put(vehicle, newDemand);
             if (visit.getNextVisit() == null) {
