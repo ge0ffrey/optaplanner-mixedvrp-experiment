@@ -23,7 +23,9 @@ import org.optaplanner.examples.vehiclerouting.domain.Depot;
 import org.optaplanner.examples.vehiclerouting.domain.location.Location;
 import org.optaplanner.examples.vehiclerouting.domain.Vehicle;
 import org.optaplanner.examples.vehiclerouting.domain.VehicleRoutingSolution;
+import org.optaplanner.examples.vehiclerouting.domain.Shipment
 import org.optaplanner.examples.vehiclerouting.domain.Visit;
+import org.optaplanner.examples.vehiclerouting.domain.VisitType;
 import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedDepot;
 import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedVehicleRoutingSolution;
 import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedVisit
@@ -82,3 +84,16 @@ rule "arrivalAfterDueTime"
 end
 
 // Score constraint arrivalAfterDueTimeAtDepot is a built-in hard constraint in VehicleRoutingImporter
+
+
+// ############################################################################
+// The bad way of enforcing delivery after pickup, through rules
+// ############################################################################
+
+rule "pickupAndDeliveryBySameVehicle"
+    when
+        Visit(visitType == VisitType.PICKUP, $shipment : shipment, $vehicle : vehicle)
+        Visit(shipment == $shipment, visitType == VisitType.DELIVERY, vehicle != $vehicle)
+    then
+        scoreHolder.addHardConstraintMatch(kcontext, - $shipment.getSize());
+end

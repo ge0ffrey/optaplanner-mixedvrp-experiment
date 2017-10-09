@@ -2,6 +2,7 @@ package org.optaplanner.examples.vehiclerouting.domain;
 
 import org.optaplanner.examples.common.domain.AbstractPersistable;
 
+// TODO This probably shouldn't be called shipment, because it's usually about people (you can't store those in the depot overnight)
 public class Shipment extends AbstractPersistable {
 
     protected Visit pickupVisit;
