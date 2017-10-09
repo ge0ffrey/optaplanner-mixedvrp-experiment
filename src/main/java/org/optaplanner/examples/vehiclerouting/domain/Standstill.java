@@ -33,6 +33,8 @@ public interface Standstill {
      */
     Vehicle getVehicle();
 
+    Integer getVisitIndex();
+
     /**
      * @return sometimes null
      */

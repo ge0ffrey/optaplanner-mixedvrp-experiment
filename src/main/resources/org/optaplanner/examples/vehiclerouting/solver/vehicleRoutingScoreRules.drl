@@ -87,7 +87,7 @@ end
 
 
 // ############################################################################
-// The bad way of enforcing delivery after pickup, through rules
+// The bad way? of enforcing delivery after pickup, through rules
 // ############################################################################
 
 rule "pickupAndDeliveryBySameVehicle"
@@ -95,5 +95,13 @@ rule "pickupAndDeliveryBySameVehicle"
         Visit(visitType == VisitType.PICKUP, $shipment : shipment, $vehicle : vehicle)
         Visit(shipment == $shipment, visitType == VisitType.DELIVERY, vehicle != $vehicle)
     then
-        scoreHolder.addHardConstraintMatch(kcontext, - $shipment.getSize());
+        scoreHolder.addHardConstraintMatch(kcontext, - $shipment.getSize() * 10);
+end
+
+rule "pickupBeforeDelivery"
+    when
+        Visit(visitType == VisitType.PICKUP, $shipment : shipment, $vehicle : vehicle, $pickupVisitIndex : visitIndex)
+        Visit(shipment == $shipment, visitType == VisitType.DELIVERY, vehicle == $vehicle, visitIndex < $pickupVisitIndex, $deliveryVisitIndex : visitIndex)
+    then
+        scoreHolder.addHardConstraintMatch(kcontext, - ($pickupVisitIndex - $deliveryVisitIndex));
 end

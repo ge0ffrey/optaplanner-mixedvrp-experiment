@@ -24,8 +24,10 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.Objects;
 import javax.swing.ImageIcon;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScore;
 import org.optaplanner.examples.common.swingui.latitudelongitude.LatitudeLongitudeTranslator;
 import org.optaplanner.examples.vehiclerouting.domain.Shipment;
@@ -96,13 +98,20 @@ public class VehicleRoutingSolutionPainter {
         Graphics2D g = createCanvas(width, height);
         g.setFont(g.getFont().deriveFont((float) TEXT_SIZE));
         g.setStroke(TangoColorFactory.NORMAL_STROKE);
-        g.setColor(TangoColorFactory.ALUMINIUM_2);
         for (Shipment shipment : solution.getShipmentList()) {
             Location pickupLocation = shipment.getPickupVisit().getLocation();
             Location deliveryLocation = shipment.getDeliveryVisit().getLocation();
+            g.setColor(TangoColorFactory.ALUMINIUM_2);
             translator.drawRoute(g, pickupLocation.getLongitude(), pickupLocation.getLatitude(),
                     deliveryLocation.getLongitude(), deliveryLocation.getLatitude(),
                     deliveryLocation instanceof AirLocation, true);
+            if (ObjectUtils.compare(shipment.getPickupVisit().getVisitIndex(), shipment.getDeliveryVisit().getVisitIndex()) > 0
+                    || !Objects.equals(shipment.getPickupVisit().getVehicle(), shipment.getDeliveryVisit().getVehicle())) {
+                int x = translator.translateLongitudeToX(pickupLocation.getLongitude());
+                int y = translator.translateLatitudeToY(pickupLocation.getLatitude());
+                g.setColor(TangoColorFactory.SCARLET_1);
+                g.drawRect(x - 3, y - 3, 6, 6);
+            }
         }
         for (Visit visit : solution.getVisitList()) {
             Location location = visit.getLocation();
@@ -110,10 +119,9 @@ public class VehicleRoutingSolutionPainter {
             int y = translator.translateLatitudeToY(location.getLatitude());
             g.setColor(TangoColorFactory.ALUMINIUM_4);
             g.fillRect(x - 1, y - 1, 3, 3);
-            if (visit.getVisitType() == VisitType.PICKUP) {
-                String demandString = Integer.toString(visit.getShipmentSize());
-                g.drawString(demandString, x - (g.getFontMetrics().stringWidth(demandString) / 2), y - TEXT_SIZE / 2);
-            }
+            String demandString = visit.getVisitType() == VisitType.PICKUP
+                    ? "P" + Integer.toString(visit.getShipmentSize()) : "D";
+            g.drawString(demandString, x - (g.getFontMetrics().stringWidth(demandString) / 2), y - TEXT_SIZE / 2);
             if (visit instanceof TimeWindowedVisit) {
                 TimeWindowedVisit timeWindowedCustomer = (TimeWindowedVisit) visit;
                 g.setColor(TangoColorFactory.ALUMINIUM_3);

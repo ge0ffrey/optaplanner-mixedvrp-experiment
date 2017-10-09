@@ -20,12 +20,16 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamInclude;
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.variable.AnchorShadowVariable;
+import org.optaplanner.core.api.domain.variable.CustomShadowVariable;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
 import org.optaplanner.core.api.domain.variable.PlanningVariableGraphType;
+import org.optaplanner.core.api.domain.variable.PlanningVariableReference;
 import org.optaplanner.examples.common.domain.AbstractPersistable;
 import org.optaplanner.examples.vehiclerouting.domain.location.Location;
 import org.optaplanner.examples.vehiclerouting.domain.solver.DepotAngleCustomerDifficultyWeightFactory;
+import org.optaplanner.examples.vehiclerouting.domain.solver.VisitIndexUpdatingVariableListener;
 import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedVisit;
+import org.optaplanner.examples.vehiclerouting.domain.timewindowed.solver.ArrivalTimeUpdatingVariableListener;
 
 @PlanningEntity(difficultyWeightFactoryClass = DepotAngleCustomerDifficultyWeightFactory.class)
 @XStreamAlias("VrpVisit")
@@ -44,6 +48,7 @@ public class Visit extends AbstractPersistable implements Standstill {
     // Shadow variables
     protected Visit nextVisit;
     protected Vehicle vehicle;
+    protected Integer visitIndex;
 
     public VisitType getVisitType() {
         return visitType;
@@ -102,6 +107,18 @@ public class Visit extends AbstractPersistable implements Standstill {
 
     public void setVehicle(Vehicle vehicle) {
         this.vehicle = vehicle;
+    }
+
+    @CustomShadowVariable(variableListenerClass = VisitIndexUpdatingVariableListener.class,
+            // Arguable, to adhere to API specs (although this works), nextCustomer should also be a source,
+            // because this shadow must be triggered after nextCustomer (but there is no need to be triggered by nextCustomer)
+            sources = {@PlanningVariableReference(variableName = "previousStandstill")})
+    public Integer getVisitIndex() {
+        return visitIndex;
+    }
+
+    public void setVisitIndex(Integer visitIndex) {
+        this.visitIndex = visitIndex;
     }
 
     // ************************************************************************

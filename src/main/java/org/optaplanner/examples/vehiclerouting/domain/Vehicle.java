@@ -65,6 +65,11 @@ public class Vehicle extends AbstractPersistable implements Standstill {
     }
 
     @Override
+    public Integer getVisitIndex() {
+        return 0;
+    }
+
+    @Override
     public Location getLocation() {
         return depot.getLocation();
     }
