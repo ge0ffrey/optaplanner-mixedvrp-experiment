@@ -31,61 +31,6 @@ import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedV
 import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedVisit
 import org.optaplanner.examples.vehiclerouting.domain.Vehicle;
 
-global HardSoftLongScoreHolder scoreHolder;
-
-// ############################################################################
-// Hard constraints
-// ############################################################################
-
-rule "vehicleCapacity"
-    when
-        $vehicle : Vehicle($capacity : capacity)
-        accumulate(
-            Visit(
-                vehicle == $vehicle,
-                $shipmentSize : shipmentSize);
-            $shipmentSizeTotal : sum($shipmentSize);
-            $shipmentSizeTotal > $capacity
-        )
-    then
-        scoreHolder.addHardConstraintMatch(kcontext, $capacity - $shipmentSizeTotal);
-end
-
-// ############################################################################
-// Soft constraints
-// ############################################################################
-
-rule "distanceToPreviousStandstill"
-    when
-        $visit : Visit(previousStandstill != null, $distanceFromPreviousStandstill : distanceFromPreviousStandstill)
-    then
-        scoreHolder.addSoftConstraintMatch(kcontext, - $distanceFromPreviousStandstill);
-end
-
-rule "distanceFromLastVisitToDepot"
-    when
-        $visit : Visit(previousStandstill != null)
-        not Visit(previousStandstill == $visit)
-    then
-        Vehicle vehicle = $visit.getVehicle();
-        scoreHolder.addSoftConstraintMatch(kcontext, - $visit.getDistanceTo(vehicle));
-end
-
-
-// ############################################################################
-// TimeWindowed: additional hard constraints
-// ############################################################################
-
-rule "arrivalAfterDueTime"
-    when
-        TimeWindowedVisit(dueTime < arrivalTime, $dueTime : dueTime, $arrivalTime : arrivalTime)
-    then
-        scoreHolder.addHardConstraintMatch(kcontext, $dueTime - $arrivalTime.longValue());
-end
-
-// Score constraint arrivalAfterDueTimeAtDepot is a built-in hard constraint in VehicleRoutingImporter
-
-
 // ############################################################################
 // The bad way? of enforcing delivery after pickup, through rules
 // ############################################################################

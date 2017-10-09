@@ -7,12 +7,8 @@
   <entityClass>org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedVisit</entityClass>
 
   <scoreDirectorFactory>
-    <!--<easyScoreCalculatorClass>org.optaplanner.examples.vehiclerouting.solver.score.VehicleRoutingEasyScoreCalculator</easyScoreCalculatorClass>-->
-    <!--<incrementalScoreCalculatorClass>org.optaplanner.examples.vehiclerouting.solver.score.VehicleRoutingIncrementalScoreCalculator</incrementalScoreCalculatorClass>-->
-    <scoreDrl>org/optaplanner/examples/vehiclerouting/solver/vehicleRoutingScoreRules.drl</scoreDrl>
-    <!--<assertionScoreDirectorFactory>-->
-      <!--<easyScoreCalculatorClass>org.optaplanner.examples.vehiclerouting.solver.score.VehicleRoutingEasyScoreCalculator</easyScoreCalculatorClass>-->
-    <!--</assertionScoreDirectorFactory>-->
+    <scoreDrl>org/optaplanner/examples/vehiclerouting/solver/baseVehicleRoutingScoreRules.drl</scoreDrl>
+    <scoreDrl>org/optaplanner/examples/vehiclerouting/solver/mixedByConstraintsVehicleRoutingScoreRules.drl</scoreDrl>
     <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
   </scoreDirectorFactory>
 

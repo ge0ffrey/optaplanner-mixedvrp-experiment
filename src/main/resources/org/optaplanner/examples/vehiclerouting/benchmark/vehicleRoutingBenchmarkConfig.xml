@@ -123,8 +123,8 @@
       <entityClass>org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedVisit</entityClass>
 
       <scoreDirectorFactory>
-        <incrementalScoreCalculatorClass>org.optaplanner.examples.vehiclerouting.solver.score.VehicleRoutingIncrementalScoreCalculator</incrementalScoreCalculatorClass>
-        <!--<scoreDrl>org/optaplanner/examples/vehiclerouting/solver/vehicleRoutingScoreRules.drl</scoreDrl>-->
+        <scoreDrl>org/optaplanner/examples/vehiclerouting/solver/baseVehicleRoutingScoreRules.drl</scoreDrl>
+        <scoreDrl>org/optaplanner/examples/vehiclerouting/solver/mixedByConstraintsVehicleRoutingScoreRules.drl</scoreDrl>
         <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
       </scoreDirectorFactory>
 
