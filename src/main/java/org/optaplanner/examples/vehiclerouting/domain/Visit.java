@@ -29,7 +29,6 @@ import org.optaplanner.examples.vehiclerouting.domain.location.Location;
 import org.optaplanner.examples.vehiclerouting.domain.solver.DepotAngleCustomerDifficultyWeightFactory;
 import org.optaplanner.examples.vehiclerouting.domain.solver.VisitIndexUpdatingVariableListener;
 import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedVisit;
-import org.optaplanner.examples.vehiclerouting.domain.timewindowed.solver.ArrivalTimeUpdatingVariableListener;
 
 @PlanningEntity(difficultyWeightFactoryClass = DepotAngleCustomerDifficultyWeightFactory.class)
 @XStreamAlias("VrpVisit")
@@ -40,7 +39,7 @@ public class Visit extends AbstractPersistable implements Standstill {
 
     protected VisitType visitType;
     protected Location location;
-    protected Shipment shipment;
+    protected Ride ride;
 
     // Planning variables: changes during planning, between score calculations.
     protected Standstill previousStandstill;
@@ -67,16 +66,16 @@ public class Visit extends AbstractPersistable implements Standstill {
         this.location = location;
     }
 
-    public int getShipmentSize() {
-        return shipment.getSize();
+    public int getRideSize() {
+        return ride.getSize();
     }
 
-    public Shipment getShipment() {
-        return shipment;
+    public Ride getRide() {
+        return ride;
     }
 
-    public void setShipment(Shipment shipment) {
-        this.shipment = shipment;
+    public void setRide(Ride ride) {
+        this.ride = ride;
     }
 
     @PlanningVariable(valueRangeProviderRefs = {"vehicleRange", "customerRange"},

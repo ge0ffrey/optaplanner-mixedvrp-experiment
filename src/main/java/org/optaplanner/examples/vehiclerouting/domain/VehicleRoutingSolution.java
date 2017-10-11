@@ -48,7 +48,7 @@ public class VehicleRoutingSolution extends AbstractPersistable {
     protected List<Depot> depotList;
     protected List<Vehicle> vehicleList;
 
-    protected List<Shipment> shipmentList;
+    protected List<Ride> rideList;
     protected List<Visit> visitList;
 
     @XStreamConverter(HardSoftLongScoreXStreamConverter.class)
@@ -107,12 +107,12 @@ public class VehicleRoutingSolution extends AbstractPersistable {
     }
 
     @ProblemFactCollectionProperty
-    public List<Shipment> getShipmentList() {
-        return shipmentList;
+    public List<Ride> getRideList() {
+        return rideList;
     }
 
-    public void setShipmentList(List<Shipment> shipmentList) {
-        this.shipmentList = shipmentList;
+    public void setRideList(List<Ride> rideList) {
+        this.rideList = rideList;
     }
 
     @PlanningEntityCollectionProperty

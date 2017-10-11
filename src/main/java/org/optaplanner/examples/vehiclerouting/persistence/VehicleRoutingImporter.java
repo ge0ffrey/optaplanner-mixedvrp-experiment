@@ -25,7 +25,7 @@ import java.util.Map;
 
 import org.apache.commons.io.FilenameUtils;
 import org.optaplanner.examples.common.persistence.AbstractTxtSolutionImporter;
-import org.optaplanner.examples.vehiclerouting.domain.Shipment;
+import org.optaplanner.examples.vehiclerouting.domain.Ride;
 import org.optaplanner.examples.vehiclerouting.domain.Visit;
 import org.optaplanner.examples.vehiclerouting.domain.Depot;
 import org.optaplanner.examples.vehiclerouting.domain.Vehicle;
@@ -302,7 +302,7 @@ public class VehicleRoutingImporter extends AbstractTxtSolutionImporter<VehicleR
             readConstantLine("DEMAND_SECTION");
             depotList = new ArrayList<>(customerListSize);
             List<Visit> visitList = new ArrayList<>(customerListSize);
-            List<Shipment> shipmentList = new ArrayList<>((customerListSize + 1) / 2);
+            List<Ride> rideList = new ArrayList<>((customerListSize + 1) / 2);
             Visit pickupVisit = null;
             for (int i = 0; i < customerListSize; i++) {
                 String line = bufferedReader.readLine();
@@ -346,15 +346,15 @@ public class VehicleRoutingImporter extends AbstractTxtSolutionImporter<VehicleR
                         timeWindowedCustomer.setServiceDuration(Long.parseLong(lineTokens[4]));
                     }
                     if (pickupVisit == null) {
-                        Shipment shipment = new Shipment();
-                        shipment.setId(id); // Reuse
-                        shipment.setSize(demand);
-                        visit.setShipment(shipment);
+                        Ride ride = new Ride();
+                        ride.setId(id); // Reuse
+                        ride.setSize(demand);
+                        visit.setRide(ride);
                         pickupVisit = visit;
                     } else {
-                        Shipment shipment = pickupVisit.getShipment();
-                        visit.setShipment(shipment);
-                        shipment.setSize((shipment.getSize() + demand + 1) / 2);
+                        Ride ride = pickupVisit.getRide();
+                        visit.setRide(ride);
+                        ride.setSize((ride.getSize() + demand + 1) / 2);
                         Visit deliveryVisit;
                         if (timewindowed
                                 && ((TimeWindowedVisit) pickupVisit).getDueTime() > ((TimeWindowedVisit) visit).getDueTime()) {
@@ -364,11 +364,11 @@ public class VehicleRoutingImporter extends AbstractTxtSolutionImporter<VehicleR
                             deliveryVisit = visit;
                         }
                         pickupVisit.setVisitType(VisitType.PICKUP);
-                        shipment.setPickupVisit(pickupVisit);
+                        ride.setPickupVisit(pickupVisit);
                         deliveryVisit.setVisitType(VisitType.DELIVERY);
-                        shipment.setDeliveryVisit(deliveryVisit);
-                        // with uneven customers, only add shipment and visits if there is a pickup and delivery
-                        shipmentList.add(shipment);
+                        ride.setDeliveryVisit(deliveryVisit);
+                        // with uneven customers, only add ride and visits if there is a pickup and delivery
+                        rideList.add(ride);
                         visitList.add(pickupVisit);
                         visitList.add(deliveryVisit);
                         pickupVisit = null;
@@ -376,7 +376,7 @@ public class VehicleRoutingImporter extends AbstractTxtSolutionImporter<VehicleR
 
                 }
             }
-            solution.setShipmentList(shipmentList);
+            solution.setRideList(rideList);
             solution.setVisitList(visitList);
             solution.setDepotList(depotList);
         }

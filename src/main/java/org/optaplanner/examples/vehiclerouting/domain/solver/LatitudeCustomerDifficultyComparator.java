@@ -32,7 +32,7 @@ public class LatitudeCustomerDifficultyComparator implements Comparator<Visit>, 
         return new CompareToBuilder()
                 .append(a.getLocation().getLatitude(), b.getLocation().getLatitude())
                 .append(a.getLocation().getLongitude(), b.getLocation().getLongitude())
-                .append(a.getShipmentSize(), b.getShipmentSize())
+                .append(a.getRideSize(), b.getRideSize())
                 .append(a.getId(), b.getId())
                 .toComparison();
     }

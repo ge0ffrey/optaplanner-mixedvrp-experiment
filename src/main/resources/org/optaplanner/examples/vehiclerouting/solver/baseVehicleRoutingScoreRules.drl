@@ -23,7 +23,7 @@ import org.optaplanner.examples.vehiclerouting.domain.Depot;
 import org.optaplanner.examples.vehiclerouting.domain.location.Location;
 import org.optaplanner.examples.vehiclerouting.domain.Vehicle;
 import org.optaplanner.examples.vehiclerouting.domain.VehicleRoutingSolution;
-import org.optaplanner.examples.vehiclerouting.domain.Shipment
+import org.optaplanner.examples.vehiclerouting.domain.Ride
 import org.optaplanner.examples.vehiclerouting.domain.Visit;
 import org.optaplanner.examples.vehiclerouting.domain.VisitType;
 import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedDepot;
@@ -43,12 +43,12 @@ rule "vehicleCapacity"
         accumulate(
             Visit(
                 vehicle == $vehicle,
-                $shipmentSize : shipmentSize);
-            $shipmentSizeTotal : sum($shipmentSize);
-            $shipmentSizeTotal > $capacity
+                $rideSize : rideSize);
+            $rideSizeTotal : sum($rideSize);
+            $rideSizeTotal > $capacity
         )
     then
-        scoreHolder.addHardConstraintMatch(kcontext, $capacity - $shipmentSizeTotal);
+        scoreHolder.addHardConstraintMatch(kcontext, $capacity - $rideSizeTotal);
 end
 
 // ############################################################################

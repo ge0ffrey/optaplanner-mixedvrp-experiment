@@ -393,568 +393,568 @@
       <depot reference="76"/>
     </VrpVehicle>
   </vehicleList>
-  <shipmentList id="82">
-    <org.optaplanner.examples.vehiclerouting.domain.Shipment id="83">
+  <rideList id="82">
+    <org.optaplanner.examples.vehiclerouting.domain.Ride id="83">
       <id>2</id>
       <pickupVisit id="84">
         <id>2</id>
         <visitType>PICKUP</visitType>
         <location class="VrpAirLocation" reference="4"/>
-        <shipment reference="83"/>
+        <ride reference="83"/>
       </pickupVisit>
       <deliveryVisit id="85">
         <id>3</id>
         <visitType>DELIVERY</visitType>
         <location class="VrpAirLocation" reference="5"/>
-        <shipment reference="83"/>
+        <ride reference="83"/>
       </deliveryVisit>
       <size>3557</size>
-    </org.optaplanner.examples.vehiclerouting.domain.Shipment>
-    <org.optaplanner.examples.vehiclerouting.domain.Shipment id="86">
+    </org.optaplanner.examples.vehiclerouting.domain.Ride>
+    <org.optaplanner.examples.vehiclerouting.domain.Ride id="86">
       <id>4</id>
       <pickupVisit id="87">
         <id>4</id>
         <visitType>PICKUP</visitType>
         <location class="VrpAirLocation" reference="6"/>
-        <shipment reference="86"/>
+        <ride reference="86"/>
       </pickupVisit>
       <deliveryVisit id="88">
         <id>5</id>
         <visitType>DELIVERY</visitType>
         <location class="VrpAirLocation" reference="7"/>
-        <shipment reference="86"/>
+        <ride reference="86"/>
       </deliveryVisit>
       <size>1549</size>
-    </org.optaplanner.examples.vehiclerouting.domain.Shipment>
-    <org.optaplanner.examples.vehiclerouting.domain.Shipment id="89">
+    </org.optaplanner.examples.vehiclerouting.domain.Ride>
+    <org.optaplanner.examples.vehiclerouting.domain.Ride id="89">
       <id>6</id>
       <pickupVisit id="90">
         <id>6</id>
         <visitType>PICKUP</visitType>
         <location class="VrpAirLocation" reference="8"/>
-        <shipment reference="89"/>
+        <ride reference="89"/>
       </pickupVisit>
       <deliveryVisit id="91">
         <id>7</id>
         <visitType>DELIVERY</visitType>
         <location class="VrpAirLocation" reference="9"/>
-        <shipment reference="89"/>
+        <ride reference="89"/>
       </deliveryVisit>
       <size>698</size>
-    </org.optaplanner.examples.vehiclerouting.domain.Shipment>
-    <org.optaplanner.examples.vehiclerouting.domain.Shipment id="92">
+    </org.optaplanner.examples.vehiclerouting.domain.Ride>
+    <org.optaplanner.examples.vehiclerouting.domain.Ride id="92">
       <id>8</id>
       <pickupVisit id="93">
         <id>8</id>
         <visitType>PICKUP</visitType>
         <location class="VrpAirLocation" reference="10"/>
-        <shipment reference="92"/>
+        <ride reference="92"/>
       </pickupVisit>
       <deliveryVisit id="94">
         <id>9</id>
         <visitType>DELIVERY</visitType>
         <location class="VrpAirLocation" reference="11"/>
-        <shipment reference="92"/>
+        <ride reference="92"/>
       </deliveryVisit>
       <size>1850</size>
-    </org.optaplanner.examples.vehiclerouting.domain.Shipment>
-    <org.optaplanner.examples.vehiclerouting.domain.Shipment id="95">
+    </org.optaplanner.examples.vehiclerouting.domain.Ride>
+    <org.optaplanner.examples.vehiclerouting.domain.Ride id="95">
       <id>10</id>
       <pickupVisit id="96">
         <id>10</id>
         <visitType>PICKUP</visitType>
         <location class="VrpAirLocation" reference="12"/>
-        <shipment reference="95"/>
+        <ride reference="95"/>
       </pickupVisit>
       <deliveryVisit id="97">
         <id>11</id>
         <visitType>DELIVERY</visitType>
         <location class="VrpAirLocation" reference="13"/>
-        <shipment reference="95"/>
+        <ride reference="95"/>
       </deliveryVisit>
       <size>583</size>
-    </org.optaplanner.examples.vehiclerouting.domain.Shipment>
-    <org.optaplanner.examples.vehiclerouting.domain.Shipment id="98">
+    </org.optaplanner.examples.vehiclerouting.domain.Ride>
+    <org.optaplanner.examples.vehiclerouting.domain.Ride id="98">
       <id>12</id>
       <pickupVisit id="99">
         <id>12</id>
         <visitType>PICKUP</visitType>
         <location class="VrpAirLocation" reference="14"/>
-        <shipment reference="98"/>
+        <ride reference="98"/>
       </pickupVisit>
       <deliveryVisit id="100">
         <id>13</id>
         <visitType>DELIVERY</visitType>
         <location class="VrpAirLocation" reference="15"/>
-        <shipment reference="98"/>
+        <ride reference="98"/>
       </deliveryVisit>
       <size>10834</size>
-    </org.optaplanner.examples.vehiclerouting.domain.Shipment>
-    <org.optaplanner.examples.vehiclerouting.domain.Shipment id="101">
+    </org.optaplanner.examples.vehiclerouting.domain.Ride>
+    <org.optaplanner.examples.vehiclerouting.domain.Ride id="101">
       <id>14</id>
       <pickupVisit id="102">
         <id>14</id>
         <visitType>PICKUP</visitType>
         <location class="VrpAirLocation" reference="16"/>
-        <shipment reference="101"/>
+        <ride reference="101"/>
       </pickupVisit>
       <deliveryVisit id="103">
         <id>15</id>
         <visitType>DELIVERY</visitType>
         <location class="VrpAirLocation" reference="17"/>
-        <shipment reference="101"/>
+        <ride reference="101"/>
       </deliveryVisit>
       <size>301</size>
-    </org.optaplanner.examples.vehiclerouting.domain.Shipment>
-    <org.optaplanner.examples.vehiclerouting.domain.Shipment id="104">
+    </org.optaplanner.examples.vehiclerouting.domain.Ride>
+    <org.optaplanner.examples.vehiclerouting.domain.Ride id="104">
       <id>16</id>
       <pickupVisit id="105">
         <id>16</id>
         <visitType>PICKUP</visitType>
         <location class="VrpAirLocation" reference="18"/>
-        <shipment reference="104"/>
+        <ride reference="104"/>
       </pickupVisit>
       <deliveryVisit id="106">
         <id>17</id>
         <visitType>DELIVERY</visitType>
         <location class="VrpAirLocation" reference="19"/>
-        <shipment reference="104"/>
+        <ride reference="104"/>
       </deliveryVisit>
       <size>93</size>
-    </org.optaplanner.examples.vehiclerouting.domain.Shipment>
-    <org.optaplanner.examples.vehiclerouting.domain.Shipment id="107">
+    </org.optaplanner.examples.vehiclerouting.domain.Ride>
+    <org.optaplanner.examples.vehiclerouting.domain.Ride id="107">
       <id>18</id>
       <pickupVisit id="108">
         <id>18</id>
         <visitType>PICKUP</visitType>
         <location class="VrpAirLocation" reference="20"/>
-        <shipment reference="107"/>
+        <ride reference="107"/>
       </pickupVisit>
       <deliveryVisit id="109">
         <id>19</id>
         <visitType>DELIVERY</visitType>
         <location class="VrpAirLocation" reference="21"/>
-        <shipment reference="107"/>
+        <ride reference="107"/>
       </deliveryVisit>
       <size>1680</size>
-    </org.optaplanner.examples.vehiclerouting.domain.Shipment>
-    <org.optaplanner.examples.vehiclerouting.domain.Shipment id="110">
+    </org.optaplanner.examples.vehiclerouting.domain.Ride>
+    <org.optaplanner.examples.vehiclerouting.domain.Ride id="110">
       <id>20</id>
       <pickupVisit id="111">
         <id>20</id>
         <visitType>PICKUP</visitType>
         <location class="VrpAirLocation" reference="22"/>
-        <shipment reference="110"/>
+        <ride reference="110"/>
       </pickupVisit>
       <deliveryVisit id="112">
         <id>21</id>
         <visitType>DELIVERY</visitType>
         <location class="VrpAirLocation" reference="23"/>
-        <shipment reference="110"/>
+        <ride reference="110"/>
       </deliveryVisit>
       <size>1202</size>
-    </org.optaplanner.examples.vehiclerouting.domain.Shipment>
-    <org.optaplanner.examples.vehiclerouting.domain.Shipment id="113">
+    </org.optaplanner.examples.vehiclerouting.domain.Ride>
+    <org.optaplanner.examples.vehiclerouting.domain.Ride id="113">
       <id>22</id>
       <pickupVisit id="114">
         <id>22</id>
         <visitType>PICKUP</visitType>
         <location class="VrpAirLocation" reference="24"/>
-        <shipment reference="113"/>
+        <ride reference="113"/>
       </pickupVisit>
       <deliveryVisit id="115">
         <id>23</id>
         <visitType>DELIVERY</visitType>
         <location class="VrpAirLocation" reference="25"/>
-        <shipment reference="113"/>
+        <ride reference="113"/>
       </deliveryVisit>
       <size>1885</size>
-    </org.optaplanner.examples.vehiclerouting.domain.Shipment>
-    <org.optaplanner.examples.vehiclerouting.domain.Shipment id="116">
+    </org.optaplanner.examples.vehiclerouting.domain.Ride>
+    <org.optaplanner.examples.vehiclerouting.domain.Ride id="116">
       <id>24</id>
       <pickupVisit id="117">
         <id>24</id>
         <visitType>PICKUP</visitType>
         <location class="VrpAirLocation" reference="26"/>
-        <shipment reference="116"/>
+        <ride reference="116"/>
       </pickupVisit>
       <deliveryVisit id="118">
         <id>25</id>
         <visitType>DELIVERY</visitType>
         <location class="VrpAirLocation" reference="27"/>
-        <shipment reference="116"/>
+        <ride reference="116"/>
       </deliveryVisit>
       <size>2430</size>
-    </org.optaplanner.examples.vehiclerouting.domain.Shipment>
-    <org.optaplanner.examples.vehiclerouting.domain.Shipment id="119">
+    </org.optaplanner.examples.vehiclerouting.domain.Ride>
+    <org.optaplanner.examples.vehiclerouting.domain.Ride id="119">
       <id>26</id>
       <pickupVisit id="120">
         <id>26</id>
         <visitType>PICKUP</visitType>
         <location class="VrpAirLocation" reference="28"/>
-        <shipment reference="119"/>
+        <ride reference="119"/>
       </pickupVisit>
       <deliveryVisit id="121">
         <id>27</id>
         <visitType>DELIVERY</visitType>
         <location class="VrpAirLocation" reference="29"/>
-        <shipment reference="119"/>
+        <ride reference="119"/>
       </deliveryVisit>
       <size>784</size>
-    </org.optaplanner.examples.vehiclerouting.domain.Shipment>
-    <org.optaplanner.examples.vehiclerouting.domain.Shipment id="122">
+    </org.optaplanner.examples.vehiclerouting.domain.Ride>
+    <org.optaplanner.examples.vehiclerouting.domain.Ride id="122">
       <id>28</id>
       <pickupVisit id="123">
         <id>28</id>
         <visitType>PICKUP</visitType>
         <location class="VrpAirLocation" reference="30"/>
-        <shipment reference="122"/>
+        <ride reference="122"/>
       </pickupVisit>
       <deliveryVisit id="124">
         <id>29</id>
         <visitType>DELIVERY</visitType>
         <location class="VrpAirLocation" reference="31"/>
-        <shipment reference="122"/>
+        <ride reference="122"/>
       </deliveryVisit>
       <size>1137</size>
-    </org.optaplanner.examples.vehiclerouting.domain.Shipment>
-    <org.optaplanner.examples.vehiclerouting.domain.Shipment id="125">
+    </org.optaplanner.examples.vehiclerouting.domain.Ride>
+    <org.optaplanner.examples.vehiclerouting.domain.Ride id="125">
       <id>30</id>
       <pickupVisit id="126">
         <id>30</id>
         <visitType>PICKUP</visitType>
         <location class="VrpAirLocation" reference="32"/>
-        <shipment reference="125"/>
+        <ride reference="125"/>
       </pickupVisit>
       <deliveryVisit id="127">
         <id>31</id>
         <visitType>DELIVERY</visitType>
         <location class="VrpAirLocation" reference="33"/>
-        <shipment reference="125"/>
+        <ride reference="125"/>
       </deliveryVisit>
       <size>866</size>
-    </org.optaplanner.examples.vehiclerouting.domain.Shipment>
-    <org.optaplanner.examples.vehiclerouting.domain.Shipment id="128">
+    </org.optaplanner.examples.vehiclerouting.domain.Ride>
+    <org.optaplanner.examples.vehiclerouting.domain.Ride id="128">
       <id>32</id>
       <pickupVisit id="129">
         <id>32</id>
         <visitType>PICKUP</visitType>
         <location class="VrpAirLocation" reference="34"/>
-        <shipment reference="128"/>
+        <ride reference="128"/>
       </pickupVisit>
       <deliveryVisit id="130">
         <id>33</id>
         <visitType>DELIVERY</visitType>
         <location class="VrpAirLocation" reference="35"/>
-        <shipment reference="128"/>
+        <ride reference="128"/>
       </deliveryVisit>
       <size>1286</size>
-    </org.optaplanner.examples.vehiclerouting.domain.Shipment>
-    <org.optaplanner.examples.vehiclerouting.domain.Shipment id="131">
+    </org.optaplanner.examples.vehiclerouting.domain.Ride>
+    <org.optaplanner.examples.vehiclerouting.domain.Ride id="131">
       <id>34</id>
       <pickupVisit id="132">
         <id>34</id>
         <visitType>PICKUP</visitType>
         <location class="VrpAirLocation" reference="36"/>
-        <shipment reference="131"/>
+        <ride reference="131"/>
       </pickupVisit>
       <deliveryVisit id="133">
         <id>35</id>
         <visitType>DELIVERY</visitType>
         <location class="VrpAirLocation" reference="37"/>
-        <shipment reference="131"/>
+        <ride reference="131"/>
       </deliveryVisit>
       <size>5132</size>
-    </org.optaplanner.examples.vehiclerouting.domain.Shipment>
-    <org.optaplanner.examples.vehiclerouting.domain.Shipment id="134">
+    </org.optaplanner.examples.vehiclerouting.domain.Ride>
+    <org.optaplanner.examples.vehiclerouting.domain.Ride id="134">
       <id>36</id>
       <pickupVisit id="135">
         <id>36</id>
         <visitType>PICKUP</visitType>
         <location class="VrpAirLocation" reference="38"/>
-        <shipment reference="134"/>
+        <ride reference="134"/>
       </pickupVisit>
       <deliveryVisit id="136">
         <id>37</id>
         <visitType>DELIVERY</visitType>
         <location class="VrpAirLocation" reference="39"/>
-        <shipment reference="134"/>
+        <ride reference="134"/>
       </deliveryVisit>
       <size>1672</size>
-    </org.optaplanner.examples.vehiclerouting.domain.Shipment>
-    <org.optaplanner.examples.vehiclerouting.domain.Shipment id="137">
+    </org.optaplanner.examples.vehiclerouting.domain.Ride>
+    <org.optaplanner.examples.vehiclerouting.domain.Ride id="137">
       <id>38</id>
       <pickupVisit id="138">
         <id>38</id>
         <visitType>PICKUP</visitType>
         <location class="VrpAirLocation" reference="40"/>
-        <shipment reference="137"/>
+        <ride reference="137"/>
       </pickupVisit>
       <deliveryVisit id="139">
         <id>39</id>
         <visitType>DELIVERY</visitType>
         <location class="VrpAirLocation" reference="41"/>
-        <shipment reference="137"/>
+        <ride reference="137"/>
       </deliveryVisit>
       <size>309</size>
-    </org.optaplanner.examples.vehiclerouting.domain.Shipment>
-    <org.optaplanner.examples.vehiclerouting.domain.Shipment id="140">
+    </org.optaplanner.examples.vehiclerouting.domain.Ride>
+    <org.optaplanner.examples.vehiclerouting.domain.Ride id="140">
       <id>40</id>
       <pickupVisit id="141">
         <id>40</id>
         <visitType>PICKUP</visitType>
         <location class="VrpAirLocation" reference="42"/>
-        <shipment reference="140"/>
+        <ride reference="140"/>
       </pickupVisit>
       <deliveryVisit id="142">
         <id>41</id>
         <visitType>DELIVERY</visitType>
         <location class="VrpAirLocation" reference="43"/>
-        <shipment reference="140"/>
+        <ride reference="140"/>
       </deliveryVisit>
       <size>759</size>
-    </org.optaplanner.examples.vehiclerouting.domain.Shipment>
-    <org.optaplanner.examples.vehiclerouting.domain.Shipment id="143">
+    </org.optaplanner.examples.vehiclerouting.domain.Ride>
+    <org.optaplanner.examples.vehiclerouting.domain.Ride id="143">
       <id>42</id>
       <pickupVisit id="144">
         <id>42</id>
         <visitType>PICKUP</visitType>
         <location class="VrpAirLocation" reference="44"/>
-        <shipment reference="143"/>
+        <ride reference="143"/>
       </pickupVisit>
       <deliveryVisit id="145">
         <id>43</id>
         <visitType>DELIVERY</visitType>
         <location class="VrpAirLocation" reference="45"/>
-        <shipment reference="143"/>
+        <ride reference="143"/>
       </deliveryVisit>
       <size>82</size>
-    </org.optaplanner.examples.vehiclerouting.domain.Shipment>
-    <org.optaplanner.examples.vehiclerouting.domain.Shipment id="146">
+    </org.optaplanner.examples.vehiclerouting.domain.Ride>
+    <org.optaplanner.examples.vehiclerouting.domain.Ride id="146">
       <id>44</id>
       <pickupVisit id="147">
         <id>44</id>
         <visitType>PICKUP</visitType>
         <location class="VrpAirLocation" reference="46"/>
-        <shipment reference="146"/>
+        <ride reference="146"/>
       </pickupVisit>
       <deliveryVisit id="148">
         <id>45</id>
         <visitType>DELIVERY</visitType>
         <location class="VrpAirLocation" reference="47"/>
-        <shipment reference="146"/>
+        <ride reference="146"/>
       </deliveryVisit>
       <size>13</size>
-    </org.optaplanner.examples.vehiclerouting.domain.Shipment>
-    <org.optaplanner.examples.vehiclerouting.domain.Shipment id="149">
+    </org.optaplanner.examples.vehiclerouting.domain.Ride>
+    <org.optaplanner.examples.vehiclerouting.domain.Ride id="149">
       <id>46</id>
       <pickupVisit id="150">
         <id>46</id>
         <visitType>PICKUP</visitType>
         <location class="VrpAirLocation" reference="48"/>
-        <shipment reference="149"/>
+        <ride reference="149"/>
       </pickupVisit>
       <deliveryVisit id="151">
         <id>47</id>
         <visitType>DELIVERY</visitType>
         <location class="VrpAirLocation" reference="49"/>
-        <shipment reference="149"/>
+        <ride reference="149"/>
       </deliveryVisit>
       <size>1219</size>
-    </org.optaplanner.examples.vehiclerouting.domain.Shipment>
-    <org.optaplanner.examples.vehiclerouting.domain.Shipment id="152">
+    </org.optaplanner.examples.vehiclerouting.domain.Ride>
+    <org.optaplanner.examples.vehiclerouting.domain.Ride id="152">
       <id>48</id>
       <pickupVisit id="153">
         <id>48</id>
         <visitType>PICKUP</visitType>
         <location class="VrpAirLocation" reference="50"/>
-        <shipment reference="152"/>
+        <ride reference="152"/>
       </pickupVisit>
       <deliveryVisit id="154">
         <id>49</id>
         <visitType>DELIVERY</visitType>
         <location class="VrpAirLocation" reference="51"/>
-        <shipment reference="152"/>
+        <ride reference="152"/>
       </deliveryVisit>
       <size>2172</size>
-    </org.optaplanner.examples.vehiclerouting.domain.Shipment>
-    <org.optaplanner.examples.vehiclerouting.domain.Shipment id="155">
+    </org.optaplanner.examples.vehiclerouting.domain.Ride>
+    <org.optaplanner.examples.vehiclerouting.domain.Ride id="155">
       <id>50</id>
       <pickupVisit id="156">
         <id>50</id>
         <visitType>PICKUP</visitType>
         <location class="VrpAirLocation" reference="52"/>
-        <shipment reference="155"/>
+        <ride reference="155"/>
       </pickupVisit>
       <deliveryVisit id="157">
         <id>51</id>
         <visitType>DELIVERY</visitType>
         <location class="VrpAirLocation" reference="53"/>
-        <shipment reference="155"/>
+        <ride reference="155"/>
       </deliveryVisit>
       <size>515</size>
-    </org.optaplanner.examples.vehiclerouting.domain.Shipment>
-    <org.optaplanner.examples.vehiclerouting.domain.Shipment id="158">
+    </org.optaplanner.examples.vehiclerouting.domain.Ride>
+    <org.optaplanner.examples.vehiclerouting.domain.Ride id="158">
       <id>52</id>
       <pickupVisit id="159">
         <id>52</id>
         <visitType>PICKUP</visitType>
         <location class="VrpAirLocation" reference="54"/>
-        <shipment reference="158"/>
+        <ride reference="158"/>
       </pickupVisit>
       <deliveryVisit id="160">
         <id>53</id>
         <visitType>DELIVERY</visitType>
         <location class="VrpAirLocation" reference="55"/>
-        <shipment reference="158"/>
+        <ride reference="158"/>
       </deliveryVisit>
       <size>798</size>
-    </org.optaplanner.examples.vehiclerouting.domain.Shipment>
-    <org.optaplanner.examples.vehiclerouting.domain.Shipment id="161">
+    </org.optaplanner.examples.vehiclerouting.domain.Ride>
+    <org.optaplanner.examples.vehiclerouting.domain.Ride id="161">
       <id>54</id>
       <pickupVisit id="162">
         <id>54</id>
         <visitType>PICKUP</visitType>
         <location class="VrpAirLocation" reference="56"/>
-        <shipment reference="161"/>
+        <ride reference="161"/>
       </pickupVisit>
       <deliveryVisit id="163">
         <id>55</id>
         <visitType>DELIVERY</visitType>
         <location class="VrpAirLocation" reference="57"/>
-        <shipment reference="161"/>
+        <ride reference="161"/>
       </deliveryVisit>
       <size>8</size>
-    </org.optaplanner.examples.vehiclerouting.domain.Shipment>
-    <org.optaplanner.examples.vehiclerouting.domain.Shipment id="164">
+    </org.optaplanner.examples.vehiclerouting.domain.Ride>
+    <org.optaplanner.examples.vehiclerouting.domain.Ride id="164">
       <id>56</id>
       <pickupVisit id="165">
         <id>56</id>
         <visitType>PICKUP</visitType>
         <location class="VrpAirLocation" reference="58"/>
-        <shipment reference="164"/>
+        <ride reference="164"/>
       </pickupVisit>
       <deliveryVisit id="166">
         <id>57</id>
         <visitType>DELIVERY</visitType>
         <location class="VrpAirLocation" reference="59"/>
-        <shipment reference="164"/>
+        <ride reference="164"/>
       </deliveryVisit>
       <size>3647</size>
-    </org.optaplanner.examples.vehiclerouting.domain.Shipment>
-    <org.optaplanner.examples.vehiclerouting.domain.Shipment id="167">
+    </org.optaplanner.examples.vehiclerouting.domain.Ride>
+    <org.optaplanner.examples.vehiclerouting.domain.Ride id="167">
       <id>58</id>
       <pickupVisit id="168">
         <id>58</id>
         <visitType>PICKUP</visitType>
         <location class="VrpAirLocation" reference="60"/>
-        <shipment reference="167"/>
+        <ride reference="167"/>
       </pickupVisit>
       <deliveryVisit id="169">
         <id>59</id>
         <visitType>DELIVERY</visitType>
         <location class="VrpAirLocation" reference="61"/>
-        <shipment reference="167"/>
+        <ride reference="167"/>
       </deliveryVisit>
       <size>1317</size>
-    </org.optaplanner.examples.vehiclerouting.domain.Shipment>
-    <org.optaplanner.examples.vehiclerouting.domain.Shipment id="170">
+    </org.optaplanner.examples.vehiclerouting.domain.Ride>
+    <org.optaplanner.examples.vehiclerouting.domain.Ride id="170">
       <id>60</id>
       <pickupVisit id="171">
         <id>60</id>
         <visitType>PICKUP</visitType>
         <location class="VrpAirLocation" reference="62"/>
-        <shipment reference="170"/>
+        <ride reference="170"/>
       </pickupVisit>
       <deliveryVisit id="172">
         <id>61</id>
         <visitType>DELIVERY</visitType>
         <location class="VrpAirLocation" reference="63"/>
-        <shipment reference="170"/>
+        <ride reference="170"/>
       </deliveryVisit>
       <size>1041</size>
-    </org.optaplanner.examples.vehiclerouting.domain.Shipment>
-    <org.optaplanner.examples.vehiclerouting.domain.Shipment id="173">
+    </org.optaplanner.examples.vehiclerouting.domain.Ride>
+    <org.optaplanner.examples.vehiclerouting.domain.Ride id="173">
       <id>62</id>
       <pickupVisit id="174">
         <id>62</id>
         <visitType>PICKUP</visitType>
         <location class="VrpAirLocation" reference="64"/>
-        <shipment reference="173"/>
+        <ride reference="173"/>
       </pickupVisit>
       <deliveryVisit id="175">
         <id>63</id>
         <visitType>DELIVERY</visitType>
         <location class="VrpAirLocation" reference="65"/>
-        <shipment reference="173"/>
+        <ride reference="173"/>
       </deliveryVisit>
       <size>2058</size>
-    </org.optaplanner.examples.vehiclerouting.domain.Shipment>
-    <org.optaplanner.examples.vehiclerouting.domain.Shipment id="176">
+    </org.optaplanner.examples.vehiclerouting.domain.Ride>
+    <org.optaplanner.examples.vehiclerouting.domain.Ride id="176">
       <id>64</id>
       <pickupVisit id="177">
         <id>64</id>
         <visitType>PICKUP</visitType>
         <location class="VrpAirLocation" reference="66"/>
-        <shipment reference="176"/>
+        <ride reference="176"/>
       </pickupVisit>
       <deliveryVisit id="178">
         <id>65</id>
         <visitType>DELIVERY</visitType>
         <location class="VrpAirLocation" reference="67"/>
-        <shipment reference="176"/>
+        <ride reference="176"/>
       </deliveryVisit>
       <size>243</size>
-    </org.optaplanner.examples.vehiclerouting.domain.Shipment>
-    <org.optaplanner.examples.vehiclerouting.domain.Shipment id="179">
+    </org.optaplanner.examples.vehiclerouting.domain.Ride>
+    <org.optaplanner.examples.vehiclerouting.domain.Ride id="179">
       <id>66</id>
       <pickupVisit id="180">
         <id>66</id>
         <visitType>PICKUP</visitType>
         <location class="VrpAirLocation" reference="68"/>
-        <shipment reference="179"/>
+        <ride reference="179"/>
       </pickupVisit>
       <deliveryVisit id="181">
         <id>67</id>
         <visitType>DELIVERY</visitType>
         <location class="VrpAirLocation" reference="69"/>
-        <shipment reference="179"/>
+        <ride reference="179"/>
       </deliveryVisit>
       <size>1237</size>
-    </org.optaplanner.examples.vehiclerouting.domain.Shipment>
-    <org.optaplanner.examples.vehiclerouting.domain.Shipment id="182">
+    </org.optaplanner.examples.vehiclerouting.domain.Ride>
+    <org.optaplanner.examples.vehiclerouting.domain.Ride id="182">
       <id>68</id>
       <pickupVisit id="183">
         <id>68</id>
         <visitType>PICKUP</visitType>
         <location class="VrpAirLocation" reference="70"/>
-        <shipment reference="182"/>
+        <ride reference="182"/>
       </pickupVisit>
       <deliveryVisit id="184">
         <id>69</id>
         <visitType>DELIVERY</visitType>
         <location class="VrpAirLocation" reference="71"/>
-        <shipment reference="182"/>
+        <ride reference="182"/>
       </deliveryVisit>
       <size>1009</size>
-    </org.optaplanner.examples.vehiclerouting.domain.Shipment>
-    <org.optaplanner.examples.vehiclerouting.domain.Shipment id="185">
+    </org.optaplanner.examples.vehiclerouting.domain.Ride>
+    <org.optaplanner.examples.vehiclerouting.domain.Ride id="185">
       <id>70</id>
       <pickupVisit id="186">
         <id>70</id>
         <visitType>PICKUP</visitType>
         <location class="VrpAirLocation" reference="72"/>
-        <shipment reference="185"/>
+        <ride reference="185"/>
       </pickupVisit>
       <deliveryVisit id="187">
         <id>71</id>
         <visitType>DELIVERY</visitType>
         <location class="VrpAirLocation" reference="73"/>
-        <shipment reference="185"/>
+        <ride reference="185"/>
       </deliveryVisit>
       <size>2236</size>
-    </org.optaplanner.examples.vehiclerouting.domain.Shipment>
-  </shipmentList>
+    </org.optaplanner.examples.vehiclerouting.domain.Ride>
+  </rideList>
   <visitList id="188">
     <VrpVisit reference="84"/>
     <VrpVisit reference="85"/>

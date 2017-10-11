@@ -52,7 +52,7 @@ public class DepotDistanceCustomerDifficultyWeightFactory
         public int compareTo(DepotDistanceCustomerDifficultyWeight other) {
             return new CompareToBuilder()
                     .append(depotRoundTripDistance, other.depotRoundTripDistance) // Ascending (further from the depot are more difficult)
-                    .append(visit.getShipmentSize(), other.visit.getShipmentSize())
+                    .append(visit.getRideSize(), other.visit.getRideSize())
                     .append(visit.getLocation().getLatitude(), other.visit.getLocation().getLatitude())
                     .append(visit.getLocation().getLongitude(), other.visit.getLocation().getLongitude())
                     .append(visit.getId(), other.visit.getId())

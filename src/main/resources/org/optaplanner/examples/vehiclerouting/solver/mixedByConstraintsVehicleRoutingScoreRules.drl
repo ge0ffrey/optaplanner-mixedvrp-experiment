@@ -23,7 +23,7 @@ import org.optaplanner.examples.vehiclerouting.domain.Depot;
 import org.optaplanner.examples.vehiclerouting.domain.location.Location;
 import org.optaplanner.examples.vehiclerouting.domain.Vehicle;
 import org.optaplanner.examples.vehiclerouting.domain.VehicleRoutingSolution;
-import org.optaplanner.examples.vehiclerouting.domain.Shipment
+import org.optaplanner.examples.vehiclerouting.domain.Ride
 import org.optaplanner.examples.vehiclerouting.domain.Visit;
 import org.optaplanner.examples.vehiclerouting.domain.VisitType;
 import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedDepot;
@@ -37,16 +37,16 @@ import org.optaplanner.examples.vehiclerouting.domain.Vehicle;
 
 rule "pickupAndDeliveryBySameVehicle"
     when
-        Visit(visitType == VisitType.PICKUP, $shipment : shipment, $vehicle : vehicle)
-        Visit(shipment == $shipment, visitType == VisitType.DELIVERY, vehicle != $vehicle)
+        Visit(visitType == VisitType.PICKUP, $ride : ride, $vehicle : vehicle)
+        Visit(ride == $ride, visitType == VisitType.DELIVERY, vehicle != $vehicle)
     then
-        scoreHolder.addHardConstraintMatch(kcontext, - $shipment.getSize() * 10);
+        scoreHolder.addHardConstraintMatch(kcontext, - $ride.getSize() * 10);
 end
 
 rule "pickupBeforeDelivery"
     when
-        Visit(visitType == VisitType.PICKUP, $shipment : shipment, $vehicle : vehicle, $pickupVisitIndex : visitIndex)
-        Visit(shipment == $shipment, visitType == VisitType.DELIVERY, vehicle == $vehicle, visitIndex < $pickupVisitIndex, $deliveryVisitIndex : visitIndex)
+        Visit(visitType == VisitType.PICKUP, $ride : ride, $vehicle : vehicle, $pickupVisitIndex : visitIndex)
+        Visit(ride == $ride, visitType == VisitType.DELIVERY, vehicle == $vehicle, visitIndex < $pickupVisitIndex, $deliveryVisitIndex : visitIndex)
     then
         scoreHolder.addHardConstraintMatch(kcontext, - ($pickupVisitIndex - $deliveryVisitIndex));
 end

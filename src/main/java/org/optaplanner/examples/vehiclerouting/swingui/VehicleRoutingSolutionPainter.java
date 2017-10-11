@@ -30,7 +30,7 @@ import javax.swing.ImageIcon;
 import org.apache.commons.lang3.ObjectUtils;
 import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScore;
 import org.optaplanner.examples.common.swingui.latitudelongitude.LatitudeLongitudeTranslator;
-import org.optaplanner.examples.vehiclerouting.domain.Shipment;
+import org.optaplanner.examples.vehiclerouting.domain.Ride;
 import org.optaplanner.examples.vehiclerouting.domain.Visit;
 import org.optaplanner.examples.vehiclerouting.domain.Depot;
 import org.optaplanner.examples.vehiclerouting.domain.Vehicle;
@@ -98,15 +98,15 @@ public class VehicleRoutingSolutionPainter {
         Graphics2D g = createCanvas(width, height);
         g.setFont(g.getFont().deriveFont((float) TEXT_SIZE));
         g.setStroke(TangoColorFactory.NORMAL_STROKE);
-        for (Shipment shipment : solution.getShipmentList()) {
-            Location pickupLocation = shipment.getPickupVisit().getLocation();
-            Location deliveryLocation = shipment.getDeliveryVisit().getLocation();
+        for (Ride ride : solution.getRideList()) {
+            Location pickupLocation = ride.getPickupVisit().getLocation();
+            Location deliveryLocation = ride.getDeliveryVisit().getLocation();
             g.setColor(TangoColorFactory.ALUMINIUM_2);
             translator.drawRoute(g, pickupLocation.getLongitude(), pickupLocation.getLatitude(),
                     deliveryLocation.getLongitude(), deliveryLocation.getLatitude(),
                     deliveryLocation instanceof AirLocation, true);
-            if (ObjectUtils.compare(shipment.getPickupVisit().getVisitIndex(), shipment.getDeliveryVisit().getVisitIndex()) > 0
-                    || !Objects.equals(shipment.getPickupVisit().getVehicle(), shipment.getDeliveryVisit().getVehicle())) {
+            if (ObjectUtils.compare(ride.getPickupVisit().getVisitIndex(), ride.getDeliveryVisit().getVisitIndex()) > 0
+                    || !Objects.equals(ride.getPickupVisit().getVehicle(), ride.getDeliveryVisit().getVehicle())) {
                 int x = translator.translateLongitudeToX(pickupLocation.getLongitude());
                 int y = translator.translateLatitudeToY(pickupLocation.getLatitude());
                 g.setColor(TangoColorFactory.SCARLET_1);
@@ -120,7 +120,7 @@ public class VehicleRoutingSolutionPainter {
             g.setColor(TangoColorFactory.ALUMINIUM_4);
             g.fillRect(x - 1, y - 1, 3, 3);
             String demandString = visit.getVisitType() == VisitType.PICKUP
-                    ? "P" + Integer.toString(visit.getShipmentSize()) : "D";
+                    ? "P" + Integer.toString(visit.getRideSize()) : "D";
             g.drawString(demandString, x - (g.getFontMetrics().stringWidth(demandString) / 2), y - TEXT_SIZE / 2);
             if (visit instanceof TimeWindowedVisit) {
                 TimeWindowedVisit timeWindowedCustomer = (TimeWindowedVisit) visit;
@@ -167,7 +167,7 @@ public class VehicleRoutingSolutionPainter {
             int load = 0;
             for (Visit visit : solution.getVisitList()) {
                 if (visit.getPreviousStandstill() != null && visit.getVehicle() == vehicle) {
-                    load += visit.getShipmentSize();
+                    load += visit.getRideSize();
                     Location previousLocation = visit.getPreviousStandstill().getLocation();
                     Location location = visit.getLocation();
                     translator.drawRoute(g, previousLocation.getLongitude(), previousLocation.getLatitude(),

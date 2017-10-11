@@ -24,7 +24,6 @@ import org.optaplanner.core.impl.score.director.easy.EasyScoreCalculator;
 import org.optaplanner.examples.common.app.ImportDirSolveAllTurtleTest;
 import org.optaplanner.examples.common.persistence.AbstractSolutionImporter;
 import org.optaplanner.examples.vehiclerouting.persistence.VehicleRoutingImporter;
-import org.optaplanner.examples.vehiclerouting.solver.score.VehicleRoutingEasyScoreCalculator;
 
 public class VehicleRoutingSolveAllTurtleTest extends ImportDirSolveAllTurtleTest {
 
@@ -45,11 +44,6 @@ public class VehicleRoutingSolveAllTurtleTest extends ImportDirSolveAllTurtleTes
     @Override
     protected AbstractSolutionImporter createSolutionImporter() {
         return new VehicleRoutingImporter();
-    }
-
-    @Override
-    protected Class<? extends EasyScoreCalculator> overwritingEasyScoreCalculatorClass() {
-        return VehicleRoutingEasyScoreCalculator.class;
     }
 
 }
