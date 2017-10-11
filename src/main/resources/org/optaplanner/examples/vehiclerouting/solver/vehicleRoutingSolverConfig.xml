@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <solver>
-  <!--<environmentMode>FAST_ASSERT</environmentMode>-->
+  <environmentMode>FULL_ASSERT</environmentMode>
   <solutionClass>org.optaplanner.examples.vehiclerouting.domain.VehicleRoutingSolution</solutionClass>
   <entityClass>org.optaplanner.examples.vehiclerouting.domain.Standstill</entityClass>
   <entityClass>org.optaplanner.examples.vehiclerouting.domain.Visit</entityClass>
@@ -28,6 +28,9 @@
       <subChainSwapMoveSelector>
         <selectReversingMoveToo>true</selectReversingMoveToo>
       </subChainSwapMoveSelector>
+      <moveIteratorFactory>
+        <moveIteratorFactoryClass>org.optaplanner.examples.vehiclerouting.solver.move.RideChangeMoveIteratorFactory</moveIteratorFactoryClass>
+      </moveIteratorFactory>
       <moveIteratorFactory>
         <moveIteratorFactoryClass>org.optaplanner.examples.vehiclerouting.solver.move.RideSwapMoveIteratorFactory</moveIteratorFactoryClass>
       </moveIteratorFactory>

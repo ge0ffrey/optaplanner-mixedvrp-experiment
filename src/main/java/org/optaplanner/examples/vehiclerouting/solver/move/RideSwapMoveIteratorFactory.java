@@ -19,6 +19,8 @@ import org.optaplanner.examples.vehiclerouting.domain.Ride;
 import org.optaplanner.examples.vehiclerouting.domain.VehicleRoutingSolution;
 import org.optaplanner.examples.vehiclerouting.domain.Visit;
 
+// Here be dragons...
+// This is an experiment so we can build a nice, generic move selector in optaplanner-core.
 public class RideSwapMoveIteratorFactory implements MoveIteratorFactory<VehicleRoutingSolution> {
 
     private List<GenuineVariableDescriptor<VehicleRoutingSolution>> variableDescriptorList = null;
@@ -37,13 +39,13 @@ public class RideSwapMoveIteratorFactory implements MoveIteratorFactory<VehicleR
     @Override
     public Iterator<? extends Move<VehicleRoutingSolution>> createRandomMoveIterator(
             ScoreDirector<VehicleRoutingSolution> scoreDirector, Random workingRandom) {
-        // TODO DO NOT USE InnerScoreDirector! This is an experiment, don't put this in production!
-        InnerScoreDirector<VehicleRoutingSolution> innerScoreDirector = (InnerScoreDirector<VehicleRoutingSolution>) scoreDirector;
-        GenuineVariableDescriptor<VehicleRoutingSolution> variableDescriptor
-                = innerScoreDirector.getSolutionDescriptor().findEntityDescriptorOrFail(Visit.class)
-                .getGenuineVariableDescriptor("previousStandstill");
         // TODO DIRTY HACK due to lack of lifecycle methods
         if (inverseVariableSupplyList == null) {
+            // TODO DO NOT USE InnerScoreDirector! This is an experiment, don't put this in production!
+            InnerScoreDirector<VehicleRoutingSolution> innerScoreDirector = (InnerScoreDirector<VehicleRoutingSolution>) scoreDirector;
+            GenuineVariableDescriptor<VehicleRoutingSolution> variableDescriptor
+                    = innerScoreDirector.getSolutionDescriptor().findEntityDescriptorOrFail(Visit.class)
+                    .getGenuineVariableDescriptor("previousStandstill");
             variableDescriptorList = Collections.singletonList(variableDescriptor);
             inverseVariableSupplyList = Collections.singletonList(innerScoreDirector.getSupplyManager()
                     .demand(new SingletonInverseVariableDemand(variableDescriptor)));
