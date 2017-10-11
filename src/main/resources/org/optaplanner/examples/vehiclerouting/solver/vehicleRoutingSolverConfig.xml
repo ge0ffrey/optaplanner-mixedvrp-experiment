@@ -28,6 +28,9 @@
       <subChainSwapMoveSelector>
         <selectReversingMoveToo>true</selectReversingMoveToo>
       </subChainSwapMoveSelector>
+      <moveIteratorFactory>
+        <moveIteratorFactoryClass>org.optaplanner.examples.vehiclerouting.solver.move.RideSwapMoveIteratorFactory</moveIteratorFactoryClass>
+      </moveIteratorFactory>
     </unionMoveSelector>
     <acceptor>
       <lateAcceptanceSize>200</lateAcceptanceSize>
