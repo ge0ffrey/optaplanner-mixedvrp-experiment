@@ -42,17 +42,20 @@ public class RideChangeMoveIteratorFactory implements MoveIteratorFactory<Vehicl
             ScoreDirector<VehicleRoutingSolution> scoreDirector, Random workingRandom) {
         // TODO DIRTY HACK due to lack of lifecycle methods
         if (inverseVariableSupply == null) {
-            // TODO DO NOT USE InnerScoreDirector! This is an experiment, don't put this in production!
+            // TODO DO NOT USE InnerScoreDirector!
+            // No seriously, write a custom move instead of reusing ChainedChangeMove so you don't need any of this
+            // Yes, I know, chain correction like in ChainedChangeMove is a big pain to write yourself...
             InnerScoreDirector<VehicleRoutingSolution> innerScoreDirector = (InnerScoreDirector<VehicleRoutingSolution>) scoreDirector;
             variableDescriptor
                     = innerScoreDirector.getSolutionDescriptor().findEntityDescriptorOrFail(Visit.class)
                     .getGenuineVariableDescriptor("previousStandstill");
+            // TODO DO NOT demand supplies without returning them
             inverseVariableSupply = innerScoreDirector.getSupplyManager()
                     .demand(new SingletonInverseVariableDemand(variableDescriptor));
         }
 
         VehicleRoutingSolution solution = scoreDirector.getWorkingSolution();
-        // TODO perf leak
+        // TODO perf loss because it happens at the start of every step but it doesn't different during the phase?
         List<Standstill> standstillList = new ArrayList<>(solution.getVehicleList().size() + solution.getVisitList().size());
         standstillList.addAll(solution.getVehicleList());
         standstillList.addAll(solution.getVisitList());
@@ -82,9 +85,6 @@ public class RideChangeMoveIteratorFactory implements MoveIteratorFactory<Vehicl
             Visit fromPickupVisit = ride.getPickupVisit();
             Visit fromDeliveryVisit = ride.getDeliveryVisit();
             Standstill toPickupVisit = standstillList.get(workingRandom.nextInt(standstillList.size()));
-//            if (fromPickupVisit == toPickupVisit) {
-//                return new NoChangeMove<>();
-//            }
             List<Standstill> potentialToDeliveryVisitList = new ArrayList<>();
             potentialToDeliveryVisitList.add(fromPickupVisit);
             Visit visit = toPickupVisit.getNextVisit();
@@ -99,16 +99,17 @@ public class RideChangeMoveIteratorFactory implements MoveIteratorFactory<Vehicl
                     fromPickupVisit, variableDescriptor, inverseVariableSupply, toPickupVisit);
             ChainedChangeMove<VehicleRoutingSolution> deliveryMove = new ChainedChangeMove<>(
                     fromDeliveryVisit, variableDescriptor, inverseVariableSupply, toDeliveryVisit);
+
             if (fromDeliveryVisit.getPreviousStandstill() == fromPickupVisit && fromPickupVisit.getPreviousStandstill() == toDeliveryVisit) {
                 // Delivery move will end up undoable (but isn't undoable to start with)
                 return pickupMove;
             }
             if (toDeliveryVisit == fromPickupVisit && toPickupVisit == fromDeliveryVisit.getPreviousStandstill()) {
+                // Delivery move will end up undoable (but isn't undoable to start with)
                 return pickupMove;
             }
             // TODO if one of the 2 moves is undoable, we'd still want to do the other move...
-            return new CompositeMove<>(pickupMove, deliveryMove
-            );
+            return new CompositeMove<>(pickupMove, deliveryMove);
         }
 
     }

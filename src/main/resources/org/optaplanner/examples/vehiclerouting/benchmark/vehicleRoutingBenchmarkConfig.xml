@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plannerBenchmark>
   <benchmarkDirectory>local/data/vehiclerouting</benchmarkDirectory>
-  <parallelBenchmarkCount>AUTO</parallelBenchmarkCount>
+  <!--<parallelBenchmarkCount>AUTO</parallelBenchmarkCount>-->
 
   <inheritedSolverBenchmark>
     <problemBenchmarks>
@@ -11,15 +11,15 @@
       <inputSolutionFile>data/vehiclerouting/import/belgium/basic/air/belgium-n100-k10.vrp</inputSolutionFile>
       <inputSolutionFile>data/vehiclerouting/import/belgium/basic/air/belgium-n500-k20.vrp</inputSolutionFile>
       <inputSolutionFile>data/vehiclerouting/import/belgium/basic/air/belgium-n1000-k20.vrp</inputSolutionFile>
-      <!--<inputSolutionFile>data/vehiclerouting/import/belgium/basic/air/belgium-n2750-k55.vrp</inputSolutionFile>-->
+      <inputSolutionFile>data/vehiclerouting/import/belgium/basic/air/belgium-n2750-k55.vrp</inputSolutionFile>
       <!--<inputSolutionFile>data/vehiclerouting/import/belgium/basic/road-km/belgium-road-km-n50-k10.vrp</inputSolutionFile>-->
       <!--<inputSolutionFile>data/vehiclerouting/import/belgium/basic/road-km/belgium-road-km-n100-k10.vrp</inputSolutionFile>-->
       <!--<inputSolutionFile>data/vehiclerouting/import/belgium/basic/road-km/belgium-road-km-n500-k20.vrp</inputSolutionFile>-->
       <!--<inputSolutionFile>data/vehiclerouting/import/belgium/basic/road-km/belgium-road-km-n1000-k20.vrp</inputSolutionFile>--><!-- Too big to include in git -->
       <!--<inputSolutionFile>data/vehiclerouting/import/belgium/basic/road-km/belgium-road-km-n2750-k55.vrp</inputSolutionFile>--><!-- Too big to include in git -->
-      <!--<inputSolutionFile>data/vehiclerouting/import/belgium/basic/road-time/belgium-road-time-n50-k10.vrp</inputSolutionFile>-->
-      <!--<inputSolutionFile>data/vehiclerouting/import/belgium/basic/road-time/belgium-road-time-n100-k10.vrp</inputSolutionFile>-->
-      <!--<inputSolutionFile>data/vehiclerouting/import/belgium/basic/road-time/belgium-road-time-n500-k20.vrp</inputSolutionFile>-->
+      <inputSolutionFile>data/vehiclerouting/import/belgium/basic/road-time/belgium-road-time-n50-k10.vrp</inputSolutionFile>
+      <inputSolutionFile>data/vehiclerouting/import/belgium/basic/road-time/belgium-road-time-n100-k10.vrp</inputSolutionFile>
+      <inputSolutionFile>data/vehiclerouting/import/belgium/basic/road-time/belgium-road-time-n500-k20.vrp</inputSolutionFile>
       <!--<inputSolutionFile>data/vehiclerouting/import/belgium/basic/road-time/belgium-road-time-n1000-k20.vrp</inputSolutionFile>--><!-- Too big to include in git -->
       <!--<inputSolutionFile>data/vehiclerouting/import/belgium/basic/road-time/belgium-road-time-n2750-k55.vrp</inputSolutionFile>--><!-- Too big to include in git -->
       <!-- USA datasets -->
@@ -33,7 +33,7 @@
       <!-- VRP web datasets -->
       <!--<inputSolutionFile>data/vehiclerouting/import/vrpweb/basic/air/A-n32-k5.vrp</inputSolutionFile>-->
       <!--<inputSolutionFile>data/vehiclerouting/import/vrpweb/basic/air/A-n33-k5.vrp</inputSolutionFile>-->
-      <inputSolutionFile>data/vehiclerouting/import/vrpweb/basic/air/A-n33-k6.vrp</inputSolutionFile>
+      <!--<inputSolutionFile>data/vehiclerouting/import/vrpweb/basic/air/A-n33-k6.vrp</inputSolutionFile>-->
       <!--<inputSolutionFile>data/vehiclerouting/import/vrpweb/basic/air/A-n34-k5.vrp</inputSolutionFile>-->
       <!--<inputSolutionFile>data/vehiclerouting/import/vrpweb/basic/air/A-n36-k5.vrp</inputSolutionFile>-->
       <!--<inputSolutionFile>data/vehiclerouting/import/vrpweb/basic/air/A-n37-k5.vrp</inputSolutionFile>-->
@@ -123,7 +123,7 @@
       <entityClass>org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedVisit</entityClass>
 
       <termination>
-        <minutesSpentLimit>1</minutesSpentLimit>
+        <minutesSpentLimit>20</minutesSpentLimit>
       </termination>
     </solver>
   </inheritedSolverBenchmark>
@@ -330,6 +330,7 @@
     <solver>
       <scoreDirectorFactory>
         <scoreDrl>org/optaplanner/examples/vehiclerouting/solver/baseVehicleRoutingScoreRules.drl</scoreDrl>
+        <scoreDrl>org/optaplanner/examples/vehiclerouting/solver/mixedByConstraintsVehicleRoutingScoreRules.drl</scoreDrl>
         <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
       </scoreDirectorFactory>
       <constructionHeuristic>
@@ -345,6 +346,12 @@
           <subChainSwapMoveSelector>
             <selectReversingMoveToo>true</selectReversingMoveToo>
           </subChainSwapMoveSelector>
+          <moveIteratorFactory>
+            <moveIteratorFactoryClass>org.optaplanner.examples.vehiclerouting.solver.move.RideChangeMoveIteratorFactory</moveIteratorFactoryClass>
+          </moveIteratorFactory>
+          <moveIteratorFactory>
+            <moveIteratorFactoryClass>org.optaplanner.examples.vehiclerouting.solver.move.RideSwapMoveIteratorFactory</moveIteratorFactoryClass>
+          </moveIteratorFactory>
         </unionMoveSelector>
         <acceptor>
           <entityTabuSize>9</entityTabuSize>
@@ -360,6 +367,7 @@
     <solver>
       <scoreDirectorFactory>
         <scoreDrl>org/optaplanner/examples/vehiclerouting/solver/baseVehicleRoutingScoreRules.drl</scoreDrl>
+        <scoreDrl>org/optaplanner/examples/vehiclerouting/solver/mixedByConstraintsVehicleRoutingScoreRules.drl</scoreDrl>
         <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
       </scoreDirectorFactory>
       <constructionHeuristic>
@@ -375,6 +383,12 @@
           <subChainSwapMoveSelector>
             <selectReversingMoveToo>true</selectReversingMoveToo>
           </subChainSwapMoveSelector>
+          <moveIteratorFactory>
+            <moveIteratorFactoryClass>org.optaplanner.examples.vehiclerouting.solver.move.RideChangeMoveIteratorFactory</moveIteratorFactoryClass>
+          </moveIteratorFactory>
+          <moveIteratorFactory>
+            <moveIteratorFactoryClass>org.optaplanner.examples.vehiclerouting.solver.move.RideSwapMoveIteratorFactory</moveIteratorFactoryClass>
+          </moveIteratorFactory>
         </unionMoveSelector>
         <acceptor>
           <lateAcceptanceSize>200</lateAcceptanceSize>

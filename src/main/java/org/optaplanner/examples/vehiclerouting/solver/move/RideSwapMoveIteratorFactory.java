@@ -41,7 +41,9 @@ public class RideSwapMoveIteratorFactory implements MoveIteratorFactory<VehicleR
             ScoreDirector<VehicleRoutingSolution> scoreDirector, Random workingRandom) {
         // TODO DIRTY HACK due to lack of lifecycle methods
         if (inverseVariableSupplyList == null) {
-            // TODO DO NOT USE InnerScoreDirector! This is an experiment, don't put this in production!
+            // TODO DO NOT USE InnerScoreDirector!
+            // No seriously, write a custom move instead of reusing ChainedSwapMove so you don't need any of this
+            // Yes, I know, chain correction like in ChainedSwapMove is a big pain to write yourself...
             InnerScoreDirector<VehicleRoutingSolution> innerScoreDirector = (InnerScoreDirector<VehicleRoutingSolution>) scoreDirector;
             GenuineVariableDescriptor<VehicleRoutingSolution> variableDescriptor
                     = innerScoreDirector.getSolutionDescriptor().findEntityDescriptorOrFail(Visit.class)
@@ -52,8 +54,7 @@ public class RideSwapMoveIteratorFactory implements MoveIteratorFactory<VehicleR
         }
 
         VehicleRoutingSolution solution = scoreDirector.getWorkingSolution();
-        List<Ride> rideList = solution.getRideList();
-        return new RideSwapMoveIterator(rideList, workingRandom);
+        return new RideSwapMoveIterator(solution.getRideList(), workingRandom);
     }
 
     private class RideSwapMoveIterator implements Iterator<Move<VehicleRoutingSolution>> {
@@ -81,10 +82,11 @@ public class RideSwapMoveIteratorFactory implements MoveIteratorFactory<VehicleR
             }
             Ride rightRide = rideList.get(rightRideIndex);
 
-            return new CompositeMove<VehicleRoutingSolution>(
-                    new ChainedSwapMove<VehicleRoutingSolution>(variableDescriptorList, inverseVariableSupplyList,
+            // TODO if one of the 2 moves is undoable, we'd still want to do the other move...
+            return new CompositeMove<>(
+                    new ChainedSwapMove<>(variableDescriptorList, inverseVariableSupplyList,
                             leftRide.getPickupVisit(), rightRide.getPickupVisit()),
-                    new ChainedSwapMove<VehicleRoutingSolution>(variableDescriptorList, inverseVariableSupplyList,
+                    new ChainedSwapMove<>(variableDescriptorList, inverseVariableSupplyList,
                             leftRide.getDeliveryVisit(), rightRide.getDeliveryVisit())
             );
 
