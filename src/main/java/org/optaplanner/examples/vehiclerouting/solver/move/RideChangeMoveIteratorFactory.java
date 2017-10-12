@@ -100,15 +100,16 @@ public class RideChangeMoveIteratorFactory implements MoveIteratorFactory<Vehicl
             ChainedChangeMove<VehicleRoutingSolution> deliveryMove = new ChainedChangeMove<>(
                     fromDeliveryVisit, variableDescriptor, inverseVariableSupply, toDeliveryVisit);
 
-            if (fromDeliveryVisit.getPreviousStandstill() == fromPickupVisit && fromPickupVisit.getPreviousStandstill() == toDeliveryVisit) {
-                // Delivery move will end up undoable (but isn't undoable to start with)
-                return pickupMove;
-            }
-            if (toDeliveryVisit == fromPickupVisit && toPickupVisit == fromDeliveryVisit.getPreviousStandstill()) {
-                // Delivery move will end up undoable (but isn't undoable to start with)
-                return pickupMove;
-            }
-            // TODO if one of the 2 moves is undoable, we'd still want to do the other move...
+            // With 6.x this workaround code is needed. The CompositeMove will still exclude moves as undoable that shouldn't be excluded
+            // With master (7.5.x), this code is entirely fixed by PLANNER-897, which makes this workaround code obsolete
+//            if (fromDeliveryVisit.getPreviousStandstill() == fromPickupVisit && fromPickupVisit.getPreviousStandstill() == toDeliveryVisit) {
+//                // Delivery move will end up undoable (but isn't undoable to start with)
+//                return pickupMove;
+//            }
+//            if (toDeliveryVisit == fromPickupVisit && toPickupVisit == fromDeliveryVisit.getPreviousStandstill()) {
+//                // Delivery move will end up undoable (but isn't undoable to start with)
+//                return pickupMove;
+//            }
             return new CompositeMove<>(pickupMove, deliveryMove);
         }
 
