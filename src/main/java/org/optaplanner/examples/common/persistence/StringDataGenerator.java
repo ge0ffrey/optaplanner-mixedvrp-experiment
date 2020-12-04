@@ -211,11 +211,11 @@ public class StringDataGenerator {
      * It does not scroll per digit (0000, 1111, 2222, 0001, 1112, 2220, 0002, 1110, 2221, ...).
      * Instead, it scrolls per half (0000, 1111, 2222, 0011, 1122, 2200, 0022, 1100, 2211, ...).
      */
-    private final static int[][] HALF_SEQUENCE_MAP = new int[][]{{}, {0}, {0, 1}, {0, 2, 1}, {0, 2, 1, 3}};
+    private final static int[][] HALF_SEQUENCE_MAP = new int[][] { {}, { 0 }, { 0, 1 }, { 0, 2, 1 }, { 0, 2, 1, 3 } };
     /**
      * Determines which parts to eliminate first if maximumSize prediction doesn't need all parts.
      */
-    private final static int[] DEFAULT_ELIMINATION_INDEX_MAP = new int[]{0, 1, 1, 1};
+    private final static int[] DEFAULT_ELIMINATION_INDEX_MAP = new int[] { 0, 1, 1, 1 };
 
     private final String delimiter;
     private List<String[]> partValuesList = new ArrayList<>();
@@ -245,7 +245,8 @@ public class StringDataGenerator {
 
     public StringDataGenerator addAToZPart(boolean required, int eliminationIndex) {
         return addPart(required, eliminationIndex,
-                "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z");
+                "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V",
+                "W", "X", "Y", "Z");
     }
 
     public StringDataGenerator addNumericPart(boolean required, int eliminationIndex, int from, int to) {

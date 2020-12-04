@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Red Hat, Inc. and/or its affiliates.
+ * Copyright 2020 Red Hat, Inc. and/or its affiliates.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,17 +14,14 @@
  * limitations under the License.
  */
 
-package org.optaplanner.examples.common.app;
+package org.optaplanner.examples.vehiclerouting.persistence;
 
-import static org.junit.Assume.*;
+import org.optaplanner.examples.vehiclerouting.domain.VehicleRoutingSolution;
+import org.optaplanner.persistence.xstream.impl.domain.solution.XStreamSolutionFileIO;
 
-/**
- * Turtle tests are not run by default. They are only run if {@code -DrunTurtleTests=true} because it takes days.
- */
-public abstract class AbstractTurtleTest extends LoggingTest {
+public class VehicleRoutingXmlSolutionFileIO extends XStreamSolutionFileIO<VehicleRoutingSolution> {
 
-    protected static void checkRunTurtleTests() {
-        assumeTrue("true".equals(System.getProperty("runTurtleTests")));
+    public VehicleRoutingXmlSolutionFileIO() {
+        super(VehicleRoutingSolution.class);
     }
-
 }

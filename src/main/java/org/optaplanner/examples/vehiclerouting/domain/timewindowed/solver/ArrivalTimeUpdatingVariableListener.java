@@ -18,57 +18,58 @@ package org.optaplanner.examples.vehiclerouting.domain.timewindowed.solver;
 
 import java.util.Objects;
 
-import org.optaplanner.core.impl.domain.variable.listener.VariableListener;
-import org.optaplanner.core.impl.score.director.ScoreDirector;
-import org.optaplanner.examples.vehiclerouting.domain.Visit;
+import org.optaplanner.core.api.domain.variable.VariableListener;
+import org.optaplanner.core.api.score.director.ScoreDirector;
 import org.optaplanner.examples.vehiclerouting.domain.Standstill;
 import org.optaplanner.examples.vehiclerouting.domain.Vehicle;
-import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedVisit;
+import org.optaplanner.examples.vehiclerouting.domain.VehicleRoutingSolution;
+import org.optaplanner.examples.vehiclerouting.domain.Visit;
 import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedDepot;
+import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedVisit;
 
 // TODO When this class is added only for TimeWindowedVisit, use TimeWindowedVisit instead of Visit
-public class ArrivalTimeUpdatingVariableListener implements VariableListener<Visit> {
+public class ArrivalTimeUpdatingVariableListener implements VariableListener<VehicleRoutingSolution, Visit> {
 
     @Override
-    public void beforeEntityAdded(ScoreDirector scoreDirector, Visit visit) {
+    public void beforeEntityAdded(ScoreDirector<VehicleRoutingSolution> scoreDirector, Visit visit) {
         // Do nothing
     }
 
     @Override
-    public void afterEntityAdded(ScoreDirector scoreDirector, Visit visit) {
+    public void afterEntityAdded(ScoreDirector<VehicleRoutingSolution> scoreDirector, Visit visit) {
         if (visit instanceof TimeWindowedVisit) {
             updateArrivalTime(scoreDirector, (TimeWindowedVisit) visit);
         }
     }
 
     @Override
-    public void beforeVariableChanged(ScoreDirector scoreDirector, Visit visit) {
+    public void beforeVariableChanged(ScoreDirector<VehicleRoutingSolution> scoreDirector, Visit visit) {
         // Do nothing
     }
 
     @Override
-    public void afterVariableChanged(ScoreDirector scoreDirector, Visit visit) {
+    public void afterVariableChanged(ScoreDirector<VehicleRoutingSolution> scoreDirector, Visit visit) {
         if (visit instanceof TimeWindowedVisit) {
             updateArrivalTime(scoreDirector, (TimeWindowedVisit) visit);
         }
     }
 
     @Override
-    public void beforeEntityRemoved(ScoreDirector scoreDirector, Visit visit) {
+    public void beforeEntityRemoved(ScoreDirector<VehicleRoutingSolution> scoreDirector, Visit visit) {
         // Do nothing
     }
 
     @Override
-    public void afterEntityRemoved(ScoreDirector scoreDirector, Visit visit) {
+    public void afterEntityRemoved(ScoreDirector<VehicleRoutingSolution> scoreDirector, Visit visit) {
         // Do nothing
     }
 
-    protected void updateArrivalTime(ScoreDirector scoreDirector, TimeWindowedVisit sourceCustomer) {
+    protected void updateArrivalTime(ScoreDirector<VehicleRoutingSolution> scoreDirector, TimeWindowedVisit sourceCustomer) {
         Standstill previousStandstill = sourceCustomer.getPreviousStandstill();
         Long departureTime = previousStandstill == null ? null
                 : (previousStandstill instanceof TimeWindowedVisit)
-                ? ((TimeWindowedVisit) previousStandstill).getDepartureTime()
-                : ((TimeWindowedDepot) ((Vehicle) previousStandstill).getDepot()).getReadyTime();
+                        ? ((TimeWindowedVisit) previousStandstill).getDepartureTime()
+                        : ((TimeWindowedDepot) ((Vehicle) previousStandstill).getDepot()).getReadyTime();
         TimeWindowedVisit shadowCustomer = sourceCustomer;
         Long arrivalTime = calculateArrivalTime(shadowCustomer, departureTime);
         while (shadowCustomer != null && !Objects.equals(shadowCustomer.getArrivalTime(), arrivalTime)) {

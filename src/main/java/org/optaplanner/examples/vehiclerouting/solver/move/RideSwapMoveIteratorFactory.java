@@ -5,7 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-import org.optaplanner.core.impl.domain.solution.descriptor.SolutionDescriptor;
+import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScore;
+import org.optaplanner.core.api.score.director.ScoreDirector;
 import org.optaplanner.core.impl.domain.variable.descriptor.GenuineVariableDescriptor;
 import org.optaplanner.core.impl.domain.variable.inverserelation.SingletonInverseVariableDemand;
 import org.optaplanner.core.impl.domain.variable.inverserelation.SingletonInverseVariableSupply;
@@ -14,14 +15,13 @@ import org.optaplanner.core.impl.heuristic.move.Move;
 import org.optaplanner.core.impl.heuristic.selector.move.factory.MoveIteratorFactory;
 import org.optaplanner.core.impl.heuristic.selector.move.generic.chained.ChainedSwapMove;
 import org.optaplanner.core.impl.score.director.InnerScoreDirector;
-import org.optaplanner.core.impl.score.director.ScoreDirector;
 import org.optaplanner.examples.vehiclerouting.domain.Ride;
 import org.optaplanner.examples.vehiclerouting.domain.VehicleRoutingSolution;
 import org.optaplanner.examples.vehiclerouting.domain.Visit;
 
 // Here be dragons...
 // This is an experiment so we can build a nice, generic move selector in optaplanner-core.
-public class RideSwapMoveIteratorFactory implements MoveIteratorFactory<VehicleRoutingSolution> {
+public class RideSwapMoveIteratorFactory implements MoveIteratorFactory<VehicleRoutingSolution, Move<VehicleRoutingSolution>> {
 
     private List<GenuineVariableDescriptor<VehicleRoutingSolution>> variableDescriptorList = null;
     private List<SingletonInverseVariableSupply> inverseVariableSupplyList = null;
@@ -32,25 +32,27 @@ public class RideSwapMoveIteratorFactory implements MoveIteratorFactory<VehicleR
     }
 
     @Override
-    public Iterator<? extends Move<VehicleRoutingSolution>> createOriginalMoveIterator(ScoreDirector<VehicleRoutingSolution> scoreDirector) {
+    public RideSwapMoveIterator
+            createOriginalMoveIterator(ScoreDirector<VehicleRoutingSolution> scoreDirector) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public Iterator<? extends Move<VehicleRoutingSolution>> createRandomMoveIterator(
+    public RideSwapMoveIterator createRandomMoveIterator(
             ScoreDirector<VehicleRoutingSolution> scoreDirector, Random workingRandom) {
         // TODO DIRTY HACK due to lack of lifecycle methods
         if (inverseVariableSupplyList == null) {
             // TODO DO NOT USE InnerScoreDirector!
             // No seriously, write a custom move instead of reusing ChainedSwapMove so you don't need any of this
             // Yes, I know, chain correction like in ChainedSwapMove is a big pain to write yourself...
-            InnerScoreDirector<VehicleRoutingSolution> innerScoreDirector = (InnerScoreDirector<VehicleRoutingSolution>) scoreDirector;
-            GenuineVariableDescriptor<VehicleRoutingSolution> variableDescriptor
-                    = innerScoreDirector.getSolutionDescriptor().findEntityDescriptorOrFail(Visit.class)
-                    .getGenuineVariableDescriptor("previousStandstill");
+            InnerScoreDirector<VehicleRoutingSolution, HardSoftLongScore> innerScoreDirector =
+                    (InnerScoreDirector<VehicleRoutingSolution, HardSoftLongScore>) scoreDirector;
+            GenuineVariableDescriptor<VehicleRoutingSolution> variableDescriptor =
+                    innerScoreDirector.getSolutionDescriptor().findEntityDescriptorOrFail(Visit.class)
+                            .getGenuineVariableDescriptor("previousStandstill");
             variableDescriptorList = Collections.singletonList(variableDescriptor);
             inverseVariableSupplyList = Collections.singletonList(innerScoreDirector.getSupplyManager()
-                    .demand(new SingletonInverseVariableDemand(variableDescriptor)));
+                    .demand(new SingletonInverseVariableDemand<>(variableDescriptor)));
         }
 
         VehicleRoutingSolution solution = scoreDirector.getWorkingSolution();
@@ -87,8 +89,7 @@ public class RideSwapMoveIteratorFactory implements MoveIteratorFactory<VehicleR
                     new ChainedSwapMove<>(variableDescriptorList, inverseVariableSupplyList,
                             leftRide.getPickupVisit(), rightRide.getPickupVisit()),
                     new ChainedSwapMove<>(variableDescriptorList, inverseVariableSupplyList,
-                            leftRide.getDeliveryVisit(), rightRide.getDeliveryVisit())
-            );
+                            leftRide.getDeliveryVisit(), rightRide.getDeliveryVisit()));
 
         }
 

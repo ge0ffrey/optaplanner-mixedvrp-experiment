@@ -16,8 +16,6 @@
 
 package org.optaplanner.examples.vehiclerouting.domain;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamInclude;
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.variable.AnchorShadowVariable;
 import org.optaplanner.core.api.domain.variable.CustomShadowVariable;
@@ -29,6 +27,9 @@ import org.optaplanner.examples.vehiclerouting.domain.location.Location;
 import org.optaplanner.examples.vehiclerouting.domain.solver.DepotAngleCustomerDifficultyWeightFactory;
 import org.optaplanner.examples.vehiclerouting.domain.solver.VisitIndexUpdatingVariableListener;
 import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedVisit;
+
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamInclude;
 
 @PlanningEntity(difficultyWeightFactoryClass = DepotAngleCustomerDifficultyWeightFactory.class)
 @XStreamAlias("VrpVisit")
@@ -78,7 +79,7 @@ public class Visit extends AbstractPersistable implements Standstill {
         this.ride = ride;
     }
 
-    @PlanningVariable(valueRangeProviderRefs = {"vehicleRange", "customerRange"},
+    @PlanningVariable(valueRangeProviderRefs = { "vehicleRange", "customerRange" },
             graphType = PlanningVariableGraphType.CHAINED)
     public Standstill getPreviousStandstill() {
         return previousStandstill;
@@ -111,7 +112,7 @@ public class Visit extends AbstractPersistable implements Standstill {
     @CustomShadowVariable(variableListenerClass = VisitIndexUpdatingVariableListener.class,
             // Arguable, to adhere to API specs (although this works), nextCustomer should also be a source,
             // because this shadow must be triggered after nextCustomer (but there is no need to be triggered by nextCustomer)
-            sources = {@PlanningVariableReference(variableName = "previousStandstill")})
+            sources = { @PlanningVariableReference(variableName = "previousStandstill") })
     public Integer getVisitIndex() {
         return visitIndex;
     }

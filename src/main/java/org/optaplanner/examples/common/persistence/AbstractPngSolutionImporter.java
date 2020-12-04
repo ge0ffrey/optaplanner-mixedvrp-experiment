@@ -19,6 +19,7 @@ package org.optaplanner.examples.common.persistence;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
 
 import org.apache.commons.io.FilenameUtils;
@@ -30,14 +31,6 @@ import org.optaplanner.core.api.domain.solution.PlanningSolution;
 public abstract class AbstractPngSolutionImporter<Solution_> extends AbstractSolutionImporter<Solution_> {
 
     private static final String DEFAULT_INPUT_FILE_SUFFIX = "png";
-
-    protected AbstractPngSolutionImporter(SolutionDao<Solution_> solutionDao) {
-        super(solutionDao);
-    }
-
-    protected AbstractPngSolutionImporter(boolean withoutDao) {
-        super(withoutDao);
-    }
 
     @Override
     public String getInputFileSuffix() {

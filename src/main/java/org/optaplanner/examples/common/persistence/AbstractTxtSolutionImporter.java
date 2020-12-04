@@ -35,14 +35,6 @@ public abstract class AbstractTxtSolutionImporter<Solution_> extends AbstractSol
 
     private static final String DEFAULT_INPUT_FILE_SUFFIX = "txt";
 
-    protected AbstractTxtSolutionImporter(SolutionDao<Solution_> solutionDao) {
-        super(solutionDao);
-    }
-
-    protected AbstractTxtSolutionImporter(boolean withoutDao) {
-        super(withoutDao);
-    }
-
     @Override
     public String getInputFileSuffix() {
         return DEFAULT_INPUT_FILE_SUFFIX;
@@ -118,7 +110,11 @@ public abstract class AbstractTxtSolutionImporter<Solution_> extends AbstractSol
         }
 
         public void readConstantLine(String constantRegex) throws IOException {
-            String line = bufferedReader.readLine();
+            readConstantLine(bufferedReader, constantRegex);
+        }
+
+        public void readConstantLine(BufferedReader subBufferedReader, String constantRegex) throws IOException {
+            String line = subBufferedReader.readLine();
             if (line == null) {
                 throw new IllegalArgumentException("File ends before a line is expected to be a constant regex ("
                         + constantRegex + ").");

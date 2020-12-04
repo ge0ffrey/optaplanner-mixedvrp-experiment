@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Red Hat, Inc. and/or its affiliates.
+ * Copyright 2020 Red Hat, Inc. and/or its affiliates.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,13 +27,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.function.BiConsumer;
+
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
+import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -41,6 +42,7 @@ import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
@@ -48,17 +50,17 @@ import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
-import javax.swing.SwingConstants;
+import javax.swing.LayoutStyle;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingWorker;
 import javax.swing.filechooser.FileFilter;
 
 import org.apache.commons.io.FilenameUtils;
 import org.optaplanner.core.api.domain.solution.PlanningSolution;
-import org.optaplanner.core.api.score.FeasibilityScore;
 import org.optaplanner.core.api.score.Score;
+import org.optaplanner.examples.common.app.CommonApp;
 import org.optaplanner.examples.common.business.SolutionBusiness;
 import org.optaplanner.examples.common.persistence.AbstractSolutionImporter;
-import org.optaplanner.swing.impl.SwingUtils;
 import org.optaplanner.swing.impl.TangoColorFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,7 +75,7 @@ public class SolverAndPersistenceFrame<Solution_> extends JFrame {
     public static final ImageIcon OPTA_PLANNER_ICON = new ImageIcon(
             SolverAndPersistenceFrame.class.getResource("optaPlannerIcon.png"));
 
-    private final SolutionBusiness<Solution_> solutionBusiness;
+    private final SolutionBusiness<Solution_, ?> solutionBusiness;
     private final ImageIcon indictmentHeatMapTrueIcon;
     private final ImageIcon indictmentHeatMapFalseIcon;
     private final ImageIcon refreshScreenDuringSolvingTrueIcon;
@@ -82,14 +84,13 @@ public class SolverAndPersistenceFrame<Solution_> extends JFrame {
     private SolutionPanel<Solution_> solutionPanel;
     private ConstraintMatchesDialog constraintMatchesDialog;
 
-    private JPanel quickOpenUnsolvedPanel;
-    private List<Action> quickOpenUnsolvedActionList;
-    private JPanel quickOpenSolvedPanel;
-    private List<Action> quickOpenSolvedActionList;
+    private JList<QuickOpenAction> quickOpenUnsolvedJList;
+    private JList<QuickOpenAction> quickOpenSolvedJList;
     private Action openAction;
     private Action saveAction;
     private Action importAction;
     private Action exportAction;
+    private Action[] extraActions;
     private JToggleButton refreshScreenDuringSolvingToggleButton;
     private JToggleButton indictmentHeatMapToggleButton;
     private Action solveAction;
@@ -101,14 +102,26 @@ public class SolverAndPersistenceFrame<Solution_> extends JFrame {
     private JTextField scoreField;
     private ShowConstraintMatchesDialogAction showConstraintMatchesDialogAction;
 
-    public SolverAndPersistenceFrame(SolutionBusiness<Solution_> solutionBusiness,
-            SolutionPanel<Solution_> solutionPanel) {
+    public SolverAndPersistenceFrame(SolutionBusiness<Solution_, ?> solutionBusiness,
+            SolutionPanel<Solution_> solutionPanel, CommonApp.ExtraAction<Solution_>[] extraActions) {
         super(solutionBusiness.getAppName() + " OptaPlanner example");
         this.solutionBusiness = solutionBusiness;
         this.solutionPanel = solutionPanel;
         setIconImage(OPTA_PLANNER_ICON.getImage());
         solutionPanel.setSolutionBusiness(solutionBusiness);
         solutionPanel.setSolverAndPersistenceFrame(this);
+        this.extraActions = new Action[extraActions.length];
+        for (int i = 0; i < extraActions.length; i++) {
+            BiConsumer<SolutionBusiness<Solution_, ?>, SolutionPanel<Solution_>> consumer =
+                    extraActions[i].getConsumer();
+            this.extraActions[i] = new AbstractAction(extraActions[i].getName()) {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    consumer.accept(SolverAndPersistenceFrame.this.solutionBusiness,
+                            SolverAndPersistenceFrame.this.solutionPanel);
+                }
+            };
+        }
         indictmentHeatMapTrueIcon = new ImageIcon(getClass().getResource("indictmentHeatMapTrueIcon.png"));
         indictmentHeatMapFalseIcon = new ImageIcon(getClass().getResource("indictmentHeatMapFalseIcon.png"));
         refreshScreenDuringSolvingTrueIcon = new ImageIcon(getClass().getResource("refreshScreenDuringSolvingTrueIcon.png"));
@@ -157,64 +170,64 @@ public class SolverAndPersistenceFrame<Solution_> extends JFrame {
     }
 
     private JComponent createQuickOpenPanel() {
-        JPanel quickOpenPanel = new JPanel(new BorderLayout());
-        JLabel quickOpenLabel = new JLabel("Quick open");
-        quickOpenLabel.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
-        quickOpenPanel.add(quickOpenLabel, BorderLayout.NORTH);
         JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
                 createQuickOpenUnsolvedPanel(), createQuickOpenSolvedPanel());
         splitPane.setResizeWeight(0.8);
         splitPane.setBorder(null);
-        quickOpenPanel.add(splitPane, BorderLayout.CENTER);
-        return quickOpenPanel;
+        return splitPane;
     }
 
     private JComponent createQuickOpenUnsolvedPanel() {
-        quickOpenUnsolvedPanel = new JPanel();
-        quickOpenUnsolvedActionList = new ArrayList<>();
+        quickOpenUnsolvedJList = new JList<>(new DefaultListModel<>());
         List<File> unsolvedFileList = solutionBusiness.getUnsolvedFileList();
-        return createQuickOpenPanel(quickOpenUnsolvedPanel, "Unsolved dataset", quickOpenUnsolvedActionList,
-                unsolvedFileList);
+        return createQuickOpenPanel(quickOpenUnsolvedJList, "Unsolved dataset shortcuts", unsolvedFileList);
     }
 
     private JComponent createQuickOpenSolvedPanel() {
-        quickOpenSolvedPanel = new JPanel();
-        quickOpenSolvedActionList = new ArrayList<>();
+        quickOpenSolvedJList = new JList<>(new DefaultListModel<>());
         List<File> solvedFileList = solutionBusiness.getSolvedFileList();
-        return createQuickOpenPanel(quickOpenSolvedPanel, "Solved dataset", quickOpenSolvedActionList,
-                solvedFileList);
+        return createQuickOpenPanel(quickOpenSolvedJList, "Solved dataset shortcuts", solvedFileList);
     }
 
-    private JComponent createQuickOpenPanel(JPanel panel, String title, List<Action> quickOpenActionList, List<File> fileList) {
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        refreshQuickOpenPanel(panel, quickOpenActionList, fileList);
-        JScrollPane scrollPane = new JScrollPane(panel);
+    private JComponent createQuickOpenPanel(JList<QuickOpenAction> listPanel, String title, List<File> fileList) {
+        listPanel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        listPanel.addListSelectionListener(event -> {
+            if (event.getValueIsAdjusting()) {
+                return;
+            }
+            int selectedIndex = listPanel.getSelectedIndex();
+            if (selectedIndex < 0) {
+                return;
+            }
+            QuickOpenAction action = listPanel.getModel().getElementAt(selectedIndex);
+            action.actionPerformed(new ActionEvent(listPanel, -1, null));
+        });
+
+        refreshQuickOpenPanel(listPanel, fileList);
+
+        JScrollPane scrollPane = new JScrollPane(listPanel);
         scrollPane.getVerticalScrollBar().setUnitIncrement(25);
         scrollPane.setMinimumSize(new Dimension(100, 80));
         // Size fits into screen resolution 1024*768
         scrollPane.setPreferredSize(new Dimension(180, 200));
+
         JPanel titlePanel = new JPanel(new BorderLayout());
+        titlePanel.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+        JLabel titleLabel = new JLabel(title);
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+        titlePanel.add(titleLabel, BorderLayout.NORTH);
         titlePanel.add(scrollPane, BorderLayout.CENTER);
-        titlePanel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createEmptyBorder(2, 2, 2, 2), BorderFactory.createTitledBorder(title)));
         return titlePanel;
     }
 
-    private void refreshQuickOpenPanel(JPanel panel, List<Action> quickOpenActionList, List<File> fileList) {
-        panel.removeAll();
-        quickOpenActionList.clear();
-        if (fileList.isEmpty()) {
-            JLabel noneLabel = new JLabel("None");
-            noneLabel.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
-            panel.add(noneLabel);
-        } else {
-            for (File file : fileList) {
-                Action quickOpenAction = new QuickOpenAction(file);
-                quickOpenActionList.add(quickOpenAction);
-                JButton quickOpenButton = SwingUtils.makeSmallButton(new JButton(quickOpenAction));
-                quickOpenButton.setHorizontalAlignment(SwingConstants.LEFT);
-                panel.add(quickOpenButton);
-            }
+    private void refreshQuickOpenPanel(JList<QuickOpenAction> listPanel, List<File> fileList) {
+        DefaultListModel<QuickOpenAction> model = (DefaultListModel<QuickOpenAction>) listPanel.getModel();
+        model.clear();
+
+        for (File file : fileList) {
+            QuickOpenAction action = new QuickOpenAction(file);
+            model.addElement(action);
+            listPanel.clearSelection();
         }
     }
 
@@ -232,10 +245,15 @@ public class SolverAndPersistenceFrame<Solution_> extends JFrame {
             setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
             try {
                 solutionBusiness.openSolution(file);
-                setSolutionLoaded();
+                setSolutionLoaded(e.getSource());
             } finally {
                 setCursor(Cursor.getDefaultCursor());
             }
+        }
+
+        @Override
+        public String toString() {
+            return getValue(Action.NAME).toString();
         }
 
     }
@@ -246,18 +264,31 @@ public class SolverAndPersistenceFrame<Solution_> extends JFrame {
         GroupLayout toolBarLayout = new GroupLayout(toolBar);
         toolBar.setLayout(toolBarLayout);
 
-        importAction = new ImportAction();
-        importAction.setEnabled(solutionBusiness.hasImporter());
-        JButton importButton = new JButton(importAction);
+        JButton importButton;
+        if (solutionBusiness.hasImporter()) {
+            importAction = new ImportAction();
+            importButton = new JButton(importAction);
+        } else {
+            importButton = null;
+        }
         openAction = new OpenAction();
         openAction.setEnabled(true);
         JButton openButton = new JButton(openAction);
         saveAction = new SaveAction();
         saveAction.setEnabled(false);
         JButton saveButton = new JButton(saveAction);
-        exportAction = new ExportAction();
-        exportAction.setEnabled(false);
-        JButton exportButton = new JButton(exportAction);
+        JButton exportButton;
+        if (solutionBusiness.hasExporter()) {
+            exportAction = new ExportAction();
+            exportAction.setEnabled(false);
+            exportButton = new JButton(exportAction);
+        } else {
+            exportButton = null;
+        }
+        JButton[] extraButtons = new JButton[extraActions.length];
+        for (int i = 0; i < extraActions.length; i++) {
+            extraButtons[i] = new JButton(extraActions[i]);
+        }
 
         progressBar = new JProgressBar(0, 100);
 
@@ -274,21 +305,39 @@ public class SolverAndPersistenceFrame<Solution_> extends JFrame {
         solveButton.setMinimumSize(terminateSolvingEarlyButton.getMinimumSize());
         solveButton.setPreferredSize(terminateSolvingEarlyButton.getPreferredSize());
 
-        toolBarLayout.setHorizontalGroup(toolBarLayout.createSequentialGroup()
-                .addComponent(importButton)
-                .addComponent(openButton)
-                .addComponent(saveButton)
-                .addComponent(exportButton)
-                .addGap(10)
-                .addComponent(solvePanel, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addComponent(progressBar, 20, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE));
-        toolBarLayout.setVerticalGroup(toolBarLayout.createParallelGroup(GroupLayout.Alignment.CENTER)
-                .addComponent(importButton)
-                .addComponent(openButton)
-                .addComponent(saveButton)
-                .addComponent(exportButton)
-                .addComponent(solvePanel)
-                .addComponent(progressBar));
+        GroupLayout.SequentialGroup horizontalGroup = toolBarLayout.createSequentialGroup();
+        if (solutionBusiness.hasImporter()) {
+            horizontalGroup.addComponent(importButton);
+        }
+        horizontalGroup.addComponent(openButton);
+        horizontalGroup.addComponent(saveButton);
+        if (solutionBusiness.hasExporter()) {
+            horizontalGroup.addComponent(exportButton);
+        }
+        for (JButton extraButton : extraButtons) {
+            horizontalGroup.addComponent(extraButton);
+        }
+        horizontalGroup.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED,
+                GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
+        horizontalGroup.addComponent(solvePanel, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE,
+                GroupLayout.PREFERRED_SIZE);
+        horizontalGroup.addComponent(progressBar, 20, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE);
+        toolBarLayout.setHorizontalGroup(horizontalGroup);
+        GroupLayout.ParallelGroup verticalGroup = toolBarLayout.createParallelGroup(GroupLayout.Alignment.CENTER);
+        if (solutionBusiness.hasImporter()) {
+            verticalGroup.addComponent(importButton);
+        }
+        verticalGroup.addComponent(openButton);
+        verticalGroup.addComponent(saveButton);
+        if (solutionBusiness.hasExporter()) {
+            verticalGroup.addComponent(exportButton);
+        }
+        for (JButton extraButton : extraButtons) {
+            verticalGroup.addComponent(extraButton);
+        }
+        verticalGroup.addComponent(solvePanel);
+        verticalGroup.addComponent(progressBar);
+        toolBarLayout.setVerticalGroup(verticalGroup);
         return toolBar;
     }
 
@@ -363,15 +412,16 @@ public class SolverAndPersistenceFrame<Solution_> extends JFrame {
         public OpenAction() {
             super(NAME, new ImageIcon(SolverAndPersistenceFrame.class.getResource("openAction.png")));
             fileChooser = new JFileChooser(solutionBusiness.getSolvedDataDir());
+            final String inputFileExtension = solutionBusiness.getSolutionFileIO().getOutputFileExtension();
             fileChooser.setFileFilter(new FileFilter() {
                 @Override
                 public boolean accept(File file) {
-                    return file.isDirectory() || file.getName().endsWith(".xml");
+                    return file.isDirectory() || file.getName().endsWith("." + inputFileExtension);
                 }
 
                 @Override
                 public String getDescription() {
-                    return "Solution XStream XML files";
+                    return "Solution files (*." + inputFileExtension + ")";
                 }
             });
             fileChooser.setDialogTitle(NAME);
@@ -384,7 +434,7 @@ public class SolverAndPersistenceFrame<Solution_> extends JFrame {
                 setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                 try {
                     solutionBusiness.openSolution(fileChooser.getSelectedFile());
-                    setSolutionLoaded();
+                    setSolutionLoaded(e.getSource());
                 } finally {
                     setCursor(Cursor.getDefaultCursor());
                 }
@@ -401,15 +451,16 @@ public class SolverAndPersistenceFrame<Solution_> extends JFrame {
         public SaveAction() {
             super(NAME, new ImageIcon(SolverAndPersistenceFrame.class.getResource("saveAction.png")));
             fileChooser = new JFileChooser(solutionBusiness.getSolvedDataDir());
+            final String outputFileExtension = solutionBusiness.getSolutionFileIO().getOutputFileExtension();
             fileChooser.setFileFilter(new FileFilter() {
                 @Override
                 public boolean accept(File file) {
-                    return file.isDirectory() || file.getName().endsWith(".xml");
+                    return file.isDirectory() || file.getName().endsWith("." + outputFileExtension);
                 }
 
                 @Override
                 public String getDescription() {
-                    return "Solution XStream XML files";
+                    return "Solution files (*." + outputFileExtension + ")";
                 }
             });
             fileChooser.setDialogTitle(NAME);
@@ -417,8 +468,9 @@ public class SolverAndPersistenceFrame<Solution_> extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            final String outputFileExtension = solutionBusiness.getSolutionFileIO().getOutputFileExtension();
             fileChooser.setSelectedFile(new File(solutionBusiness.getSolvedDataDir(),
-                    FilenameUtils.getBaseName(solutionBusiness.getSolutionFileName()) + ".xml"));
+                    FilenameUtils.getBaseName(solutionBusiness.getSolutionFileName()) + "." + outputFileExtension));
             int approved = fileChooser.showSaveDialog(SolverAndPersistenceFrame.this);
             if (approved == JFileChooser.APPROVE_OPTION) {
                 setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -427,10 +479,8 @@ public class SolverAndPersistenceFrame<Solution_> extends JFrame {
                 } finally {
                     setCursor(Cursor.getDefaultCursor());
                 }
-                refreshQuickOpenPanel(quickOpenUnsolvedPanel, quickOpenUnsolvedActionList,
-                        solutionBusiness.getUnsolvedFileList());
-                refreshQuickOpenPanel(quickOpenSolvedPanel, quickOpenSolvedActionList,
-                        solutionBusiness.getSolvedFileList());
+                refreshQuickOpenPanel(quickOpenUnsolvedJList, solutionBusiness.getUnsolvedFileList());
+                refreshQuickOpenPanel(quickOpenSolvedJList, solutionBusiness.getSolvedFileList());
                 SolverAndPersistenceFrame.this.validate();
             }
         }
@@ -495,7 +545,7 @@ public class SolverAndPersistenceFrame<Solution_> extends JFrame {
                 setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                 try {
                     solutionBusiness.importSolution(file);
-                    setSolutionLoaded();
+                    setSolutionLoaded(e.getSource());
                 } finally {
                     setCursor(Cursor.getDefaultCursor());
                 }
@@ -534,8 +584,7 @@ public class SolverAndPersistenceFrame<Solution_> extends JFrame {
         public void actionPerformed(ActionEvent e) {
             fileChooser.setSelectedFile(new File(solutionBusiness.getExportDataDir(),
                     FilenameUtils.getBaseName(solutionBusiness.getSolutionFileName())
-                            + "." + solutionBusiness.getExportFileSuffix()
-            ));
+                            + "." + solutionBusiness.getExportFileSuffix()));
             int approved = fileChooser.showSaveDialog(SolverAndPersistenceFrame.this);
             if (approved == JFileChooser.APPROVE_OPTION) {
                 setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -590,8 +639,7 @@ public class SolverAndPersistenceFrame<Solution_> extends JFrame {
         indictmentHeatMapToggleButton.setToolTipText("Show indictment heat map");
         indictmentHeatMapToggleButton.addActionListener(e -> {
             boolean selected = indictmentHeatMapToggleButton.isSelected();
-            indictmentHeatMapToggleButton.setIcon(selected ?
-                    indictmentHeatMapTrueIcon : indictmentHeatMapFalseIcon);
+            indictmentHeatMapToggleButton.setIcon(selected ? indictmentHeatMapTrueIcon : indictmentHeatMapFalseIcon);
             solutionPanel.setUseIndictmentColor(selected);
             resetScreen();
         });
@@ -605,8 +653,9 @@ public class SolverAndPersistenceFrame<Solution_> extends JFrame {
         refreshScreenDuringSolvingToggleButton = new JToggleButton(refreshScreenDuringSolvingTrueIcon, true);
         refreshScreenDuringSolvingToggleButton.setToolTipText("Refresh screen during solving");
         refreshScreenDuringSolvingToggleButton.addActionListener(e -> {
-            refreshScreenDuringSolvingToggleButton.setIcon(refreshScreenDuringSolvingToggleButton.isSelected() ?
-                    refreshScreenDuringSolvingTrueIcon : refreshScreenDuringSolvingFalseIcon);
+            refreshScreenDuringSolvingToggleButton
+                    .setIcon(refreshScreenDuringSolvingToggleButton.isSelected() ? refreshScreenDuringSolvingTrueIcon
+                            : refreshScreenDuringSolvingFalseIcon);
         });
         scorePanel.add(refreshScreenDuringSolvingToggleButton, BorderLayout.EAST);
         return scorePanel;
@@ -615,7 +664,8 @@ public class SolverAndPersistenceFrame<Solution_> extends JFrame {
     private class ShowConstraintMatchesDialogAction extends AbstractAction {
 
         public ShowConstraintMatchesDialogAction() {
-            super("Constraint matches", new ImageIcon(SolverAndPersistenceFrame.class.getResource("showConstraintMatchesDialogAction.png")));
+            super("Constraint matches",
+                    new ImageIcon(SolverAndPersistenceFrame.class.getResource("showConstraintMatchesDialogAction.png")));
         }
 
         @Override
@@ -626,7 +676,13 @@ public class SolverAndPersistenceFrame<Solution_> extends JFrame {
 
     }
 
-    private void setSolutionLoaded() {
+    public void setSolutionLoaded(Object eventSource) {
+        if (eventSource != quickOpenUnsolvedJList) {
+            quickOpenUnsolvedJList.clearSelection();
+        }
+        if (eventSource != quickOpenSolvedJList) {
+            quickOpenSolvedJList.clearSelection();
+        }
         setTitle(solutionBusiness.getAppName() + " - " + solutionBusiness.getSolutionFileName());
         ((CardLayout) middlePanel.getLayout()).show(middlePanel, "solutionPanel");
         setSolvingState(false);
@@ -634,16 +690,16 @@ public class SolverAndPersistenceFrame<Solution_> extends JFrame {
     }
 
     private void setSolvingState(boolean solving) {
-        for (Action action : quickOpenUnsolvedActionList) {
-            action.setEnabled(!solving);
+        quickOpenUnsolvedJList.setEnabled(!solving);
+        quickOpenSolvedJList.setEnabled(!solving);
+        if (solutionBusiness.hasImporter()) {
+            importAction.setEnabled(!solving);
         }
-        for (Action action : quickOpenSolvedActionList) {
-            action.setEnabled(!solving);
-        }
-        importAction.setEnabled(!solving && solutionBusiness.hasImporter());
         openAction.setEnabled(!solving);
         saveAction.setEnabled(!solving);
-        exportAction.setEnabled(!solving && solutionBusiness.hasExporter());
+        if (solutionBusiness.hasExporter()) {
+            exportAction.setEnabled(!solving);
+        }
         solveAction.setEnabled(!solving);
         solveButton.setVisible(!solving);
         terminateSolvingEarlyAction.setEnabled(solving);
@@ -677,11 +733,8 @@ public class SolverAndPersistenceFrame<Solution_> extends JFrame {
     private Color determineScoreFieldForeground(Score<?> score) {
         if (!score.isSolutionInitialized()) {
             return TangoColorFactory.SCARLET_3;
-        } else if (!(score instanceof FeasibilityScore)) {
-            return Color.BLACK;
         } else {
-            FeasibilityScore<?> feasibilityScore = (FeasibilityScore<?>) score;
-            return feasibilityScore.isFeasible() ? TangoColorFactory.CHAMELEON_3 : TangoColorFactory.ORANGE_3;
+            return score.isFeasible() ? TangoColorFactory.CHAMELEON_3 : TangoColorFactory.ORANGE_3;
         }
     }
 

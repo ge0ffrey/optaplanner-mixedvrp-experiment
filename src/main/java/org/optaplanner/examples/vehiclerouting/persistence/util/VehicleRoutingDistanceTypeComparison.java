@@ -21,21 +21,20 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.optaplanner.core.api.score.ScoreManager;
 import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScore;
 import org.optaplanner.core.api.solver.SolverFactory;
-import org.optaplanner.core.impl.score.director.ScoreDirector;
-import org.optaplanner.core.impl.score.director.ScoreDirectorFactory;
 import org.optaplanner.examples.common.app.LoggingMain;
 import org.optaplanner.examples.vehiclerouting.app.VehicleRoutingApp;
-import org.optaplanner.examples.vehiclerouting.domain.Visit;
 import org.optaplanner.examples.vehiclerouting.domain.Standstill;
 import org.optaplanner.examples.vehiclerouting.domain.Vehicle;
 import org.optaplanner.examples.vehiclerouting.domain.VehicleRoutingSolution;
+import org.optaplanner.examples.vehiclerouting.domain.Visit;
 import org.optaplanner.examples.vehiclerouting.persistence.VehicleRoutingDao;
 
 public class VehicleRoutingDistanceTypeComparison extends LoggingMain {
 
-    private final ScoreDirectorFactory<VehicleRoutingSolution> scoreDirectorFactory;
+    private final ScoreManager<VehicleRoutingSolution, HardSoftLongScore> scoreManager;
 
     public static void main(String[] args) {
         new VehicleRoutingDistanceTypeComparison().compare(
@@ -48,8 +47,9 @@ public class VehicleRoutingDistanceTypeComparison extends LoggingMain {
 
     public VehicleRoutingDistanceTypeComparison() {
         vehicleRoutingDao = new VehicleRoutingDao();
-        SolverFactory<VehicleRoutingSolution> solverFactory = SolverFactory.createFromXmlResource(VehicleRoutingApp.SOLVER_CONFIG);
-        scoreDirectorFactory = solverFactory.buildSolver().getScoreDirectorFactory();
+        SolverFactory<VehicleRoutingSolution> solverFactory =
+                SolverFactory.createFromXmlResource(VehicleRoutingApp.SOLVER_CONFIG);
+        scoreManager = ScoreManager.create(solverFactory);
     }
 
     public void compare(String... filePaths) {
@@ -99,16 +99,13 @@ public class VehicleRoutingDistanceTypeComparison extends LoggingMain {
         for (Visit varVisit : varSolution.getVisitList()) {
             Visit inputVisit = inputCustomerMap.get(varVisit.getId());
             Standstill varPrevious = varVisit.getPreviousStandstill();
-            inputVisit.setPreviousStandstill(varPrevious == null ? null :
-                    varPrevious instanceof Vehicle ? inputVehicleMap.get(((Vehicle) varPrevious).getId())
-                    : inputCustomerMap.get(((Visit) varPrevious).getId()));
+            inputVisit.setPreviousStandstill(varPrevious == null ? null
+                    : varPrevious instanceof Vehicle ? inputVehicleMap.get(((Vehicle) varPrevious).getId())
+                            : inputCustomerMap.get(((Visit) varPrevious).getId()));
             Visit varNext = varVisit.getNextVisit();
             inputVisit.setNextVisit(varNext == null ? null : inputCustomerMap.get(varNext.getId()));
         }
-        try (ScoreDirector<VehicleRoutingSolution> scoreDirector = scoreDirectorFactory.buildScoreDirector()) {
-            scoreDirector.setWorkingSolution(inputSolution);
-            scoreDirector.calculateScore();
-        }
+        scoreManager.updateScore(inputSolution);
     }
 
 }

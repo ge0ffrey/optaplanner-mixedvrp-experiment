@@ -18,18 +18,19 @@ package org.optaplanner.examples.vehiclerouting.swingui;
 
 import java.awt.BorderLayout;
 import java.util.Random;
+
 import javax.swing.JTabbedPane;
 
 import org.optaplanner.core.impl.solver.random.RandomUtils;
 import org.optaplanner.examples.common.swingui.SolutionPanel;
 import org.optaplanner.examples.common.swingui.SolverAndPersistenceFrame;
-import org.optaplanner.examples.vehiclerouting.domain.Visit;
 import org.optaplanner.examples.vehiclerouting.domain.VehicleRoutingSolution;
+import org.optaplanner.examples.vehiclerouting.domain.Visit;
 import org.optaplanner.examples.vehiclerouting.domain.location.AirLocation;
 import org.optaplanner.examples.vehiclerouting.domain.location.Location;
-import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedVisit;
 import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedDepot;
 import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedVehicleRoutingSolution;
+import org.optaplanner.examples.vehiclerouting.domain.timewindowed.TimeWindowedVisit;
 
 public class VehicleRoutingPanel extends SolutionPanel<VehicleRoutingSolution> {
 
@@ -130,9 +131,9 @@ public class VehicleRoutingPanel extends SolutionPanel<VehicleRoutingSolution> {
         newVisit.setId(newLocation.getId());
         newVisit.setLocation(newLocation);
         throw new UnsupportedOperationException();
-//        // Demand must not be 0
-//        newVisit.setDemand(demandRandom.nextInt(10) + 1);
-//        return newVisit;
+        //        // Demand must not be 0
+        //        newVisit.setDemand(demandRandom.nextInt(10) + 1);
+        //        return newVisit;
     }
 
 }

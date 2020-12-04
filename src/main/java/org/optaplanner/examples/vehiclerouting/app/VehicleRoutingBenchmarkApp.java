@@ -27,8 +27,7 @@ public class VehicleRoutingBenchmarkApp extends CommonBenchmarkApp {
     public VehicleRoutingBenchmarkApp() {
         super(
                 new ArgOption("default",
-                        "org/optaplanner/examples/vehiclerouting/benchmark/vehicleRoutingBenchmarkConfig.xml")
-        );
+                        "org/optaplanner/examples/vehiclerouting/benchmark/vehicleRoutingBenchmarkConfig.xml"));
     }
 
 }

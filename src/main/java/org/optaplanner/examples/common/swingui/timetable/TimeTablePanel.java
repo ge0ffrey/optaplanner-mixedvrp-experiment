@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Red Hat, Inc. and/or its affiliates.
+ * Copyright 2020 Red Hat, Inc. and/or its affiliates.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JViewport;

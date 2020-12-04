@@ -31,14 +31,6 @@ public abstract class AbstractTxtSolutionExporter<Solution_> extends AbstractSol
 
     protected static final String DEFAULT_OUTPUT_FILE_SUFFIX = "txt";
 
-    protected AbstractTxtSolutionExporter(SolutionDao<Solution_> solutionDao) {
-        super(solutionDao);
-    }
-
-    protected AbstractTxtSolutionExporter(boolean withoutDao) {
-        super(withoutDao);
-    }
-
     @Override
     public String getOutputFileSuffix() {
         return DEFAULT_OUTPUT_FILE_SUFFIX;
@@ -48,8 +40,7 @@ public abstract class AbstractTxtSolutionExporter<Solution_> extends AbstractSol
 
     @Override
     public void writeSolution(Solution_ solution, File outputFile) {
-        try (BufferedWriter writer =
-                     new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outputFile), "UTF-8"))) {
+        try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outputFile), "UTF-8"))) {
             TxtOutputBuilder<Solution_> txtOutputBuilder = createTxtOutputBuilder();
             txtOutputBuilder.setBufferedWriter(writer);
             txtOutputBuilder.setSolution(solution);

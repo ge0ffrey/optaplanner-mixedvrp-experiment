@@ -17,8 +17,8 @@
 package org.optaplanner.examples.vehiclerouting.domain.solver.nearby;
 
 import org.optaplanner.core.impl.heuristic.selector.common.nearby.NearbyDistanceMeter;
-import org.optaplanner.examples.vehiclerouting.domain.Visit;
 import org.optaplanner.examples.vehiclerouting.domain.Standstill;
+import org.optaplanner.examples.vehiclerouting.domain.Visit;
 
 public class CustomerNearbyDistanceMeter implements NearbyDistanceMeter<Visit, Standstill> {
 
@@ -26,9 +26,9 @@ public class CustomerNearbyDistanceMeter implements NearbyDistanceMeter<Visit, S
     public double getNearbyDistance(Visit origin, Standstill destination) {
         long distance = origin.getDistanceTo(destination);
         // If arriving early also inflicts a cost (more than just not using the vehicle more), such as the driver's wage, use this:
-//        if (origin instanceof TimeWindowedVisit && destination instanceof TimeWindowedVisit) {
-//            distance += ((TimeWindowedVisit) origin).getTimeWindowGapTo((TimeWindowedVisit) destination);
-//        }
+        //        if (origin instanceof TimeWindowedVisit && destination instanceof TimeWindowedVisit) {
+        //            distance += ((TimeWindowedVisit) origin).getTimeWindowGapTo((TimeWindowedVisit) destination);
+        //        }
         return distance;
     }
 
